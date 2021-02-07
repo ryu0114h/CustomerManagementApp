@@ -1,0 +1,19 @@
+{
+  "name": "customer-management-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryu0114h/CustomerManagementApp.git"
+  },
+  "author": "Ryu Hoshino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryu0114h/CustomerManagementApp/issues"
+  },
+  "homepage": "https://github.com/ryu0114h/CustomerManagementApp#readme"
+}
