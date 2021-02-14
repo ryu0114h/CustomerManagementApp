@@ -13,6 +13,16 @@ module.exports = {
         exclude: /node_modules/,
         loader: "ts-loader",
       },
+      {
+        test: /\.css/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: { url: false },
+          },
+        ],
+      },
     ],
   },
   devServer: {
