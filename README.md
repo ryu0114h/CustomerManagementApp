@@ -1,1 +1,1 @@
-# CustomerManagementApp
+# customer-management-app
