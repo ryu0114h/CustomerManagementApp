@@ -2,12 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Table, Tag } from "antd";
 import "antd/dist/antd.css";
-import { rootState } from "../reducks/store/store";
+import { RootState } from "../reducks/store/store";
 
 const { Column, ColumnGroup } = Table;
 
 const HomePage: React.FC = () => {
-  const customers = useSelector((state: rootState) => state.customers);
+  const customers = useSelector((state: RootState) => state.customers);
 
   return (
     <Table

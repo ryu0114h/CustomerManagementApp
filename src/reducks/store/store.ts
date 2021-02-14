@@ -6,7 +6,7 @@ const rootReducer = {
   customers: customersReducer,
 };
 
-export type rootState = {
+export type RootState = {
   customers: CustomersType;
 };
 

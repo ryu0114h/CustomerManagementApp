@@ -14,6 +14,7 @@ export type CustomersType = CustomerType[];
 
 interface FetchCustomersActionType extends Action {
   type: typeof actionTypes.FETCH_CUSTOMERS;
+  payload: CustomersType;
 }
 
 export type CustomersActionTypes = FetchCustomersActionType;
