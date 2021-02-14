@@ -1,13 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Table, Tag } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
+import { deleteCustomersAction } from "../reducks/customers/action";
 
 const { Column, ColumnGroup } = Table;
 
 const HomePage: React.FC = () => {
   const customers = useSelector((state: RootState) => state.customers);
+  const dispatch = useDispatch();
 
   return (
     <Table
@@ -33,6 +35,18 @@ const HomePage: React.FC = () => {
             ))}
           </>
         )}
+      />
+      <Column
+        title="削除"
+        dataIndex="key"
+        key="delete"
+        render={(key) => {
+          return (
+            <button onClick={() => dispatch(deleteCustomersAction(key))}>
+              削除
+            </button>
+          );
+        }}
       />
     </Table>
   );

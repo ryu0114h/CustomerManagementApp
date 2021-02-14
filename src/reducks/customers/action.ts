@@ -9,3 +9,10 @@ export const fetchCustomersAction = (
     payload: customers,
   };
 };
+
+export const deleteCustomersAction = (key: string): CustomersActionTypes => {
+  return {
+    type: actionTypes.DELETE_CUSTOMERS,
+    key,
+  };
+};
