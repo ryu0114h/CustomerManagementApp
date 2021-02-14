@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryu0114h/CustomerManagementApp.git"
+    "url": "https://github.com/ryu0114h/customer-management-app.git"
   },
   "author": "Ryu Hoshino",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ryu0114h/CustomerManagementApp/issues"
+    "url": "https://github.com/ryu0114h/customer-management-app/issues"
   },
-  "homepage": "https://github.com/ryu0114h/CustomerManagementApp#readme",
+  "homepage": "https://github.com/ryu0114h/customer-management-app#readme",
   "dependencies": {
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
