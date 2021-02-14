@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import { customersReducer } from "../customers/reducer";
 import { CustomersType } from "../customers/types";
 
@@ -10,6 +11,6 @@ export type RootState = {
   customers: CustomersType;
 };
 
-const store = createStore(combineReducers(rootReducer));
+const store = createStore(combineReducers(rootReducer), applyMiddleware(thunk));
 
 export default store;

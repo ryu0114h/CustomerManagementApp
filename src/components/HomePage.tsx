@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Table, Tag } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
-import { deleteCustomersAction } from "../reducks/customers/action";
+import { deleteCustomers } from "../reducks/customers/operations";
 
 const { Column, ColumnGroup } = Table;
 
@@ -42,9 +42,7 @@ const HomePage: React.FC = () => {
         key="delete"
         render={(key) => {
           return (
-            <button onClick={() => dispatch(deleteCustomersAction(key))}>
-              削除
-            </button>
+            <button onClick={() => dispatch(deleteCustomers(key))}>削除</button>
           );
         }}
       />
