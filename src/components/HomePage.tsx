@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Table, Tag } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
@@ -37,13 +38,22 @@ const HomePage: React.FC = () => {
         )}
       />
       <Column
-        title="削除"
+        title=""
+        dataIndex="key"
+        key="detail"
+        render={(key) => {
+          const customer = customers.find((customer) => customer.key === key);
+          return (
+            <Link to={{ pathname: `/${key}`, state: { customer } }}>詳細</Link>
+          );
+        }}
+      />
+      <Column
+        title=""
         dataIndex="key"
         key="delete"
         render={(key) => {
-          return (
-            <button onClick={() => dispatch(deleteCustomers(key))}>削除</button>
-          );
+          return <a onClick={() => dispatch(deleteCustomers(key))}>削除</a>;
         }}
       />
     </Table>
