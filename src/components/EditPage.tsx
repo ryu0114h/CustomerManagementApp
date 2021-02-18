@@ -6,6 +6,7 @@ import { fetchCustomers } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
 import { notification } from "antd";
+import { TextField } from "@material-ui/core";
 
 type Props = RouteComponentProps<
   { id: string },
@@ -38,49 +39,47 @@ const EditPage: React.FC<Props> = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
-      <div style={{ margin: "10px 0px" }}>
-        <label style={styles.label}>苗字</label>
-        <input
-          className="ant-input"
+      <div style={styles.inputArea}>
+        <TextField
+          label="苗字"
           name="lastName"
           style={styles.input}
-          ref={register({ required: true })}
+          inputRef={register({ required: true })}
         />
+        {errors.lastName && <p style={styles.errors}>苗字を入力してください</p>}
       </div>
-      {errors.lastName && <p style={styles.errors}>苗字を入力してください</p>}
-      <div style={{ margin: "10px 0px" }}>
-        <label style={styles.label}>名前</label>
-        <input
-          className="ant-input"
+      <div style={styles.inputArea}>
+        <TextField
+          label="名前"
           name="firstName"
           style={styles.input}
-          ref={register({ required: true })}
+          inputRef={register({ required: true })}
         />
+        {errors.firstName && (
+          <p style={styles.errors}>名前を入力してください</p>
+        )}
       </div>
-      {errors.firstName && <p style={styles.errors}>名前を入力してください</p>}
-      <div style={{ margin: "10px 0px" }}>
-        <label style={styles.label}>年齢</label>
-        <input
-          className="ant-input"
+      <div style={styles.inputArea}>
+        <TextField
+          label="年齢"
           name="age"
           style={styles.input}
-          ref={register({
+          inputRef={register({
             required: true,
             validate: (value) => !isNaN(value),
           })}
         />
+        {errors.age && <p style={styles.errors}>年齢を入力してください</p>}
       </div>
-      {errors.age && <p style={styles.errors}>年齢を入力してください</p>}
-      <div style={{ margin: "10px 0px" }}>
-        <label style={styles.label}>住所</label>
-        <input
-          className="ant-input"
+      <div style={styles.inputArea}>
+        <TextField
+          label="住所"
           name="address"
           style={styles.input}
-          ref={register({ required: true })}
+          inputRef={register({ required: true })}
         />
+        {errors.address && <p style={styles.errors}>住所を入力してください</p>}
       </div>
-      {errors.address && <p style={styles.errors}>住所を入力してください</p>}
       <button
         className="ant-btn ant-btn-primary"
         type="submit"
@@ -95,7 +94,8 @@ export default EditPage;
 
 const styles: { [key: string]: CSSProperties } = {
   form: { maxWidth: "500px", margin: "100px auto" },
+  inputArea: { margin: "10px 0px", height: 100 },
   label: { marginRight: 10 },
   input: { width: 350 },
-  errors: { color: "red", marginLeft: 40 },
+  errors: { color: "red", marginLeft: 40, marginTop: 10 },
 };
