@@ -5,6 +5,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { fetchCustomers } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
+import { notification } from "antd";
 
 type Props = RouteComponentProps<
   { id: string },
@@ -25,7 +26,11 @@ const EditPage: React.FC<Props> = (props) => {
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
     dispatch(fetchCustomers({ ...customer, ...data }));
-    props.history.push("/");
+    notification["success"]({
+      message: "保存しました。",
+      description: "",
+    });
+    props.history.push(`/${customer?.key}`);
   };
   const onError: SubmitErrorHandler<CustomerType> = (data) => {
     console.log(data);

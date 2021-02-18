@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Table, Tag } from "antd";
+import { Popconfirm, Table, Tag, notification } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
 import { deleteCustomers } from "../reducks/customers/operations";
@@ -11,6 +11,21 @@ const { Column, ColumnGroup } = Table;
 const HomePage: React.FC = () => {
   const customers = useSelector((state: RootState) => state.customers);
   const dispatch = useDispatch();
+
+  const alertConfirm = (key: string) => {
+    dispatch(deleteCustomers(key));
+    notification["success"]({
+      message: "削除しました。",
+      description: "",
+    });
+  };
+
+  const alertCancel = () => {
+    notification["info"]({
+      message: "キャンセルしました。",
+      description: "",
+    });
+  };
 
   return (
     <Table
@@ -53,7 +68,16 @@ const HomePage: React.FC = () => {
         dataIndex="key"
         key="delete"
         render={(key) => {
-          return <a onClick={() => dispatch(deleteCustomers(key))}>削除</a>;
+          return (
+            <Popconfirm
+              title="削除してもよろしいですか？"
+              onConfirm={() => alertConfirm(key)}
+              onCancel={alertCancel}
+              okText="Yes"
+              cancelText="No">
+              <a>削除</a>
+            </Popconfirm>
+          );
         }}
       />
     </Table>

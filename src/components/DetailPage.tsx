@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Card, Tag } from "antd";
+import { Card, notification, Popconfirm, Tag } from "antd";
 import { deleteCustomers } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
@@ -18,6 +18,22 @@ const DetailPage: React.FC<Props> = (props) => {
     state.customers.find((customer) => customer.key === props.match.params.id)
   );
 
+  const alertConfirm = () => {
+    dispatch(deleteCustomers(customer?.key as string));
+    notification["success"]({
+      message: "削除しました。",
+      description: "",
+    });
+    props.history.push("/");
+  };
+
+  const alertCancel = () => {
+    notification["info"]({
+      message: "キャンセルしました。",
+      description: "",
+    });
+  };
+
   return (
     <div>
       {customer && (
@@ -30,12 +46,14 @@ const DetailPage: React.FC<Props> = (props) => {
                 style={{ margin: 10 }}>
                 編集
               </Link>
-              <Link
-                onClick={() => dispatch(deleteCustomers(customer.key))}
-                to={`/`}
-                style={{ margin: 10 }}>
-                削除
-              </Link>
+              <Popconfirm
+                title="削除してもよろしいですか？"
+                onConfirm={alertConfirm}
+                onCancel={alertCancel}
+                okText="Yes"
+                cancelText="No">
+                <a style={{ margin: 10 }}>削除</a>
+              </Popconfirm>
             </div>
           }
           style={styles.card}>
