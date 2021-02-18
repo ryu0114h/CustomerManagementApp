@@ -65,9 +65,9 @@ export default DetailPage;
 const styles: { [key: string]: CSSProperties } = {
   card: { width: 700, margin: "100px auto" },
   p: {
-    fontSize: 24,
+    fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
   },
-  tag: { fontSize: 24, padding: 5 },
+  tag: { fontSize: 20, padding: 5 },
 };
