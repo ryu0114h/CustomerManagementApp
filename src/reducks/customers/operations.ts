@@ -1,7 +1,21 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
-import { deleteCustomersAction } from "./action";
-import { CustomersActionTypes } from "./types";
+import { deleteCustomersAction, fetchCustomersAction } from "./actions";
+import { CustomersActionTypes, CustomersType, CustomerType } from "./types";
+
+export const fetchCustomers = (
+  customer: CustomerType
+): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
+  return (dispatch, getState) => {
+    const customers: CustomersType = getState().customers;
+
+    dispatch(
+      fetchCustomersAction(
+        customers.map((item) => (item.key === customer.key ? customer : item))
+      )
+    );
+  };
+};
 
 export const deleteCustomers = (
   key: string

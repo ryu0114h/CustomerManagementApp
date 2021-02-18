@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import DetailPage from "./components/DetailPage";
 import HomePage from "./components/HomePage";
+import DetailPage from "./components/DetailPage";
+import EditPage from "./components/EditPage";
 
 const App: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/:id" component={DetailPage} />
-        <Route path="/:id/edit" component={DetailPage} />
+        <Route path="/:id/edit" component={EditPage} />
       </Switch>
     </BrowserRouter>
   );

@@ -25,7 +25,9 @@ const DetailPage: React.FC<Props> = (props) => {
           title={`${customer.lastName} ${customer.firstName} さんの情報`}
           extra={
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Link to={`/${customer.key}/edit`} style={{ margin: 10 }}>
+              <Link
+                to={{ pathname: `/${customer.key}/edit`, state: { customer } }}
+                style={{ margin: 10 }}>
                 編集
               </Link>
               <Link
@@ -44,7 +46,7 @@ const DetailPage: React.FC<Props> = (props) => {
           <p>年齢 : {customer.age}</p>
           <p>住所 : {customer.address}</p>
           <p>
-            住所 :{" "}
+            タグ :{" "}
             {customer.tags.map((tag) => (
               <Tag color="blue" key={tag}>
                 {tag}
