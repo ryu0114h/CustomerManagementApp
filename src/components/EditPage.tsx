@@ -37,9 +37,7 @@ const EditPage: React.FC<Props> = (props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onError)}
-      style={{ maxWidth: "500px", margin: "100px auto" }}>
+    <form onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
       <div style={{ margin: "10px 0px" }}>
         <label style={styles.label}>苗字</label>
         <input
@@ -96,6 +94,7 @@ const EditPage: React.FC<Props> = (props) => {
 export default EditPage;
 
 const styles: { [key: string]: CSSProperties } = {
+  form: { maxWidth: "500px", margin: "100px auto" },
   label: { marginRight: 10 },
   input: { width: 350 },
   errors: { color: "red", marginLeft: 40 },
