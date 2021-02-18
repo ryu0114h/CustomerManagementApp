@@ -39,13 +39,18 @@ const EditPage: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Breadcrumb style={{ margin: 100 }}>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item href={`/${props.match.params.id}`}>
-          詳細ページ
+      <Breadcrumb style={styles.breadcrumb}>
+        <Breadcrumb.Item href="/">
+          <a style={styles.breadcrumbItem}>Home</a>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>編集ページ</Breadcrumb.Item>
+        <Breadcrumb.Item href={`/${props.match.params.id}`}>
+          <a style={styles.breadcrumbItem}>詳細ページ</a>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <span style={styles.breadcrumbItem}>編集ページ</span>
+        </Breadcrumb.Item>
       </Breadcrumb>
+
       <form onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
         <div style={styles.inputArea}>
           <TextField
@@ -106,6 +111,8 @@ const EditPage: React.FC<Props> = (props) => {
 export default EditPage;
 
 const styles: { [key: string]: CSSProperties } = {
+  breadcrumb: { margin: 100 },
+  breadcrumbItem: { fontSize: 16 },
   form: { maxWidth: "500px", margin: "100px auto" },
   inputArea: { margin: "10px 0px", height: 100 },
   label: { marginRight: 10 },

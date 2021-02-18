@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Popconfirm, Table, Tag, notification, Breadcrumb } from "antd";
@@ -29,9 +29,12 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <Breadcrumb style={{ margin: 100 }}>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+      <Breadcrumb style={styles.breadcrumb}>
+        <Breadcrumb.Item>
+          <span style={styles.breadcrumbItem}>Home</span>
+        </Breadcrumb.Item>
       </Breadcrumb>
+
       <Table
         dataSource={customers}
         style={{ width: "80%", margin: "100px auto" }}>
@@ -92,3 +95,8 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+
+const styles: { [key: string]: CSSProperties } = {
+  breadcrumb: { margin: 100 },
+  breadcrumbItem: { fontSize: 16 },
+};
