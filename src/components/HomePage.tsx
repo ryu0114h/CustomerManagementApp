@@ -35,9 +35,7 @@ const HomePage: React.FC = () => {
         </Breadcrumb.Item>
       </Breadcrumb>
 
-      <Table
-        dataSource={customers}
-        style={{ width: "80%", margin: "100px auto" }}>
+      <Table dataSource={customers} style={styles.table}>
         <Column title="番号" dataIndex="key" key="key" />
         <ColumnGroup title="名前">
           <Column title="性" dataIndex="lastName" key="lastName" />
@@ -97,6 +95,7 @@ const HomePage: React.FC = () => {
 export default HomePage;
 
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { margin: 100 },
+  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 40 },
   breadcrumbItem: { fontSize: 16 },
+  table: { width: "80%", margin: "10px auto" },
 };

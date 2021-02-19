@@ -70,20 +70,31 @@ const DetailPage: React.FC<Props> = (props) => {
               </div>
             }
             style={styles.card}>
-            <p style={styles.p}>番号 : {customer.key}</p>
             <p style={styles.p}>
-              名前 : {customer.lastName} {customer.firstName}
+              番号 <span style={styles.value}>{customer.key}</span>
+            </p>
+            <p style={styles.p}>
+              名前{" "}
+              <span style={styles.value}>
+                {customer.lastName} {customer.firstName}
+              </span>
             </p>
             <p style={styles.p}></p>
-            <p style={styles.p}>住所 : {customer.address}</p>
-            <p style={styles.p}>年齢 : {customer.age}</p>
             <p style={styles.p}>
-              タグ :{" "}
-              {customer.tags.map((tag) => (
-                <Tag color="blue" key={tag} style={styles.tag}>
-                  {tag}
-                </Tag>
-              ))}
+              住所 <span style={styles.value}>{customer.address}</span>
+            </p>
+            <p style={styles.p}>
+              年齢 <span style={styles.value}>{customer.age}</span>
+            </p>
+            <p style={styles.p}>
+              タグ{" "}
+              <span style={styles.value}>
+                {customer.tags.map((tag) => (
+                  <Tag color="blue" key={tag} style={styles.tag}>
+                    {tag}
+                  </Tag>
+                ))}
+              </span>
             </p>
           </Card>
         )}
@@ -95,7 +106,7 @@ const DetailPage: React.FC<Props> = (props) => {
 export default DetailPage;
 
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { margin: 100 },
+  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 40 },
   breadcrumbItem: { fontSize: 16 },
   card: { width: 700, margin: "100px auto" },
   p: {
@@ -103,5 +114,6 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: "center",
     alignItems: "center",
   },
+  value: { marginLeft: 20 },
   tag: { fontSize: 20, padding: 5 },
 };

@@ -100,7 +100,7 @@ const EditPage: React.FC<Props> = (props) => {
         <button
           className="ant-btn ant-btn-primary"
           type="submit"
-          style={{ marginTop: 30, marginLeft: 30 }}>
+          style={styles.button}>
           保存
         </button>
       </form>
@@ -111,11 +111,12 @@ const EditPage: React.FC<Props> = (props) => {
 export default EditPage;
 
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { margin: 100 },
+  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 40 },
   breadcrumbItem: { fontSize: 16 },
   form: { maxWidth: "500px", margin: "100px auto" },
   inputArea: { margin: "10px 0px", height: 100 },
   label: { marginRight: 10 },
   input: { width: 350 },
   errors: { color: "red", marginLeft: 40, marginTop: 10 },
+  button: { marginTop: 30, marginLeft: 30 },
 };
