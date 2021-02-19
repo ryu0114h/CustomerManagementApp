@@ -9,11 +9,26 @@ export const fetchCustomers = (
   return (dispatch, getState) => {
     const customers: CustomersType = getState().customers;
 
-    dispatch(
-      fetchCustomersAction(
-        customers.map((item) => (item.key === customer.key ? customer : item))
-      )
-    );
+    // 更新する場合
+    if (customer.key) {
+      dispatch(
+        fetchCustomersAction(
+          customers.map((item) => (item.key === customer.key ? customer : item))
+        )
+      );
+      return;
+    } else {
+      // 追加する場合
+      let key = "1";
+      customers.forEach((cus) => {
+        if (key === cus.key) {
+          key = String(parseInt(key) + 1);
+        } else {
+          return;
+        }
+      });
+      dispatch(fetchCustomersAction([...customers, { ...customer, key }]));
+    }
   };
 };
 
