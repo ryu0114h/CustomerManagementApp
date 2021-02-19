@@ -19,12 +19,14 @@ const DetailPage: React.FC<Props> = (props) => {
   );
 
   const alertConfirm = () => {
-    dispatch(deleteCustomers(customer?.key as string));
-    notification["success"]({
-      message: "削除しました。",
-      description: "",
-    });
-    props.history.push("/");
+    if (customer) {
+      dispatch(deleteCustomers(customer.key));
+      notification["success"]({
+        message: "削除しました。",
+        description: "",
+      });
+      props.history.push("/");
+    }
   };
 
   const alertCancel = () => {
@@ -89,11 +91,14 @@ const DetailPage: React.FC<Props> = (props) => {
             <p style={styles.p}>
               タグ{" "}
               <span style={styles.value}>
-                {customer.tags?.map((tag) => (
-                  <Tag color="blue" key={tag} style={styles.tag}>
-                    {tag}
-                  </Tag>
-                ))}
+                {Object.keys(customer.tags).map(
+                  (key) =>
+                    customer.tags[key] && (
+                      <Tag color="blue" key={key} style={styles.tag}>
+                        {key}
+                      </Tag>
+                    )
+                )}
               </span>
             </p>
             {customer.memo && (

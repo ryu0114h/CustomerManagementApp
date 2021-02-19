@@ -8,7 +8,13 @@ const initialState: RootState = {
       lastName: "Brown",
       age: 32,
       address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
+      tags: {
+        cool: false,
+        developer: true,
+        loser: false,
+        nice: true,
+        teacher: false,
+      },
       memo: "memo",
     },
     {
@@ -17,7 +23,13 @@ const initialState: RootState = {
       lastName: "Green",
       age: 42,
       address: "London No. 1 Lake Park",
-      tags: ["loser"],
+      tags: {
+        cool: true,
+        developer: false,
+        loser: false,
+        nice: true,
+        teacher: true,
+      },
     },
     {
       key: "3",
@@ -25,7 +37,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "4",
@@ -33,7 +51,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "5",
@@ -41,7 +65,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: false,
+        developer: false,
+        loser: false,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "6",
@@ -49,7 +79,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "7",
@@ -57,7 +93,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "8",
@@ -65,7 +107,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "9",
@@ -73,7 +121,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "10",
@@ -81,7 +135,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "11",
@@ -89,7 +149,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "12",
@@ -97,7 +163,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "13",
@@ -105,7 +177,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "14",
@@ -113,7 +191,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "15",
@@ -121,7 +205,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "16",
@@ -129,7 +219,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "17",
@@ -137,7 +233,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "18",
@@ -145,7 +247,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "19",
@@ -153,7 +261,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "20",
@@ -161,7 +275,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "21",
@@ -169,7 +289,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "22",
@@ -177,7 +303,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "23",
@@ -185,7 +317,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "24",
@@ -193,7 +331,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "25",
@@ -201,7 +345,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "26",
@@ -209,7 +359,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "27",
@@ -217,7 +373,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "28",
@@ -225,7 +387,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
     {
       key: "29",
@@ -233,7 +401,13 @@ const initialState: RootState = {
       lastName: "Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      tags: {
+        cool: true,
+        developer: true,
+        loser: true,
+        nice: false,
+        teacher: false,
+      },
     },
   ],
 };

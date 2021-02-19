@@ -49,11 +49,14 @@ const HomePage: React.FC = () => {
           key="tags"
           render={(tags: string[]) => (
             <>
-              {tags.map((tag) => (
-                <Tag color="blue" key={tag}>
-                  {tag}
-                </Tag>
-              ))}
+              {Object.keys(tags).map(
+                (key) =>
+                  tags[key] && (
+                    <Tag color="blue" key={key}>
+                      {key}
+                    </Tag>
+                  )
+              )}
             </>
           )}
         />
