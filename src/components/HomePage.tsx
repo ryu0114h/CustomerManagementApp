@@ -5,6 +5,7 @@ import { Popconfirm, Table, Tag, notification, Breadcrumb } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
 import { deleteCustomers } from "../reducks/customers/operations";
+import { CustomerType } from "../reducks/customers/types";
 
 const { Column, ColumnGroup } = Table;
 
@@ -41,7 +42,12 @@ const HomePage: React.FC = () => {
           <Column title="性" dataIndex="lastName" key="lastName" />
           <Column title="名" dataIndex="firstName" key="firstName" />
         </ColumnGroup>
-        <Column title="年齢" dataIndex="age" key="age" />
+        <Column
+          title="年齢"
+          dataIndex="age"
+          key="age"
+          sorter={(a: CustomerType, b: CustomerType) => a.age - b.age}
+        />
         <Column title="住所" dataIndex="address" key="address" />
         <Column
           title="タグ"
