@@ -3,12 +3,15 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import DetailPage from "./components/DetailPage";
 import EditPage from "./components/EditPage";
+import AddPage from "./components/AddPage";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route path="/add" component={AddPage} />
+
         <Route exact path="/:id" component={DetailPage} />
         <Route path="/:id/edit" component={EditPage} />
       </Switch>

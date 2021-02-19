@@ -38,14 +38,7 @@ const DetailPage: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Breadcrumb style={styles.breadcrumb}>
-        <Breadcrumb.Item href="/">
-          <span style={styles.breadcrumbItem}>Home</span>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <span style={styles.breadcrumbItem}>詳細ページ</span>
-        </Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbList />
 
       <div>
         {customer && (
@@ -115,8 +108,21 @@ const DetailPage: React.FC<Props> = (props) => {
 
 export default DetailPage;
 
+const BreadcrumbList: React.FC = () => {
+  return (
+    <Breadcrumb style={styles.breadcrumb}>
+      <Breadcrumb.Item href="/">
+        <span style={styles.breadcrumbItem}>Home</span>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <span style={styles.breadcrumbItem}>詳細ページ</span>
+      </Breadcrumb.Item>
+    </Breadcrumb>
+  );
+};
+
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 40 },
+  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 20 },
   breadcrumbItem: { fontSize: 16 },
   card: { width: 700, margin: "100px auto" },
   p: {

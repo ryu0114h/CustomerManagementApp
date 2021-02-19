@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
@@ -12,7 +12,7 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import { fetchCustomers } from "../reducks/customers/operations";
-import { CustomerType, TagsType } from "../reducks/customers/types";
+import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
 
 type Props = RouteComponentProps<
@@ -28,6 +28,12 @@ const EditPage: React.FC<Props> = (props) => {
     state.customers.find((customer) => customer.key === props.match.params.id)
   );
 
+  useEffect(() => {
+    if (!customer) {
+      props.history.goBack();
+    }
+  }, []);
+
   const { register, handleSubmit, errors } = useForm({
     defaultValues: { ...customer },
   });
@@ -38,7 +44,7 @@ const EditPage: React.FC<Props> = (props) => {
       message: "保存しました。",
       description: "",
     });
-    props.history.push(`/${customer?.key}`);
+    props.history.push(`/${props.match.params.id}`);
   };
 
   const onError: SubmitErrorHandler<CustomerType> = (data) => {
@@ -49,30 +55,22 @@ const EditPage: React.FC<Props> = (props) => {
     console.log(data);
   };
 
-  const [tags, setTags] = React.useState(customer?.tags as TagsType);
+  const [tags, setTags] = React.useState(customer?.tags);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!tags) {
+      return;
+    }
+
     setTags({
       ...tags,
       [event.target.name.split("tags.")[1]]: event.target.checked,
     });
   };
 
-  const { developer, teacher, nice, loser, cool } = tags;
-
   return (
     <>
-      <Breadcrumb style={styles.breadcrumb}>
-        <Breadcrumb.Item href="/">
-          <span style={styles.breadcrumbItem}>Home</span>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item href={`/${props.match.params.id}`}>
-          <span style={styles.breadcrumbItem}>詳細ページ</span>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <span style={styles.breadcrumbItem}>編集ページ</span>
-        </Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbList id={props.match.params.id} />
 
       <form onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
         <div style={styles.inputArea}>
@@ -139,7 +137,7 @@ const EditPage: React.FC<Props> = (props) => {
               inputRef={register()}
               control={
                 <Checkbox
-                  checked={developer}
+                  checked={tags?.developer}
                   onChange={handleChange}
                   name="tags.developer"
                 />
@@ -150,7 +148,7 @@ const EditPage: React.FC<Props> = (props) => {
               inputRef={register()}
               control={
                 <Checkbox
-                  checked={teacher}
+                  checked={tags?.teacher}
                   onChange={handleChange}
                   name="tags.teacher"
                 />
@@ -161,7 +159,7 @@ const EditPage: React.FC<Props> = (props) => {
               inputRef={register()}
               control={
                 <Checkbox
-                  checked={nice}
+                  checked={tags?.nice}
                   onChange={handleChange}
                   name="tags.nice"
                 />
@@ -172,7 +170,7 @@ const EditPage: React.FC<Props> = (props) => {
               inputRef={register()}
               control={
                 <Checkbox
-                  checked={loser}
+                  checked={tags?.loser}
                   onChange={handleChange}
                   name="tags.loser"
                 />
@@ -183,7 +181,7 @@ const EditPage: React.FC<Props> = (props) => {
               inputRef={register()}
               control={
                 <Checkbox
-                  checked={cool}
+                  checked={tags?.cool}
                   onChange={handleChange}
                   name="tags.cool"
                 />
@@ -205,8 +203,24 @@ const EditPage: React.FC<Props> = (props) => {
 
 export default EditPage;
 
+const BreadcrumbList: React.FC<{ id: string }> = (id) => {
+  return (
+    <Breadcrumb style={styles.breadcrumb}>
+      <Breadcrumb.Item href="/">
+        <span style={styles.breadcrumbItem}>Home</span>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item href={`/${id}`}>
+        <span style={styles.breadcrumbItem}>詳細ページ</span>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <span style={styles.breadcrumbItem}>編集ページ</span>
+      </Breadcrumb.Item>
+    </Breadcrumb>
+  );
+};
+
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 40 },
+  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 20 },
   breadcrumbItem: { fontSize: 16 },
   form: { maxWidth: "500px", margin: "100px auto" },
   inputArea: { margin: "10px 0px", height: 80 },
