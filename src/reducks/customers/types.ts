@@ -8,6 +8,7 @@ export type CustomerType = {
   age: number;
   address: string;
   tags: string[];
+  memo?: string;
 };
 
 export type CustomersType = CustomerType[];

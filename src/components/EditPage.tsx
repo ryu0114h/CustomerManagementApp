@@ -2,11 +2,11 @@ import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { Breadcrumb, notification } from "antd";
+import { TextField } from "@material-ui/core";
 import { fetchCustomers } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
-import { Breadcrumb, notification } from "antd";
-import { TextField } from "@material-ui/core";
 
 type Props = RouteComponentProps<
   { id: string },
@@ -41,10 +41,10 @@ const EditPage: React.FC<Props> = (props) => {
     <>
       <Breadcrumb style={styles.breadcrumb}>
         <Breadcrumb.Item href="/">
-          <a style={styles.breadcrumbItem}>Home</a>
+          <span style={styles.breadcrumbItem}>Home</span>
         </Breadcrumb.Item>
         <Breadcrumb.Item href={`/${props.match.params.id}`}>
-          <a style={styles.breadcrumbItem}>詳細ページ</a>
+          <span style={styles.breadcrumbItem}>詳細ページ</span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           <span style={styles.breadcrumbItem}>編集ページ</span>
@@ -97,6 +97,16 @@ const EditPage: React.FC<Props> = (props) => {
             <p style={styles.errors}>住所を入力してください</p>
           )}
         </div>
+        <div style={styles.inputArea}>
+          <TextField
+            label="メモ"
+            name="memo"
+            multiline
+            rows={3}
+            style={styles.input}
+            inputRef={register()}
+          />
+        </div>
         <button
           className="ant-btn ant-btn-primary"
           type="submit"
@@ -114,7 +124,7 @@ const styles: { [key: string]: CSSProperties } = {
   breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 40 },
   breadcrumbItem: { fontSize: 16 },
   form: { maxWidth: "500px", margin: "100px auto" },
-  inputArea: { margin: "10px 0px", height: 100 },
+  inputArea: { margin: "10px 0px", height: 80 },
   label: { marginRight: 10 },
   input: { width: 350 },
   errors: { color: "red", marginLeft: 40, marginTop: 10 },

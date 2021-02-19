@@ -9,6 +9,7 @@ const initialState: RootState = {
       age: 32,
       address: "New York No. 1 Lake Park",
       tags: ["nice", "developer"],
+      memo: "memo",
     },
     {
       key: "2",

@@ -38,7 +38,7 @@ const DetailPage: React.FC<Props> = (props) => {
     <>
       <Breadcrumb style={styles.breadcrumb}>
         <Breadcrumb.Item href="/">
-          <a style={styles.breadcrumbItem}>Home</a>
+          <span style={styles.breadcrumbItem}>Home</span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           <span style={styles.breadcrumbItem}>詳細ページ</span>
@@ -89,13 +89,18 @@ const DetailPage: React.FC<Props> = (props) => {
             <p style={styles.p}>
               タグ{" "}
               <span style={styles.value}>
-                {customer.tags.map((tag) => (
+                {customer.tags?.map((tag) => (
                   <Tag color="blue" key={tag} style={styles.tag}>
                     {tag}
                   </Tag>
                 ))}
               </span>
             </p>
+            {customer.memo && (
+              <p style={styles.p}>
+                メモ <span style={styles.value}>{customer.memo}</span>
+              </p>
+            )}
           </Card>
         )}
       </div>
