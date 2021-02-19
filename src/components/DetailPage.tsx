@@ -114,6 +114,6 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: "center",
     alignItems: "center",
   },
-  value: { marginLeft: 20 },
+  value: { marginLeft: 40 },
   tag: { fontSize: 20, padding: 5 },
 };
