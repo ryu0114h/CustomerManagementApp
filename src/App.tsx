@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import DetailPage from "./components/DetailPage";
-import EditPage from "./components/EditPage";
-import AddPage from "./components/AddPage";
+import HomePage from "./pages/HomePage";
+import DetailPage from "./pages/DetailPage";
+import EditPage from "./pages/EditPage";
+import AddPage from "./pages/AddPage";
 
 const App: React.FC = () => {
   return (
