@@ -48,27 +48,29 @@ const AddPage: React.FC<Props> = (props) => {
       <BreadcrumbList />
 
       <form onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
-        <div style={styles.inputArea}>
-          <TextField
-            label="苗字"
-            name="lastName"
-            style={styles.input}
-            inputRef={register({ required: true })}
-          />
-          {errors.lastName && (
-            <p style={styles.errors}>苗字を入力してください</p>
-          )}
-        </div>
-        <div style={styles.inputArea}>
-          <TextField
-            label="名前"
-            name="firstName"
-            style={styles.input}
-            inputRef={register({ required: true })}
-          />
-          {errors.firstName && (
-            <p style={styles.errors}>名前を入力してください</p>
-          )}
+        <div style={styles.nameTextField}>
+          <div style={styles.inputArea}>
+            <TextField
+              label="苗字"
+              name="lastName"
+              style={{ width: 240 }}
+              inputRef={register({ required: true })}
+            />
+            {errors.lastName && (
+              <p style={styles.errors}>苗字を入力してください</p>
+            )}
+          </div>
+          <div style={styles.inputArea}>
+            <TextField
+              label="名前"
+              name="firstName"
+              style={{ width: 240 }}
+              inputRef={register({ required: true })}
+            />
+            {errors.firstName && (
+              <p style={styles.errors}>名前を入力してください</p>
+            )}
+          </div>
         </div>
         <div style={styles.inputArea}>
           <TextField
@@ -177,6 +179,12 @@ const styles: { [key: string]: CSSProperties } = {
   inputArea: { margin: "10px 0px", height: 80 },
   label: { marginRight: 10 },
   input: { width: 500 },
+  nameTextField: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   errors: { color: "red", marginLeft: 40, marginTop: 10 },
   buttonGroup: {
     margin: "0px auto",
