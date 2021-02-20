@@ -229,9 +229,9 @@ const BreadcrumbList: React.FC<{ id: string }> = ({ id }) => {
 };
 
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 20 },
+  breadcrumb: { marginTop: 20, marginLeft: 120, marginBottom: 20 },
   breadcrumbItem: { fontSize: 16 },
-  form: { maxWidth: "500px", margin: "100px auto" },
+  form: { maxWidth: "500px", margin: "60px auto" },
   inputArea: { margin: "10px 0px", height: 80 },
   label: { marginRight: 10 },
   input: { width: 500 },

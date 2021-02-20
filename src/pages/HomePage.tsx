@@ -120,7 +120,7 @@ const BreadcrumbList: React.FC = () => {
 
 const styles: { [key: string]: CSSProperties } = {
   container: { width: "90%", margin: "10px auto" },
-  breadcrumb: { marginTop: 50, marginLeft: 120, marginBottom: 20 },
+  breadcrumb: { marginTop: 20, marginLeft: 120, marginBottom: 20 },
   breadcrumbItem: { fontSize: 16 },
   addButton: { marginBottom: 30, float: "right" },
 };
