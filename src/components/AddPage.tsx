@@ -135,12 +135,21 @@ const AddPage: React.FC<Props> = (props) => {
             />
           </FormGroup>
         </FormControl>
-        <button
-          className="ant-btn ant-btn-primary"
-          type="submit"
-          style={styles.button}>
-          保存
-        </button>
+        <div style={styles.buttonGroup}>
+          <button
+            className="ant-btn"
+            type="button"
+            style={styles.button}
+            onClick={() => props.history.goBack()}>
+            戻る
+          </button>
+          <button
+            className="ant-btn ant-btn-primary"
+            type="submit"
+            style={styles.button}>
+            保存
+          </button>
+        </div>
       </form>
     </>
   );
@@ -167,7 +176,21 @@ const styles: { [key: string]: CSSProperties } = {
   form: { maxWidth: "500px", margin: "100px auto" },
   inputArea: { margin: "10px 0px", height: 80 },
   label: { marginRight: 10 },
-  input: { width: 350 },
+  input: { width: 500 },
   errors: { color: "red", marginLeft: 40, marginTop: 10 },
-  button: { marginTop: 30, marginLeft: 30 },
+  buttonGroup: {
+    margin: "0px auto",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    marginTop: 30,
+    marginLeft: 30,
+    width: 200,
+    padding: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
