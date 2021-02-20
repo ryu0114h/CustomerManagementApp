@@ -28,7 +28,7 @@ interface FetchCustomersActionType extends Action {
 
 interface DeleteCustomersActionTypo extends Action {
   type: typeof actionTypes.DELETE_CUSTOMERS;
-  id: number;
+  payload: CustomersType;
 }
 
 export type CustomersActionTypes =

@@ -10,7 +10,7 @@ export const customersReducer = (
     case actionTypes.FETCH_CUSTOMERS:
       return [...action.payload];
     case actionTypes.DELETE_CUSTOMERS:
-      return state.filter((customer) => customer.id !== action.id);
+      return [...action.payload];
     default:
       return state;
   }

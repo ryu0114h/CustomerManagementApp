@@ -10,9 +10,11 @@ export const fetchCustomersAction = (
   };
 };
 
-export const deleteCustomersAction = (id: number): CustomersActionTypes => {
+export const deleteCustomersAction = (
+  customers: CustomersType
+): CustomersActionTypes => {
   return {
     type: actionTypes.DELETE_CUSTOMERS,
-    id,
+    payload: customers,
   };
 };

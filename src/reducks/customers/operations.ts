@@ -35,7 +35,10 @@ export const fetchCustomers = (
 export const deleteCustomers = (
   id: number
 ): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
-  return (dispatch) => {
-    dispatch(deleteCustomersAction(id));
+  return (dispatch, getState) => {
+    const customers: CustomersType = getState().customers.filter(
+      (customer) => customer.id !== id
+    );
+    dispatch(deleteCustomersAction(customers));
   };
 };
