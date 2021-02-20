@@ -10,9 +10,9 @@ export const fetchCustomersAction = (
   };
 };
 
-export const deleteCustomersAction = (key: string): CustomersActionTypes => {
+export const deleteCustomersAction = (id: number): CustomersActionTypes => {
   return {
     type: actionTypes.DELETE_CUSTOMERS,
-    key,
+    id,
   };
 };

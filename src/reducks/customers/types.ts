@@ -10,7 +10,7 @@ export type TagsType = {
 };
 
 export type CustomerType = {
-  key: string;
+  id: number;
   firstName: string;
   lastName: string;
   age: number;
@@ -28,7 +28,7 @@ interface FetchCustomersActionType extends Action {
 
 interface DeleteCustomersActionTypo extends Action {
   type: typeof actionTypes.DELETE_CUSTOMERS;
-  key: string;
+  id: number;
 }
 
 export type CustomersActionTypes =

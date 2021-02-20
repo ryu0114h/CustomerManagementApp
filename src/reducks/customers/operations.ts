@@ -10,32 +10,32 @@ export const fetchCustomers = (
     const customers: CustomersType = getState().customers;
 
     // 更新する場合
-    if (customer.key) {
+    if (customer.id) {
       dispatch(
         fetchCustomersAction(
-          customers.map((item) => (item.key === customer.key ? customer : item))
+          customers.map((item) => (item.id === customer.id ? customer : item))
         )
       );
       return;
     } else {
       // 追加する場合
-      let key = "1";
+      let id = 1;
       customers.forEach((cus) => {
-        if (key === cus.key) {
-          key = String(parseInt(key) + 1);
+        if (id === cus.id) {
+          id++;
         } else {
           return;
         }
       });
-      dispatch(fetchCustomersAction([...customers, { ...customer, key }]));
+      dispatch(fetchCustomersAction([...customers, { ...customer, id }]));
     }
   };
 };
 
 export const deleteCustomers = (
-  key: string
+  id: number
 ): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
   return (dispatch) => {
-    dispatch(deleteCustomersAction(key));
+    dispatch(deleteCustomersAction(id));
   };
 };

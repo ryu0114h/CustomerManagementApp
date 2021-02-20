@@ -3,7 +3,7 @@ import { RootState } from "./store";
 const initialState: RootState = {
   customers: [
     {
-      key: "1",
+      id: 1,
       firstName: "John",
       lastName: "Brown",
       age: 32,
@@ -18,7 +18,7 @@ const initialState: RootState = {
       memo: "memo",
     },
     {
-      key: "2",
+      id: 2,
       firstName: "Jim",
       lastName: "Green",
       age: 42,
@@ -32,7 +32,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "3",
+      id: 3,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -46,7 +46,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "4",
+      id: 4,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -60,7 +60,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "5",
+      id: 5,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -74,7 +74,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "6",
+      id: 6,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -88,7 +88,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "7",
+      id: 7,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -102,7 +102,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "8",
+      id: 8,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -116,7 +116,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "9",
+      id: 9,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -130,7 +130,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "10",
+      id: 10,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -144,7 +144,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "11",
+      id: 11,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -158,7 +158,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "12",
+      id: 12,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -172,7 +172,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "13",
+      id: 13,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -186,7 +186,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "14",
+      id: 14,
       firstName: "Joe",
       lastName: "Black",
       age: 32,
@@ -200,7 +200,7 @@ const initialState: RootState = {
       },
     },
     {
-      key: "15",
+      id: 15,
       firstName: "Joe",
       lastName: "Black",
       age: 32,

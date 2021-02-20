@@ -25,7 +25,9 @@ const EditPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
 
   const customer = useSelector((state: RootState) =>
-    state.customers.find((customer) => customer.key === props.match.params.id)
+    state.customers.find(
+      (customer) => customer.id === Number(props.match.params.id)
+    )
   );
 
   useEffect(() => {

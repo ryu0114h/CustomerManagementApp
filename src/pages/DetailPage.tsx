@@ -15,12 +15,14 @@ type Props = RouteComponentProps<
 const DetailPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const customer = useSelector((state: RootState) =>
-    state.customers.find((customer) => customer.key === props.match.params.id)
+    state.customers.find(
+      (customer) => customer.id === Number(props.match.params.id)
+    )
   );
 
   const alertConfirm = () => {
     if (customer) {
-      dispatch(deleteCustomers(customer.key));
+      dispatch(deleteCustomers(customer.id));
       notification["success"]({
         message: "削除しました。",
         description: "",
@@ -48,7 +50,7 @@ const DetailPage: React.FC<Props> = (props) => {
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Link
                   to={{
-                    pathname: `/${customer.key}/edit`,
+                    pathname: `/${customer.id}/edit`,
                     state: { customer },
                   }}
                   style={{ margin: 10 }}>
@@ -66,7 +68,7 @@ const DetailPage: React.FC<Props> = (props) => {
             }
             style={styles.card}>
             <p style={styles.p}>
-              番号 <span style={styles.value}>{customer.key}</span>
+              番号 <span style={styles.value}>{customer.id}</span>
             </p>
             <p style={styles.p}>
               名前{" "}

@@ -13,8 +13,8 @@ const HomePage: React.FC = () => {
   const customers = useSelector((state: RootState) => state.customers);
   const dispatch = useDispatch();
 
-  const alertConfirm = (key: string) => {
-    dispatch(deleteCustomers(key));
+  const alertConfirm = (id: number) => {
+    dispatch(deleteCustomers(id));
     notification["success"]({
       message: "削除しました。",
       description: "",
@@ -38,8 +38,8 @@ const HomePage: React.FC = () => {
             追加
           </Button>
         </Link>
-        <Table dataSource={customers}>
-          <Column title="番号" dataIndex="key" key="key" />
+        <Table dataSource={customers} rowKey="id">
+          <Column title="番号" dataIndex="id" key="id" />
           <ColumnGroup title="名前">
             <Column title="性" dataIndex="lastName" key="lastName" />
             <Column title="名" dataIndex="firstName" key="firstName" />
@@ -70,14 +70,12 @@ const HomePage: React.FC = () => {
           />
           <Column
             title=""
-            dataIndex="key"
+            dataIndex="id"
             key="detail"
-            render={(key) => {
-              const customer = customers.find(
-                (customer) => customer.key === key
-              );
+            render={(id) => {
+              const customer = customers.find((customer) => customer.id === id);
               return (
-                <Link to={{ pathname: `/${key}`, state: { customer } }}>
+                <Link to={{ pathname: `/${id}`, state: { customer } }}>
                   詳細
                 </Link>
               );
@@ -85,13 +83,13 @@ const HomePage: React.FC = () => {
           />
           <Column
             title=""
-            dataIndex="key"
+            dataIndex="id"
             key="delete"
-            render={(key) => {
+            render={(id) => {
               return (
                 <Popconfirm
                   title="削除してもよろしいですか？"
-                  onConfirm={() => alertConfirm(key)}
+                  onConfirm={() => alertConfirm(id)}
                   onCancel={alertCancel}
                   okText="Yes"
                   cancelText="No">
