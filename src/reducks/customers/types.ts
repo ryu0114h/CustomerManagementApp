@@ -26,17 +26,17 @@ interface FetchCustomersActionType extends Action {
   payload: CustomersType;
 }
 
-interface AddCustomersActionType extends Action {
-  type: typeof actionTypes.ADD_CUSTOMERS;
+interface AddCustomerActionType extends Action {
+  type: typeof actionTypes.ADD_CUSTOMER;
   payload: CustomersType;
 }
 
-interface DeleteCustomersActionTypo extends Action {
-  type: typeof actionTypes.DELETE_CUSTOMERS;
+interface DeleteCustomerActionTypo extends Action {
+  type: typeof actionTypes.DELETE_CUSTOMER;
   payload: CustomersType;
 }
 
 export type CustomersActionTypes =
   | FetchCustomersActionType
-  | AddCustomersActionType
-  | DeleteCustomersActionTypo;
+  | AddCustomerActionType
+  | DeleteCustomerActionTypo;

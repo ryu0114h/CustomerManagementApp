@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Popconfirm, Table, Tag, notification, Breadcrumb, Button } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
-import { deleteCustomers } from "../reducks/customers/operations";
+import { deleteCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 
 const { Column, ColumnGroup } = Table;
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
   const dispatch = useDispatch();
 
   const alertConfirm = (id: number) => {
-    dispatch(deleteCustomers(id));
+    dispatch(deleteCustomer(id));
     notification["success"]({
       message: "削除しました。",
       description: "",

@@ -11,7 +11,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-import { addCustomers } from "../reducks/customers/operations";
+import { addCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 
 type Props = RouteComponentProps<
@@ -26,7 +26,7 @@ const AddPage: React.FC<Props> = (props) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
-    dispatch(addCustomers(data));
+    dispatch(addCustomer(data));
     notification["success"]({
       message: "保存しました。",
       description: "",

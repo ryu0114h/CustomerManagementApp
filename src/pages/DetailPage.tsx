@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Breadcrumb, Card, notification, Popconfirm, Tag } from "antd";
-import { deleteCustomers } from "../reducks/customers/operations";
+import { deleteCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
 
@@ -22,7 +22,7 @@ const DetailPage: React.FC<Props> = (props) => {
 
   const alertConfirm = () => {
     if (customer) {
-      dispatch(deleteCustomers(customer.id));
+      dispatch(deleteCustomer(customer.id));
       notification["success"]({
         message: "削除しました。",
         description: "",

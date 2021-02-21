@@ -10,20 +10,20 @@ export const fetchCustomersAction = (
   };
 };
 
-export const addCustomersAction = (
+export const addCustomerAction = (
   customers: CustomersType
 ): CustomersActionTypes => {
   return {
-    type: actionTypes.ADD_CUSTOMERS,
+    type: actionTypes.ADD_CUSTOMER,
     payload: customers,
   };
 };
 
-export const deleteCustomersAction = (
+export const deleteCustomerAction = (
   customers: CustomersType
 ): CustomersActionTypes => {
   return {
-    type: actionTypes.DELETE_CUSTOMERS,
+    type: actionTypes.DELETE_CUSTOMER,
     payload: customers,
   };
 };

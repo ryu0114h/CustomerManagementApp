@@ -1,6 +1,10 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
-import { deleteCustomersAction, fetchCustomersAction } from "./actions";
+import {
+  fetchCustomersAction,
+  addCustomerAction,
+  deleteCustomerAction,
+} from "./actions";
 import { CustomersActionTypes, CustomersType, CustomerType } from "./types";
 
 export const fetchCustomers = (
@@ -18,7 +22,7 @@ export const fetchCustomers = (
   };
 };
 
-export const addCustomers = (
+export const addCustomer = (
   customer: CustomerType
 ): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
   return (dispatch, getState) => {
@@ -35,17 +39,17 @@ export const addCustomers = (
       }
     });
 
-    dispatch(fetchCustomersAction([...customers, { ...customer, id }]));
+    dispatch(addCustomerAction([...customers, { ...customer, id }]));
   };
 };
 
-export const deleteCustomers = (
+export const deleteCustomer = (
   id: number
 ): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
   return (dispatch, getState) => {
     const customers: CustomersType = getState().customers.filter(
       (customer) => customer.id !== id
     );
-    dispatch(deleteCustomersAction(customers));
+    dispatch(deleteCustomerAction(customers));
   };
 };
