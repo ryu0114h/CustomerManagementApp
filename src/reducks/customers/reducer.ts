@@ -9,6 +9,8 @@ export const customersReducer = (
   switch (action.type) {
     case actionTypes.FETCH_CUSTOMERS:
       return [...action.payload];
+    case actionTypes.ADD_CUSTOMERS:
+      return [...action.payload];
     case actionTypes.DELETE_CUSTOMERS:
       return [...action.payload];
     default:

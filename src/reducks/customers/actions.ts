@@ -10,6 +10,15 @@ export const fetchCustomersAction = (
   };
 };
 
+export const addCustomersAction = (
+  customers: CustomersType
+): CustomersActionTypes => {
+  return {
+    type: actionTypes.ADD_CUSTOMERS,
+    payload: customers,
+  };
+};
+
 export const deleteCustomersAction = (
   customers: CustomersType
 ): CustomersActionTypes => {
