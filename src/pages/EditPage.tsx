@@ -11,7 +11,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-import { fetchCustomers } from "../reducks/customers/operations";
+import { editCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
 
@@ -41,7 +41,7 @@ const EditPage: React.FC<Props> = (props) => {
   });
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
-    dispatch(fetchCustomers({ ...customer, ...data }));
+    dispatch(editCustomer({ ...customer, ...data }));
     notification["success"]({
       message: "保存しました。",
       description: "",
