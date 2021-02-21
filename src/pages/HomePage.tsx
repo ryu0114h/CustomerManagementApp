@@ -57,14 +57,15 @@ const HomePage: React.FC = () => {
             key="tags"
             render={(tags: string[]) => (
               <>
-                {Object.keys(tags).map(
-                  (key) =>
-                    tags[key] && (
-                      <Tag color="blue" key={key}>
-                        {key}
-                      </Tag>
-                    )
-                )}
+                {tags &&
+                  Object.keys(tags).map(
+                    (key) =>
+                      tags[key] && (
+                        <Tag color="blue" key={key}>
+                          {key}
+                        </Tag>
+                      )
+                  )}
               </>
             )}
           />

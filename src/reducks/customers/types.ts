@@ -15,7 +15,7 @@ export type CustomerType = {
   lastName: string;
   age: number;
   address: string;
-  tags: TagsType;
+  tags?: TagsType;
   memo?: string;
 };
 
