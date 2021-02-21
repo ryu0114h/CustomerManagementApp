@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Breadcrumb, Card, notification, Popconfirm, Tag } from "antd";
-import { deleteCustomers } from "../reducks/customers/operations";
+import { deleteCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
 
@@ -15,16 +15,20 @@ type Props = RouteComponentProps<
 const DetailPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const customer = useSelector((state: RootState) =>
-    state.customers.find((customer) => customer.key === props.match.params.id)
+    state.customers.find(
+      (customer) => customer.id === Number(props.match.params.id)
+    )
   );
 
   const alertConfirm = () => {
-    dispatch(deleteCustomers(customer?.key as string));
-    notification["success"]({
-      message: "削除しました。",
-      description: "",
-    });
-    props.history.push("/");
+    if (customer) {
+      dispatch(deleteCustomer(customer.id));
+      notification["success"]({
+        message: "削除しました。",
+        description: "",
+      });
+      props.history.push("/");
+    }
   };
 
   const alertCancel = () => {
@@ -36,10 +40,8 @@ const DetailPage: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Breadcrumb style={{ margin: 100 }}>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item>詳細ページ</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbList />
+
       <div>
         {customer && (
           <Card
@@ -48,7 +50,7 @@ const DetailPage: React.FC<Props> = (props) => {
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Link
                   to={{
-                    pathname: `/${customer.key}/edit`,
+                    pathname: `/${customer.id}/edit`,
                     state: { customer },
                   }}
                   style={{ margin: 10 }}>
@@ -65,21 +67,40 @@ const DetailPage: React.FC<Props> = (props) => {
               </div>
             }
             style={styles.card}>
-            <p style={styles.p}>番号 : {customer.key}</p>
             <p style={styles.p}>
-              名前 : {customer.lastName} {customer.firstName}
+              番号 <span style={styles.value}>{customer.id}</span>
+            </p>
+            <p style={styles.p}>
+              名前{" "}
+              <span style={styles.value}>
+                {customer.lastName} {customer.firstName}
+              </span>
             </p>
             <p style={styles.p}></p>
-            <p style={styles.p}>住所 : {customer.address}</p>
-            <p style={styles.p}>年齢 : {customer.age}</p>
             <p style={styles.p}>
-              タグ :{" "}
-              {customer.tags.map((tag) => (
-                <Tag color="blue" key={tag} style={styles.tag}>
-                  {tag}
-                </Tag>
-              ))}
+              住所 <span style={styles.value}>{customer.address}</span>
             </p>
+            <p style={styles.p}>
+              年齢 <span style={styles.value}>{customer.age}</span>
+            </p>
+            <p style={styles.p}>
+              タグ{" "}
+              <span style={styles.value}>
+                {Object.keys(customer.tags).map(
+                  (key) =>
+                    customer.tags[key] && (
+                      <Tag color="blue" key={key} style={styles.tag}>
+                        {key}
+                      </Tag>
+                    )
+                )}
+              </span>
+            </p>
+            {customer.memo && (
+              <p style={styles.p}>
+                メモ <span style={styles.value}>{customer.memo}</span>
+              </p>
+            )}
           </Card>
         )}
       </div>
@@ -89,12 +110,28 @@ const DetailPage: React.FC<Props> = (props) => {
 
 export default DetailPage;
 
+const BreadcrumbList: React.FC = () => {
+  return (
+    <Breadcrumb style={styles.breadcrumb}>
+      <Breadcrumb.Item href="/">
+        <span style={styles.breadcrumbItem}>Home</span>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <span style={styles.breadcrumbItem}>詳細ページ</span>
+      </Breadcrumb.Item>
+    </Breadcrumb>
+  );
+};
+
 const styles: { [key: string]: CSSProperties } = {
+  breadcrumb: { marginTop: 20, marginLeft: 120, marginBottom: 20 },
+  breadcrumbItem: { fontSize: 16 },
   card: { width: 700, margin: "100px auto" },
   p: {
     fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
   },
+  value: { marginLeft: 40 },
   tag: { fontSize: 20, padding: 5 },
 };

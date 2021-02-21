@@ -7,10 +7,14 @@ export const customersReducer = (
   action: CustomersActionTypes
 ): CustomersType => {
   switch (action.type) {
+    case actionTypes.ADD_CUSTOMER:
+      return [...action.payload];
+    case actionTypes.DELETE_CUSTOMER:
+      return [...action.payload];
+    case actionTypes.EDIT_CUSTOMER:
+      return [...action.payload];
     case actionTypes.FETCH_CUSTOMERS:
       return [...action.payload];
-    case actionTypes.DELETE_CUSTOMERS:
-      return state.filter((customer) => customer.key !== action.key);
     default:
       return state;
   }
