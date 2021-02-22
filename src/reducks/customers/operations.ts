@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
 import {
@@ -55,8 +56,44 @@ export const editCustomer = (
   };
 };
 
-export const fetchCustomers = (
-  customers: CustomersType
-): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
-  return (dispatch) => dispatch(fetchCustomersAction(customers));
+export const fetchCustomers = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CustomersActionTypes
+> => {
+  return (dispatch) => {
+    // ----------------------------------------------------
+    // API
+
+    // axios
+    //   .get("http://localhost:3100/api/v1/customers")
+    //   .then((res) => {
+    //     dispatch(fetchCustomersAction(res.data.data));
+    //     console.log(res.data);
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    // ----------------------------------------------------
+    // Redux
+    dispatch(
+      fetchCustomersAction([
+        {
+          id: 1,
+          firstName: "John",
+          lastName: "Brown",
+          age: 32,
+          address: "New York No. 1 Lake Park",
+          tags: {
+            cool: false,
+            developer: true,
+            loser: false,
+            nice: true,
+            teacher: false,
+          },
+          memo: "memo",
+        },
+      ])
+    );
+  };
 };
