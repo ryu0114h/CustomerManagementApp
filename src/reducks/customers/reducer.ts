@@ -7,8 +7,6 @@ export const customersReducer = (
   action: CustomersActionTypes
 ): CustomersType => {
   switch (action.type) {
-    case actionTypes.ADD_CUSTOMER:
-      return [...action.payload];
     case actionTypes.DELETE_CUSTOMER:
       return [...action.payload];
     case actionTypes.EDIT_CUSTOMER:
