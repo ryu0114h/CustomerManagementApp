@@ -3,7 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
 import {
   deleteCustomerAction,
-  editCustomerAction,
+  updateCustomerAction,
   fetchCustomersAction,
 } from "./actions";
 import { CustomersActionTypes, CustomersType, CustomerType } from "./types";
@@ -40,14 +40,14 @@ export const deleteCustomer = (
   };
 };
 
-export const editCustomer = (
+export const updateCustomer = (
   customer: CustomerType
 ): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
   return (dispatch, getState) => {
     const customers: CustomersType = getState().customers;
 
     dispatch(
-      editCustomerAction(
+      updateCustomerAction(
         customers.map((item) => (item.id === customer.id ? customer : item))
       )
     );

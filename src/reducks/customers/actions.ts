@@ -10,11 +10,11 @@ export const deleteCustomerAction = (
   };
 };
 
-export const editCustomerAction = (
+export const updateCustomerAction = (
   customers: CustomersType
 ): CustomersActionTypes => {
   return {
-    type: actionTypes.EDIT_CUSTOMER,
+    type: actionTypes.UPDATE_CUSTOMER,
     payload: customers,
   };
 };

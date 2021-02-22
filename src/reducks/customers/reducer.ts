@@ -9,7 +9,7 @@ export const customersReducer = (
   switch (action.type) {
     case actionTypes.DELETE_CUSTOMER:
       return [...action.payload];
-    case actionTypes.EDIT_CUSTOMER:
+    case actionTypes.UPDATE_CUSTOMER:
       return [...action.payload];
     case actionTypes.FETCH_CUSTOMERS:
       return [...action.payload];
