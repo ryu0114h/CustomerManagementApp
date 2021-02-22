@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import HomePage from "./pages/HomePage";
-import AddPage from "./pages/AddPage";
-import DetailPage from "./pages/DetailPage";
-import EditPage from "./pages/EditPage";
 import { fetchCustomers } from "./reducks/customers/operations";
+import Router from "./Router";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,17 +10,7 @@ const App: React.FC = () => {
     dispatch(fetchCustomers());
   }, []);
 
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/add" component={AddPage} />
-
-        <Route exact path="/:id" component={DetailPage} />
-        <Route path="/:id/edit" component={EditPage} />
-      </Switch>
-    </BrowserRouter>
-  );
+  return <Router />;
 };
 
 export default App;
