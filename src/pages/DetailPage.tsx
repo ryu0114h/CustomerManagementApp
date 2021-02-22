@@ -86,14 +86,16 @@ const DetailPage: React.FC<Props> = (props) => {
             <p style={styles.p}>
               タグ{" "}
               <span style={styles.value}>
-                {Object.keys(customer.tags).map(
-                  (key) =>
-                    customer.tags[key] && (
-                      <Tag color="blue" key={key} style={styles.tag}>
-                        {key}
-                      </Tag>
-                    )
-                )}
+                {customer.tags &&
+                  Object.keys(customer.tags).map(
+                    (key) =>
+                      customer.tags &&
+                      customer.tags[key] && (
+                        <Tag color="blue" key={key} style={styles.tag}>
+                          {key}
+                        </Tag>
+                      )
+                  )}
               </span>
             </p>
             {customer.memo && (

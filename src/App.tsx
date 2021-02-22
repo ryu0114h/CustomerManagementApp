@@ -15,7 +15,7 @@ const App: React.FC = () => {
     // ---------------------------------------------
     // API
     axios
-      .get("http://localhost:3100/api/v1/home")
+      .get("http://localhost:3100/api/v1/customers")
       .then((res) => {
         dispatch(fetchCustomers(res.data.data));
         console.log(res.data);
