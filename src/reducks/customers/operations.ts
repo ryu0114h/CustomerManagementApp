@@ -33,7 +33,10 @@ export const deleteCustomer = (
     const customers: CustomersType = getState().customers.filter(
       (customer) => customer.id !== id
     );
-    dispatch(deleteCustomerAction(customers));
+    axios.delete(`http://localhost:3100/api/v1/customers/${id}`).then((res) => {
+      dispatch(deleteCustomerAction(customers));
+      console.log(res.data);
+    });
   };
 };
 
