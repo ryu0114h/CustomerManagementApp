@@ -13,8 +13,10 @@ const Header: React.FC = () => {
   return (
     <AppBar position="static">
       <Toolbar className={classes.root}>
-        <Typography variant="h6" className={classes.title}>
-          顧客管理アプリ
+        <Typography variant="h6" className={classes.titleContainer}>
+          <Button href="/" className={classes.title}>
+            顧客管理アプリ
+          </Button>
         </Typography>
         {user.isSignedIn ? (
           <Button
@@ -56,11 +58,14 @@ const useStyles = makeStyles((theme: Theme) =>
     signinButton: {
       color: "white",
     },
-    title: {
+    titleContainer: {
       flexGrow: 1,
+      marginLeft: 50,
+    },
+    title: {
       color: "white",
       fontWeight: "bold",
-      marginLeft: 30,
+      fontSize: 24,
     },
   })
 );
