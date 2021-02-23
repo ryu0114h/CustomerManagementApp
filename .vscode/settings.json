@@ -3,6 +3,10 @@
         "Hoshino",
         "Popconfirm",
         "antd",
-        "reducks"
+        "fname",
+        "lname",
+        "reducks",
+        "signin",
+        "signup"
     ]
 }

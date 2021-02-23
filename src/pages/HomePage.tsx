@@ -39,7 +39,12 @@ const HomePage: React.FC = () => {
           </Button>
         </Link>
         <Table dataSource={customers} rowKey="id">
-          <Column title="番号" dataIndex="id" key="id" />
+          <Column
+            title="番号"
+            dataIndex="id"
+            key="id"
+            sorter={(a: CustomerType, b: CustomerType) => a.id - b.id}
+          />
           <ColumnGroup title="名前">
             <Column title="性" dataIndex="lastName" key="lastName" />
             <Column title="名" dataIndex="firstName" key="firstName" />

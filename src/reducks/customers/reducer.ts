@@ -1,5 +1,5 @@
+import { actionTypes } from "./actionTypes";
 import { CustomersType, CustomersActionTypes } from "./types";
-import { actionTypes } from "../actionTypes";
 import initialState from "../store/initialState";
 
 export const customersReducer = (
@@ -7,11 +7,9 @@ export const customersReducer = (
   action: CustomersActionTypes
 ): CustomersType => {
   switch (action.type) {
-    case actionTypes.ADD_CUSTOMER:
-      return [...action.payload];
     case actionTypes.DELETE_CUSTOMER:
       return [...action.payload];
-    case actionTypes.EDIT_CUSTOMER:
+    case actionTypes.UPDATE_CUSTOMER:
       return [...action.payload];
     case actionTypes.FETCH_CUSTOMERS:
       return [...action.payload];

@@ -1,14 +1,5 @@
 import { CustomersActionTypes, CustomersType } from "./types";
-import { actionTypes } from "../actionTypes";
-
-export const addCustomerAction = (
-  customers: CustomersType
-): CustomersActionTypes => {
-  return {
-    type: actionTypes.ADD_CUSTOMER,
-    payload: customers,
-  };
-};
+import { actionTypes } from "./actionTypes";
 
 export const deleteCustomerAction = (
   customers: CustomersType
@@ -19,11 +10,11 @@ export const deleteCustomerAction = (
   };
 };
 
-export const editCustomerAction = (
+export const updateCustomerAction = (
   customers: CustomersType
 ): CustomersActionTypes => {
   return {
-    type: actionTypes.EDIT_CUSTOMER,
+    type: actionTypes.UPDATE_CUSTOMER,
     payload: customers,
   };
 };
