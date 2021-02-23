@@ -5,6 +5,7 @@ import AddPage from "./pages/AddPage";
 import DetailPage from "./pages/DetailPage";
 import EditPage from "./pages/EditPage";
 import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 const Router: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Router: React.FC = () => {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
         <Route path="/add" component={AddPage} />
 
         <Route exact path="/:id" component={DetailPage} />

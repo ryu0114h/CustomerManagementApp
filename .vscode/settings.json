@@ -6,6 +6,7 @@
         "fname",
         "lname",
         "reducks",
+        "signin",
         "signup"
     ]
 }

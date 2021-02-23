@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../components/Copyright";
 
-const SignUp: React.FC = () => {
+const SignIn: React.FC = () => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => console.log(data);
@@ -29,7 +29,7 @@ const SignUp: React.FC = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign in
         </Typography>
         <form
           className={classes.form}
@@ -90,12 +90,12 @@ const SignUp: React.FC = () => {
             variant="contained"
             color="primary"
             className={classes.submit}>
-            Sign Up
+            Sign In
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signin" variant="body2">
-                Already have an account? Sign in
+              <Link href="/signup" variant="body2">
+                Sign Up
               </Link>
             </Grid>
           </Grid>
@@ -108,7 +108,7 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
