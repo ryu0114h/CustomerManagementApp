@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import {
   Avatar,
@@ -15,12 +16,16 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../components/Copyright";
 import { InputFormUserType } from "../reducks/user/types";
+import { signupUser } from "../reducks/user/operations";
 
 const SignUp: React.FC = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit: SubmitHandler<InputFormUserType> = (data) =>
+  const onSubmit: SubmitHandler<InputFormUserType> = (data) => {
+    dispatch(signupUser(data));
     console.log(data);
+  };
   const onError: SubmitErrorHandler<InputFormUserType> = (data) =>
     console.log(data);
 

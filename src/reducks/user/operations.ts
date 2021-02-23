@@ -25,3 +25,25 @@ export const signinUser = ({
       });
   };
 };
+
+export const signupUser = ({
+  email,
+  password,
+}: InputFormUserType): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  UserActionTypes
+> => {
+  return (dispatch) => {
+    axios
+      .post("http://localhost:3100/api/v1/auth", {
+        email,
+        password,
+      })
+      .then((res) => {
+        dispatch(signinUserAction(res.headers));
+        console.log(res.headers);
+      });
+  };
+};

@@ -7,3 +7,10 @@ export const signinUserAction = (user: UserType): UserActionTypes => {
     payload: user,
   };
 };
+
+export const signupUserAction = (user: UserType): UserActionTypes => {
+  return {
+    type: actionTypes.SIGNUP_USER,
+    payload: user,
+  };
+};
