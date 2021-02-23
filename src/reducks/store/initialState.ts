@@ -1,6 +1,12 @@
 import { RootState } from "./store";
 
 const initialState: RootState = {
+  user: {
+    accessToken: "",
+    client: "",
+    uid: "",
+    isSignedIn: false,
+  },
   customers: [
     {
       id: 1,

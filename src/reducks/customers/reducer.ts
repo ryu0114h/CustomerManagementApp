@@ -1,5 +1,5 @@
+import { actionTypes } from "./actionTypes";
 import { CustomersType, CustomersActionTypes } from "./types";
-import { actionTypes } from "../actionTypes";
 import initialState from "../store/initialState";
 
 export const customersReducer = (

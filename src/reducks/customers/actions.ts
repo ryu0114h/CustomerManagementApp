@@ -1,5 +1,5 @@
 import { CustomersActionTypes, CustomersType } from "./types";
-import { actionTypes } from "../actionTypes";
+import { actionTypes } from "./actionTypes";
 
 export const deleteCustomerAction = (
   customers: CustomersType

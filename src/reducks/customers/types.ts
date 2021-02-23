@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { actionTypes } from "../actionTypes";
+import { actionTypes } from "./actionTypes";
 
 export type TagsType = {
   cool: boolean;
@@ -21,7 +21,7 @@ export type CustomerType = {
 
 export type CustomersType = CustomerType[];
 
-interface DeleteCustomerActionTypo extends Action {
+interface DeleteCustomerActionType extends Action {
   type: typeof actionTypes.DELETE_CUSTOMER;
   payload: CustomersType;
 }
@@ -37,6 +37,6 @@ interface FetchCustomersActionType extends Action {
 }
 
 export type CustomersActionTypes =
-  | DeleteCustomerActionTypo
+  | DeleteCustomerActionType
   | UpdateCustomerActionType
   | FetchCustomersActionType;

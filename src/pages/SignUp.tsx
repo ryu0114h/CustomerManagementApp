@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import {
   Avatar,
   Button,
@@ -14,12 +14,15 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../components/Copyright";
+import { InputFormUserType } from "../reducks/user/types";
 
 const SignUp: React.FC = () => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
-  const onError = (data) => console.log(data);
+  const onSubmit: SubmitHandler<InputFormUserType> = (data) =>
+    console.log(data);
+  const onError: SubmitErrorHandler<InputFormUserType> = (data) =>
+    console.log(data);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,12 +73,12 @@ const SignUp: React.FC = () => {
                 inputRef={register({
                   required: "パスワードを入力してください。",
                   min: {
-                    value: 8,
-                    message: "8文字以上のパスワードを入力してください。",
+                    value: 6,
+                    message: "6文字以上のパスワードを入力してください。",
                   },
                   pattern: {
-                    value: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}/,
-                    message: "8文字以上の英数字を入力してください。",
+                    value: /^[a-z\d]{6,100}$/i,
+                    message: "6文字以上の英数字を入力してください。",
                   },
                 })}
               />
