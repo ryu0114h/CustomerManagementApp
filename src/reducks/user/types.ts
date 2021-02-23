@@ -18,9 +18,16 @@ interface SigninUserActionType extends Action {
   payload: UserType;
 }
 
+interface SignoutUserActionType extends Action {
+  type: typeof actionTypes.SIGNOUT_USER;
+}
+
 interface SignupUserActionType extends Action {
   type: typeof actionTypes.SIGNUP_USER;
   payload: UserType;
 }
 
-export type UserActionTypes = SigninUserActionType | SignupUserActionType;
+export type UserActionTypes =
+  | SigninUserActionType
+  | SignoutUserActionType
+  | SignupUserActionType;

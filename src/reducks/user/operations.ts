@@ -1,7 +1,8 @@
+import { notification } from "antd";
 import axios from "axios";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
-import { signinUserAction } from "./actions";
+import { signinUserAction, signoutUserAction } from "./actions";
 import { InputFormUserType, UserActionTypes } from "./types";
 
 export const signinUser = ({
@@ -21,7 +22,53 @@ export const signinUser = ({
       })
       .then((res) => {
         dispatch(signinUserAction(res.headers));
-        console.log(res.headers);
+        notification["success"]({
+          message: "ログインできました。",
+          description: "",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notification["error"]({
+          message: "ログインに失敗しました。",
+          description: "",
+        });
+        console.log(err.message);
+      });
+  };
+};
+
+export const signoutUser = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  UserActionTypes
+> => {
+  return (dispatch, getState) => {
+    const user = getState().user;
+
+    axios
+      .delete("http://localhost:3100/api/v1/auth/sign_out", {
+        headers: {
+          client: user.client,
+          uid: user.uid,
+          "access-token": user.accessToken,
+        },
+      })
+      .then((res) => {
+        dispatch(signoutUserAction());
+        notification["success"]({
+          message: "ログアウトできました。",
+          description: "",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notification["error"]({
+          message: "ログアウトに失敗しました。",
+          description: "",
+        });
+        console.log(err.message);
       });
   };
 };
@@ -43,7 +90,18 @@ export const signupUser = ({
       })
       .then((res) => {
         dispatch(signinUserAction(res.headers));
-        console.log(res.headers);
+        notification["success"]({
+          message: "ユーザー登録しました。",
+          description: "",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notification["error"]({
+          message: "ユーザー登録に失敗しました。",
+          description: "",
+        });
+        console.log(err.message);
       });
   };
 };
