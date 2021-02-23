@@ -95,7 +95,7 @@ const SignIn: React.FC = () => {
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/signup" variant="body2">
-                Sign Up
+                {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
