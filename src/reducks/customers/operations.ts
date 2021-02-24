@@ -45,11 +45,15 @@ export const deleteCustomer = (
     const customers: CustomersType = getState().customers.filter(
       (customer) => customer.id !== id
     );
+    const router = getState().router;
+
     axios
       .delete(`http://localhost:3100/api/v1/customers/${id}`)
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
-        // dispatch(push("/"));
+        if (router.location.pathname !== "/") {
+          dispatch(push("/"));
+        }
         console.log(res.data);
       })
       .catch((err) => console.log(err.message));
