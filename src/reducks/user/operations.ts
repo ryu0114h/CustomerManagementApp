@@ -1,5 +1,6 @@
 import { notification } from "antd";
 import axios from "axios";
+import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
 import { signinUserAction, signoutUserAction } from "./actions";
@@ -12,7 +13,7 @@ export const signinUser = ({
   void,
   RootState,
   undefined,
-  UserActionTypes
+  CallHistoryMethodAction | UserActionTypes
 > => {
   return (dispatch) => {
     axios
@@ -22,6 +23,7 @@ export const signinUser = ({
       })
       .then((res) => {
         dispatch(signinUserAction(res.headers));
+        dispatch(push("/"));
         notification["success"]({
           message: "ログインできました。",
           description: "",
