@@ -7,8 +7,6 @@ const Auth: React.FC = ({ children }) => {
   const user = useSelector((state: RootState) => state.user);
   const isSignedIn = user.isSignedIn;
 
-  console.log(user);
-
   if (isSignedIn) {
     return <>{children}</>;
   } else {

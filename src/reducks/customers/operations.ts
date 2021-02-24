@@ -49,7 +49,7 @@ export const deleteCustomer = (
       .delete(`http://localhost:3100/api/v1/customers/${id}`)
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
-        dispatch(push("/"));
+        // dispatch(push("/"));
         console.log(res.data);
       })
       .catch((err) => console.log(err.message));

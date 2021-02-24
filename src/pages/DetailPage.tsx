@@ -114,8 +114,10 @@ export default DetailPage;
 const BreadcrumbList: React.FC = () => {
   return (
     <Breadcrumb style={styles.breadcrumb}>
-      <Breadcrumb.Item href="/">
-        <span style={styles.breadcrumbItem}>Home</span>
+      <Breadcrumb.Item>
+        <Link to="/" style={styles.breadcrumbItem}>
+          Home
+        </Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <span style={styles.breadcrumbItem}>詳細ページ</span>

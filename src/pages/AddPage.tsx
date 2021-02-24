@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { useDispatch } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { Breadcrumb, notification } from "antd";
 import {
@@ -161,8 +161,10 @@ export default AddPage;
 const BreadcrumbList: React.FC = () => {
   return (
     <Breadcrumb style={styles.breadcrumb}>
-      <Breadcrumb.Item href="/">
-        <span style={styles.breadcrumbItem}>Home</span>
+      <Breadcrumb.Item>
+        <Link to="/" style={styles.breadcrumbItem}>
+          Home
+        </Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <span style={styles.breadcrumbItem}>追加ページ</span>
