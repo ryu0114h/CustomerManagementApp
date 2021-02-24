@@ -14,6 +14,13 @@ export const userReducer = (
         client: action.payload.client,
         uid: action.payload.uid,
       };
+    case actionTypes.SIGNOUT_USER:
+      return {
+        isSignedIn: false,
+        accessToken: "",
+        client: "",
+        uid: "",
+      };
     case actionTypes.SIGNUP_USER:
       return {
         isSignedIn: true,

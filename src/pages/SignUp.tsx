@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { notification } from "antd";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import {
   Avatar,
@@ -26,8 +27,13 @@ const SignUp: React.FC = () => {
     dispatch(signupUser(data));
     console.log(data);
   };
-  const onError: SubmitErrorHandler<InputFormUserType> = (data) =>
+  const onError: SubmitErrorHandler<InputFormUserType> = (data) => {
+    notification["error"]({
+      message: "ユーザー登録に失敗しました。",
+      description: "",
+    });
     console.log(data);
+  };
 
   return (
     <Container component="main" maxWidth="xs">

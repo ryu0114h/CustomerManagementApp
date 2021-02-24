@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store/store";
 import {
@@ -10,7 +11,12 @@ import { CustomersActionTypes, CustomersType, CustomerType } from "./types";
 
 export const addCustomer = (
   customer: CustomerType
-): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
+): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CallHistoryMethodAction | CustomersActionTypes
+> => {
   return (dispatch) => {
     axios
       .post("http://localhost:3100/api/v1/customers", {
@@ -18,6 +24,7 @@ export const addCustomer = (
       })
       .then((res) => {
         dispatch(fetchCustomers());
+        dispatch(push("/"));
         console.log(res.data);
       })
       .catch((err) => {
@@ -28,15 +35,25 @@ export const addCustomer = (
 
 export const deleteCustomer = (
   id: number
-): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
+): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CallHistoryMethodAction | CustomersActionTypes
+> => {
   return (dispatch, getState) => {
     const customers: CustomersType = getState().customers.filter(
       (customer) => customer.id !== id
     );
+    const router = getState().router;
+
     axios
       .delete(`http://localhost:3100/api/v1/customers/${id}`)
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
+        if (router.location.pathname !== "/") {
+          dispatch(push("/"));
+        }
         console.log(res.data);
       })
       .catch((err) => console.log(err.message));
