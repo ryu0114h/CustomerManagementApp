@@ -27,7 +27,6 @@ const DetailPage: React.FC<Props> = (props) => {
         message: "削除しました。",
         description: "",
       });
-      props.history.push("/");
     }
   };
 

@@ -31,7 +31,6 @@ const AddPage: React.FC<Props> = (props) => {
       message: "保存しました。",
       description: "",
     });
-    props.history.push(`/`);
     console.log(data);
   };
 
