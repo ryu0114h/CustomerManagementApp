@@ -42,11 +42,6 @@ const EditPage: React.FC<Props> = (props) => {
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
     dispatch(updateCustomer({ ...customer, ...data }));
-    notification["success"]({
-      message: "保存しました。",
-      description: "",
-    });
-    props.history.push(`/${props.match.params.id}`);
   };
 
   const onError: SubmitErrorHandler<CustomerType> = (data) => {

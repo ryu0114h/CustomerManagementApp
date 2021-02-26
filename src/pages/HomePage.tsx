@@ -15,10 +15,6 @@ const HomePage: React.FC = () => {
 
   const alertConfirm = (id: number) => {
     dispatch(deleteCustomer(id));
-    notification["success"]({
-      message: "削除しました。",
-      description: "",
-    });
   };
 
   const alertCancel = () => {

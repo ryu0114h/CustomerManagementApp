@@ -27,10 +27,6 @@ const AddPage: React.FC<Props> = (props) => {
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
     dispatch(addCustomer(data));
-    notification["success"]({
-      message: "保存しました。",
-      description: "",
-    });
     console.log(data);
   };
 
@@ -148,7 +144,7 @@ const AddPage: React.FC<Props> = (props) => {
             className="ant-btn ant-btn-primary"
             type="submit"
             style={styles.button}>
-            保存
+            追加
           </button>
         </div>
       </form>
