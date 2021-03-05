@@ -18,11 +18,23 @@ export const addCustomer = (
   undefined,
   CallHistoryMethodAction | CustomersActionTypes
 > => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const user = getState().user;
+
     axios
-      .post("http://localhost:3100/api/v1/customers", {
-        customer,
-      })
+      .post(
+        "http://localhost:3100/api/v1/customers",
+        {
+          customer,
+        },
+        {
+          headers: {
+            client: user.client,
+            uid: user.uid,
+            "access-token": user.accessToken,
+          },
+        }
+      )
       .then((res) => {
         dispatch(fetchCustomers());
         notification["success"]({
@@ -51,13 +63,20 @@ export const deleteCustomer = (
   CallHistoryMethodAction | CustomersActionTypes
 > => {
   return (dispatch, getState) => {
+    const user = getState().user;
     const customers: CustomersType = getState().customers.filter(
       (customer) => customer.id !== id
     );
     const router = getState().router;
 
     axios
-      .delete(`http://localhost:3100/api/v1/customers/${id}`)
+      .delete(`http://localhost:3100/api/v1/customers/${id}`, {
+        headers: {
+          client: user.client,
+          uid: user.uid,
+          "access-token": user.accessToken,
+        },
+      })
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
         if (router.location.pathname !== "/") {
@@ -88,10 +107,22 @@ export const updateCustomer = (
   CallHistoryMethodAction | CustomersActionTypes
 > => {
   return (dispatch, getState) => {
+    const user = getState().user;
+
     axios
-      .patch(`http://localhost:3100/api/v1/customers/${customer.id}`, {
-        customer,
-      })
+      .patch(
+        `http://localhost:3100/api/v1/customers/${customer.id}`,
+        {
+          customer,
+        },
+        {
+          headers: {
+            client: user.client,
+            uid: user.uid,
+            "access-token": user.accessToken,
+          },
+        }
+      )
       .then((res) => {
         const customers: CustomersType = getState().customers;
         dispatch(
@@ -122,9 +153,17 @@ export const fetchCustomers = (): ThunkAction<
   undefined,
   CustomersActionTypes
 > => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const user = getState().user;
+
     axios
-      .get("http://localhost:3100/api/v1/customers")
+      .get("http://localhost:3100/api/v1/customers", {
+        headers: {
+          client: user.client,
+          uid: user.uid,
+          "access-token": user.accessToken,
+        },
+      })
       .then((res) => {
         dispatch(fetchCustomersAction(res.data.data));
         console.log(res.data);
