@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Popconfirm, Table, Tag, notification, Breadcrumb, Button } from "antd";
+import { Popconfirm, Table, notification, Breadcrumb, Button } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../reducks/store/store";
 import { deleteCustomer } from "../reducks/customers/operations";
@@ -52,24 +52,6 @@ const HomePage: React.FC = () => {
             sorter={(a: CustomerType, b: CustomerType) => a.age - b.age}
           />
           <Column title="住所" dataIndex="address" key="address" />
-          <Column
-            title="タグ"
-            dataIndex="tags"
-            key="tags"
-            render={(tags: string[]) => (
-              <>
-                {tags &&
-                  Object.keys(tags).map(
-                    (key) =>
-                      tags[key] && (
-                        <Tag color="blue" key={key}>
-                          {key}
-                        </Tag>
-                      )
-                  )}
-              </>
-            )}
-          />
           <Column
             title=""
             dataIndex="id"

@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Breadcrumb, Card, notification, Popconfirm, Tag } from "antd";
+import { Breadcrumb, Card, notification, Popconfirm } from "antd";
 import { deleteCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
@@ -35,10 +35,9 @@ const DetailPage: React.FC<Props> = (props) => {
 
   return (
     <>
-      <BreadcrumbList />
-
-      <div>
-        {customer && (
+      {customer && (
+        <>
+          <BreadcrumbList />
           <Card
             title={`${customer.lastName} ${customer.firstName} さんの情報`}
             extra={
@@ -78,29 +77,14 @@ const DetailPage: React.FC<Props> = (props) => {
             <p style={styles.p}>
               年齢 <span style={styles.value}>{customer.age}</span>
             </p>
-            <p style={styles.p}>
-              タグ{" "}
-              <span style={styles.value}>
-                {customer.tags &&
-                  Object.keys(customer.tags).map(
-                    (key) =>
-                      customer.tags &&
-                      customer.tags[key] && (
-                        <Tag color="blue" key={key} style={styles.tag}>
-                          {key}
-                        </Tag>
-                      )
-                  )}
-              </span>
-            </p>
             {customer.memo && (
               <p style={styles.p}>
                 メモ <span style={styles.value}>{customer.memo}</span>
               </p>
             )}
           </Card>
-        )}
-      </div>
+        </>
+      )}
     </>
   );
 };

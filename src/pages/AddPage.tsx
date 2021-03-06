@@ -3,14 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { Breadcrumb, notification } from "antd";
-import {
-  TextField,
-  FormLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-} from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { addCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 
@@ -99,38 +92,6 @@ const AddPage: React.FC<Props> = (props) => {
             inputRef={register()}
           />
         </div>
-        <FormControl
-          component="fieldset"
-          style={{ marginTop: 40, display: "block" }}>
-          <FormLabel component="legend">タグ</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              inputRef={register()}
-              control={<Checkbox name="tags.developer" />}
-              label="developer"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={<Checkbox name="tags.teacher" />}
-              label="teacher"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={<Checkbox name="tags.nice" />}
-              label="nice"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={<Checkbox name="tags.loser" />}
-              label="loser"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={<Checkbox name="tags.cool" />}
-              label="cool"
-            />
-          </FormGroup>
-        </FormControl>
         <div style={styles.buttonGroup}>
           <button
             className="ant-btn"

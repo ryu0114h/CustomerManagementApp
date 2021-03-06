@@ -33,7 +33,7 @@ const persistedReducer = persistReducer(
 export type RootState = {
   user: UserType;
   customers: CustomersType;
-  router: RouteComponentProps;
+  router?: RouteComponentProps;
 };
 
 export const configureStore = createStore(

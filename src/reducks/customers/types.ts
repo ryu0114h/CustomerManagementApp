@@ -1,21 +1,12 @@
 import { Action } from "redux";
 import { actionTypes } from "./actionTypes";
 
-export type TagsType = {
-  cool: boolean;
-  developer: boolean;
-  loser: boolean;
-  nice: boolean;
-  teacher: boolean;
-};
-
 export type CustomerType = {
   id: number;
   firstName: string;
   lastName: string;
   age: number;
   address: string;
-  tags?: TagsType;
   memo?: string;
 };
 

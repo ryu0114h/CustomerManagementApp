@@ -3,14 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { Breadcrumb, notification } from "antd";
-import {
-  TextField,
-  FormLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-} from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { updateCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
@@ -50,19 +43,6 @@ const EditPage: React.FC<Props> = (props) => {
       description: "",
     });
     console.log(data);
-  };
-
-  const [tags, setTags] = React.useState(customer?.tags);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!tags) {
-      return;
-    }
-
-    setTags({
-      ...tags,
-      [event.target.name.split("tags.")[1]]: event.target.checked,
-    });
   };
 
   return (
@@ -127,68 +107,6 @@ const EditPage: React.FC<Props> = (props) => {
             inputRef={register()}
           />
         </div>
-        <FormControl
-          component="fieldset"
-          style={{ marginTop: 40, display: "block" }}>
-          <FormLabel component="legend">タグ</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              inputRef={register()}
-              control={
-                <Checkbox
-                  checked={tags?.developer}
-                  onChange={handleChange}
-                  name="tags.developer"
-                />
-              }
-              label="developer"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={
-                <Checkbox
-                  checked={tags?.teacher}
-                  onChange={handleChange}
-                  name="tags.teacher"
-                />
-              }
-              label="teacher"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={
-                <Checkbox
-                  checked={tags?.nice}
-                  onChange={handleChange}
-                  name="tags.nice"
-                />
-              }
-              label="nice"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={
-                <Checkbox
-                  checked={tags?.loser}
-                  onChange={handleChange}
-                  name="tags.loser"
-                />
-              }
-              label="loser"
-            />
-            <FormControlLabel
-              inputRef={register()}
-              control={
-                <Checkbox
-                  checked={tags?.cool}
-                  onChange={handleChange}
-                  name="tags.cool"
-                />
-              }
-              label="cool"
-            />
-          </FormGroup>
-        </FormControl>
         <div style={styles.buttonGroup}>
           <button
             className="ant-btn"
