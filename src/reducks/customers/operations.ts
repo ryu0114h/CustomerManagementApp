@@ -2,6 +2,7 @@ import { notification } from "antd";
 import axios from "axios";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
+import { addCustomersApi, fetchCustomersApi } from "../../api/customersApi";
 import { RootState } from "../store/store";
 import {
   deleteCustomerAction,
@@ -18,23 +19,8 @@ export const addCustomer = (
   undefined,
   CallHistoryMethodAction | CustomersActionTypes
 > => {
-  return (dispatch, getState) => {
-    const user = getState().user;
-
-    axios
-      .post(
-        "http://localhost:3100/api/v1/customers",
-        {
-          customer,
-        },
-        {
-          headers: {
-            client: user.client,
-            uid: user.uid,
-            "access-token": user.accessToken,
-          },
-        }
-      )
+  return (dispatch) => {
+    addCustomersApi(customer)
       .then((res) => {
         dispatch(fetchCustomers());
         notification["success"]({
@@ -153,20 +139,10 @@ export const fetchCustomers = (): ThunkAction<
   undefined,
   CustomersActionTypes
 > => {
-  return (dispatch, getState) => {
-    const user = getState().user;
-
-    axios
-      .get("http://localhost:3100/api/v1/customers", {
-        headers: {
-          client: user.client,
-          uid: user.uid,
-          "access-token": user.accessToken,
-        },
-      })
+  return async (dispatch) => {
+    fetchCustomersApi()
       .then((res) => {
-        dispatch(fetchCustomersAction(res.data.data));
-        console.log(res.data);
+        dispatch(fetchCustomersAction(res.data));
       })
       .catch((err) => console.log(err.message));
   };

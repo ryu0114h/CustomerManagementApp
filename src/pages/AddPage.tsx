@@ -27,7 +27,6 @@ const AddPage: React.FC<Props> = (props) => {
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
     dispatch(addCustomer(data));
-    console.log(data);
   };
 
   const onError: SubmitErrorHandler<CustomerType> = (data) => {
