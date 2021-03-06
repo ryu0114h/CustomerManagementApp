@@ -1,11 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 
+type Method = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
+
 const apiClient = ({
   method,
   uri,
   params,
 }: {
-  method: string;
+  method: Method;
   uri: string;
   params: Record<string, unknown>;
 }): Promise<AxiosResponse> => {

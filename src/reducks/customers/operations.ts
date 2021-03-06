@@ -1,8 +1,12 @@
 import { notification } from "antd";
-import axios from "axios";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
-import { addCustomersApi, fetchCustomersApi } from "../../api/customersApi";
+import {
+  addCustomerApi,
+  deleteCustomerApi,
+  fetchCustomersApi,
+  updateCustomerApi,
+} from "../../api/customersApi";
 import { RootState } from "../store/store";
 import {
   deleteCustomerAction,
@@ -20,7 +24,7 @@ export const addCustomer = (
   CallHistoryMethodAction | CustomersActionTypes
 > => {
   return (dispatch) => {
-    addCustomersApi(customer)
+    addCustomerApi(customer)
       .then((res) => {
         dispatch(fetchCustomers());
         notification["success"]({
@@ -49,20 +53,12 @@ export const deleteCustomer = (
   CallHistoryMethodAction | CustomersActionTypes
 > => {
   return (dispatch, getState) => {
-    const user = getState().user;
     const customers: CustomersType = getState().customers.filter(
       (customer) => customer.id !== id
     );
     const router = getState().router;
 
-    axios
-      .delete(`http://localhost:3100/api/v1/customers/${id}`, {
-        headers: {
-          client: user.client,
-          uid: user.uid,
-          "access-token": user.accessToken,
-        },
-      })
+    deleteCustomerApi(id)
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
         if (router.location.pathname !== "/") {
@@ -93,22 +89,7 @@ export const updateCustomer = (
   CallHistoryMethodAction | CustomersActionTypes
 > => {
   return (dispatch, getState) => {
-    const user = getState().user;
-
-    axios
-      .patch(
-        `http://localhost:3100/api/v1/customers/${customer.id}`,
-        {
-          customer,
-        },
-        {
-          headers: {
-            client: user.client,
-            uid: user.uid,
-            "access-token": user.accessToken,
-          },
-        }
-      )
+    updateCustomerApi(customer)
       .then((res) => {
         const customers: CustomersType = getState().customers;
         dispatch(
