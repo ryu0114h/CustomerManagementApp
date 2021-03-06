@@ -23,10 +23,6 @@ const DetailPage: React.FC<Props> = (props) => {
   const alertConfirm = () => {
     if (customer) {
       dispatch(deleteCustomer(customer.id));
-      notification["success"]({
-        message: "削除しました。",
-        description: "",
-      });
     }
   };
 

@@ -6,6 +6,7 @@
         "antd",
         "fname",
         "lname",
+        "persistor",
         "reducks",
         "signin",
         "signup"

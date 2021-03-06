@@ -1,6 +1,12 @@
-import axios from "axios";
+import { notification } from "antd";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
+import {
+  addCustomerApi,
+  deleteCustomerApi,
+  fetchCustomersApi,
+  updateCustomerApi,
+} from "../../api/customersApi";
 import { RootState } from "../store/store";
 import {
   deleteCustomerAction,
@@ -18,16 +24,21 @@ export const addCustomer = (
   CallHistoryMethodAction | CustomersActionTypes
 > => {
   return (dispatch) => {
-    axios
-      .post("http://localhost:3100/api/v1/customers", {
-        customer,
-      })
+    addCustomerApi(customer)
       .then((res) => {
         dispatch(fetchCustomers());
+        notification["success"]({
+          message: "追加しました。",
+          description: "",
+        });
         dispatch(push("/"));
         console.log(res.data);
       })
       .catch((err) => {
+        notification["error"]({
+          message: "追加できませんでした。",
+          description: "",
+        });
         console.log(err.message);
       });
   };
@@ -47,27 +58,38 @@ export const deleteCustomer = (
     );
     const router = getState().router;
 
-    axios
-      .delete(`http://localhost:3100/api/v1/customers/${id}`)
+    deleteCustomerApi(id)
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
         if (router.location.pathname !== "/") {
           dispatch(push("/"));
         }
+        notification["success"]({
+          message: "削除しました。",
+          description: "",
+        });
         console.log(res.data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        notification["error"]({
+          message: "削除できませんでした。",
+          description: "",
+        });
+        console.log(err.message);
+      });
   };
 };
 
 export const updateCustomer = (
   customer: CustomerType
-): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
+): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CallHistoryMethodAction | CustomersActionTypes
+> => {
   return (dispatch, getState) => {
-    axios
-      .patch(`http://localhost:3100/api/v1/customers/${customer.id}`, {
-        customer,
-      })
+    updateCustomerApi(customer)
       .then((res) => {
         const customers: CustomersType = getState().customers;
         dispatch(
@@ -75,9 +97,20 @@ export const updateCustomer = (
             customers.map((item) => (item.id === customer.id ? customer : item))
           )
         );
+        notification["success"]({
+          message: "保存しました。",
+          description: "",
+        });
+        dispatch(push(`/${customer.id}`));
         console.log(res.data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        notification["error"]({
+          message: "保存できませんでした。",
+          description: "",
+        });
+        console.log(err.message);
+      });
   };
 };
 
@@ -87,12 +120,10 @@ export const fetchCustomers = (): ThunkAction<
   undefined,
   CustomersActionTypes
 > => {
-  return (dispatch) => {
-    axios
-      .get("http://localhost:3100/api/v1/customers")
+  return async (dispatch) => {
+    fetchCustomersApi()
       .then((res) => {
-        dispatch(fetchCustomersAction(res.data.data));
-        console.log(res.data);
+        dispatch(fetchCustomersAction(res.data));
       })
       .catch((err) => console.log(err.message));
   };
