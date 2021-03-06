@@ -9,7 +9,7 @@ const apiClient = ({
 }: {
   method: Method;
   uri: string;
-  params: Record<string, unknown>;
+  params?: Record<string, unknown>;
 }): Promise<AxiosResponse> => {
   const root = JSON.parse(localStorage.getItem("persist:root") as string);
   const user = JSON.parse(root.user);

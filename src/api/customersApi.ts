@@ -23,7 +23,6 @@ export const deleteCustomerApi = async (
   const res = await apiClient({
     method: "DELETE",
     uri: URI,
-    params: {},
   });
 
   return res.data;
@@ -49,7 +48,6 @@ export const fetchCustomersApi = async (): Promise<{ data: CustomersType }> => {
   const res = await apiClient({
     method: "GET",
     uri: URI,
-    params: {},
   });
 
   return res.data;

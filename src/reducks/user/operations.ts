@@ -1,7 +1,11 @@
 import { notification } from "antd";
-import axios from "axios";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
+import {
+  signinUserApi,
+  signoutUserApi,
+  signupUserApi,
+} from "../../api/userApi";
 import { RootState } from "../store/store";
 import { signinUserAction, signoutUserAction } from "./actions";
 import { InputFormUserType, UserActionTypes } from "./types";
@@ -16,11 +20,7 @@ export const signinUser = ({
   CallHistoryMethodAction | UserActionTypes
 > => {
   return (dispatch) => {
-    axios
-      .post("http://localhost:3100/api/v1/auth/sign_in", {
-        email,
-        password,
-      })
+    signinUserApi({ email, password })
       .then((res) => {
         dispatch(signinUserAction(res.headers));
         dispatch(push("/"));
@@ -46,17 +46,8 @@ export const signoutUser = (): ThunkAction<
   undefined,
   UserActionTypes
 > => {
-  return (dispatch, getState) => {
-    const user = getState().user;
-
-    axios
-      .delete("http://localhost:3100/api/v1/auth/sign_out", {
-        headers: {
-          client: user.client,
-          uid: user.uid,
-          "access-token": user.accessToken,
-        },
-      })
+  return (dispatch) => {
+    signoutUserApi()
       .then((res) => {
         dispatch(signoutUserAction());
         notification["success"]({
@@ -82,16 +73,13 @@ export const signupUser = ({
   void,
   RootState,
   undefined,
-  UserActionTypes
+  CallHistoryMethodAction | UserActionTypes
 > => {
   return (dispatch) => {
-    axios
-      .post("http://localhost:3100/api/v1/auth", {
-        email,
-        password,
-      })
+    signupUserApi({ email, password })
       .then((res) => {
         dispatch(signinUserAction(res.headers));
+        dispatch(push("/"));
         notification["success"]({
           message: "ユーザー登録しました。",
           description: "",
