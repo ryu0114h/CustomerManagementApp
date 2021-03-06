@@ -61,7 +61,7 @@ export const deleteCustomer = (
     deleteCustomerApi(id)
       .then((res) => {
         dispatch(deleteCustomerAction(customers));
-        if (router.location.pathname !== "/") {
+        if (router?.location.pathname !== "/") {
           dispatch(push("/"));
         }
         notification["success"]({
