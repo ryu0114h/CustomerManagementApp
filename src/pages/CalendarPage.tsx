@@ -47,7 +47,7 @@ const CalendarPage: React.FC = () => {
         title: data.name,
         allDay: false,
         start: new Date(`${data.date} ${data.startTime}`),
-        end: new Date(`${data.date} ${data.startTime}`),
+        end: new Date(`${data.date} ${data.endTime}`),
       },
     ]);
     setIsModalVisible(false);
