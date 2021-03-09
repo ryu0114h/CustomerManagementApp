@@ -9,6 +9,8 @@ import { userReducer } from "../user/reducer";
 import { UserType } from "../user/types";
 import { customersReducer } from "../customers/reducer";
 import { CustomersType } from "../customers/types";
+import { reservationsReducer } from "../reservations/reducer";
+import { ReservationsType } from "../reservations/types";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +22,7 @@ const rootReducer = (history: History) =>
   combineReducers({
     user: userReducer,
     customers: customersReducer,
+    reservations: reservationsReducer,
     router: connectRouter(history),
   });
 
@@ -33,6 +36,7 @@ const persistedReducer = persistReducer(
 export type RootState = {
   user: UserType;
   customers: CustomersType;
+  reservations: ReservationsType;
   router?: RouteComponentProps;
 };
 

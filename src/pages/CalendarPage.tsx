@@ -1,4 +1,5 @@
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -6,28 +7,48 @@ import moment from "moment";
 import { Button, Modal } from "antd";
 import TextField from "@material-ui/core/TextField";
 
+import { RootState } from "../reducks/store/store";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
+import { fetchReservations } from "../reducks/reservations/operations";
 
 const CalendarPage: React.FC = () => {
+  const reservations = useSelector((state: RootState) => state.reservations);
+  const dispatch = useDispatch();
+
   const { register, handleSubmit, errors } = useForm();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [eventList, setEventList] = useState([
-    {
-      title: "All Day Event very long title",
-      allDay: false,
-      start: new Date("2021-03-01 9:00"),
-      end: new Date("2021-03-01 13:00"),
-    },
-    {
-      title: "Long Event",
-      allDay: false,
-      start: new Date("2021-03-07 15:00"),
-      end: new Date("2021-03-07 17:00"),
-    },
-  ]);
+  useEffect(() => {
+    dispatch(fetchReservations());
+  }, []);
+
+  useEffect(() => {
+    setEventList(
+      reservations.map((reservation) => ({
+        id: reservation.id,
+        title: reservation.name,
+        allDay: reservation.all_day,
+        start: reservation.start_datetime,
+        end: reservation.end_datetime,
+      }))
+    );
+  }, [reservations]);
+
+  type EventList = {
+    id?: number;
+    user_id?: number;
+    customer_id?: number;
+    created_at?: Date;
+    updated_at?: Date;
+    title?: string;
+    allDay?: boolean;
+    start?: Date;
+    end?: Date;
+  }[];
+
+  const [eventList, setEventList] = useState<EventList>([]);
   const localizer = momentLocalizer(moment);
   const formats = {
     dateFormat: "D",

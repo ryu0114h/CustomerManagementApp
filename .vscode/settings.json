@@ -4,6 +4,7 @@
         "Popconfirm",
         "SIGNOUT",
         "antd",
+        "datetime",
         "fname",
         "lname",
         "persistor",

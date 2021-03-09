@@ -17,6 +17,7 @@ const initialState: RootState = {
       memo: "memo",
     },
   ],
+  reservations: [],
 };
 
 export default initialState;
