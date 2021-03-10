@@ -3,11 +3,16 @@ import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
 import {
   addReservationApi,
+  deleteReservationApi,
   fetchReservationsApi,
-} from "../../api/reservationApi";
+} from "../../api/reservationsApi";
 import { RootState } from "../store/store";
-import { fetchReservationsAction } from "./actions";
-import { ReservationsActionTypes, ReservationType } from "./types";
+import { deleteReservationAction, fetchReservationsAction } from "./actions";
+import {
+  ReservationsActionTypes,
+  ReservationsType,
+  ReservationType,
+} from "./types";
 
 export const addReservation = (
   reservation: ReservationType
@@ -31,6 +36,38 @@ export const addReservation = (
       .catch((err) => {
         notification["error"]({
           message: "追加できませんでした。",
+          description: "",
+        });
+        console.log(err.message);
+      });
+  };
+};
+
+export const deleteReservation = (
+  id: number
+): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CallHistoryMethodAction | ReservationsActionTypes
+> => {
+  return (dispatch, getState) => {
+    const reservations: ReservationsType = getState().reservations.filter(
+      (reservation) => reservation.id !== id
+    );
+
+    deleteReservationApi(id)
+      .then((res) => {
+        dispatch(deleteReservationAction(reservations));
+        notification["success"]({
+          message: "削除しました。",
+          description: "",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notification["error"]({
+          message: "削除できませんでした。",
           description: "",
         });
         console.log(err.message);

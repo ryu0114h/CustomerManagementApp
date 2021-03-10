@@ -18,6 +18,21 @@ export const addReservationApi = async (
   return res.data;
 };
 
+export const deleteReservationApi = async (
+  id: number
+): Promise<{
+  data: ReservationType;
+}> => {
+  const URI = `/reservations/${id}`;
+
+  const res = await apiClient({
+    method: "DELETE",
+    uri: URI,
+  });
+
+  return res.data;
+};
+
 export const fetchReservationsApi = async (): Promise<{
   data: ReservationsType;
 }> => {
