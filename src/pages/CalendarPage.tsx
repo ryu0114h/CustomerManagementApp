@@ -47,10 +47,6 @@ const CalendarPage: React.FC = () => {
     dayHeaderFormat: "M月D日(ddd)",
   };
 
-  const openEditModal = (event: Event) => {
-    setSelectedEvent(event);
-    setIsEditModalVisible(true);
-  };
   const closeEditModal = () => {
     setSelectedEvent(null);
     setIsEditModalVisible(false);
@@ -88,7 +84,10 @@ const CalendarPage: React.FC = () => {
         formats={formats}
         style={{ height: 600 }}
         views={["month", "week", "day"]}
-        onSelectEvent={openEditModal}
+        onSelectEvent={(event: Event) => {
+          setSelectedEvent(event);
+          setIsEditModalVisible(true);
+        }}
       />
       <div style={styles.createButtonContainer}>
         <Button
