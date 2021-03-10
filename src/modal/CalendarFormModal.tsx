@@ -184,14 +184,4 @@ const styles: { [key: string]: CSSProperties } = {
     margin: 20,
   },
   errors: { color: "red", marginLeft: 40 },
-  createButtonContainer: {
-    marginTop: 100,
-    display: "flex",
-    justifyContent: "center",
-  },
-  createButton: {
-    width: 300,
-    padding: 5,
-    borderRadius: 10,
-  },
 };

@@ -97,15 +97,6 @@ const CalendarPage: React.FC = () => {
 export default CalendarPage;
 
 const styles: { [key: string]: CSSProperties } = {
-  form: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-  textField: {
-    margin: 20,
-  },
-  errors: { color: "red", marginLeft: 40 },
   createButtonContainer: {
     marginTop: 100,
     display: "flex",
