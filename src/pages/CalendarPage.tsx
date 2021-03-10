@@ -3,38 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-
 import { Button, Modal } from "antd";
 import TextField from "@material-ui/core/TextField";
 
-import { RootState } from "../reducks/store/store";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
-import { fetchReservations } from "../reducks/reservations/operations";
+
+import { RootState } from "../reducks/store/store";
+import {
+  addReservation,
+  fetchReservations,
+} from "../reducks/reservations/operations";
 
 const CalendarPage: React.FC = () => {
   const reservations = useSelector((state: RootState) => state.reservations);
   const dispatch = useDispatch();
-
   const { register, handleSubmit, errors } = useForm();
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  useEffect(() => {
-    dispatch(fetchReservations());
-  }, []);
-
-  useEffect(() => {
-    setEventList(
-      reservations.map((reservation) => ({
-        id: reservation.id,
-        title: reservation.name,
-        allDay: reservation.all_day,
-        start: reservation.start_datetime,
-        end: reservation.end_datetime,
-      }))
-    );
-  }, [reservations]);
 
   type EventList = {
     id?: number;
@@ -48,6 +32,7 @@ const CalendarPage: React.FC = () => {
     end?: Date;
   }[];
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [eventList, setEventList] = useState<EventList>([]);
   const localizer = momentLocalizer(moment);
   const formats = {
@@ -58,25 +43,40 @@ const CalendarPage: React.FC = () => {
   };
 
   const showModal = () => setIsModalVisible(true);
-
   const handleCancel = () => setIsModalVisible(false);
 
   const onSubmit = (data) => {
-    setEventList([
-      ...eventList,
-      {
-        title: data.name,
-        allDay: false,
-        start: new Date(`${data.date} ${data.startTime}`),
-        end: new Date(`${data.date} ${data.endTime}`),
-      },
-    ]);
+    dispatch(
+      addReservation({
+        name: data.name,
+        all_day: false,
+        start_datetime: new Date(`${data.date} ${data.startTime}`),
+        end_datetime: new Date(`${data.date} ${data.endTime}`),
+      })
+    );
     setIsModalVisible(false);
   };
 
   const onError = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    dispatch(fetchReservations());
+  }, []);
+
+  useEffect(() => {
+    setEventList(
+      reservations.map((reservation) => ({
+        id: reservation.id,
+        title: reservation.name,
+        allDay: reservation.all_day,
+        start:
+          reservation.start_datetime && new Date(reservation.start_datetime),
+        end: reservation.end_datetime && new Date(reservation.end_datetime),
+      }))
+    );
+  }, [reservations]);
 
   return (
     <>

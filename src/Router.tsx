@@ -20,7 +20,7 @@ const Router: React.FC = () => {
 
         <Auth>
           <Route exact path="/" component={HomePage} />
-          <Route path="/reservation" component={CalendarPage} />
+          <Route path="/reservations" component={CalendarPage} />
           <Route path="/add" component={AddPage} />
           <Route exact path="/:id" component={DetailPage} />
           <Route path="/:id/edit" component={EditPage} />
