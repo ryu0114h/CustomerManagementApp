@@ -45,3 +45,16 @@ export const fetchReservationsApi = async (): Promise<{
 
   return res.data;
 };
+
+export const updateReservationApi = async (
+  reservation: ReservationType
+): Promise<{ data: ReservationType }> => {
+  const URI = `/reservations/${reservation.id}`;
+
+  const res = await apiClient({
+    method: "PATCH",
+    uri: URI,
+    params: reservation,
+  });
+  return res.data;
+};

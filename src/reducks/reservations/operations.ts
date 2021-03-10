@@ -5,9 +5,14 @@ import {
   addReservationApi,
   deleteReservationApi,
   fetchReservationsApi,
+  updateReservationApi,
 } from "../../api/reservationsApi";
 import { RootState } from "../store/store";
-import { deleteReservationAction, fetchReservationsAction } from "./actions";
+import {
+  deleteReservationAction,
+  fetchReservationsAction,
+  updateReservationAction,
+} from "./actions";
 import {
   ReservationsActionTypes,
   ReservationsType,
@@ -87,5 +92,40 @@ export const fetchReservations = (): ThunkAction<
         dispatch(fetchReservationsAction(res.data));
       })
       .catch((err) => console.log(err.message));
+  };
+};
+
+export const updateReservation = (
+  reservation: ReservationType
+): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CallHistoryMethodAction | ReservationsActionTypes
+> => {
+  return (dispatch, getState) => {
+    updateReservationApi(reservation)
+      .then((res) => {
+        const reservations: ReservationsType = getState().reservations;
+        dispatch(
+          updateReservationAction(
+            reservations.map((item) =>
+              item.id === reservation.id ? reservation : item
+            )
+          )
+        );
+        notification["success"]({
+          message: "保存しました。",
+          description: "",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notification["error"]({
+          message: "保存できませんでした。",
+          description: "",
+        });
+        console.log(err.message);
+      });
   };
 };

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import { Button, Modal } from "antd";
+import { Button, Modal, Popconfirm } from "antd";
 import TextField from "@material-ui/core/TextField";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -14,6 +14,7 @@ import {
   addReservation,
   deleteReservation,
   fetchReservations,
+  updateReservation,
 } from "../reducks/reservations/operations";
 
 type Event = {
@@ -34,10 +35,7 @@ const CalendarPage: React.FC = () => {
   const reservations = useSelector((state: RootState) => state.reservations);
   const dispatch = useDispatch();
 
-  const [isAdditionalModalVisible, setIsAdditionalModalVisible] = useState(
-    false
-  );
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [eventList, setEventList] = useState<EventList>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
@@ -49,15 +47,13 @@ const CalendarPage: React.FC = () => {
     dayHeaderFormat: "M月D日(ddd)",
   };
 
-  const openAdditionalModal = () => setIsAdditionalModalVisible(true);
-  const closeAdditionalModal = () => setIsAdditionalModalVisible(false);
-  const openDeleteModal = (event: Event) => {
+  const openEditModal = (event: Event) => {
     setSelectedEvent(event);
-    setIsDeleteModalVisible(true);
+    setIsEditModalVisible(true);
   };
-  const closeDeleteModal = () => {
+  const closeEditModal = () => {
     setSelectedEvent(null);
-    setIsDeleteModalVisible(false);
+    setIsEditModalVisible(false);
   };
 
   useEffect(() => {
@@ -68,6 +64,8 @@ const CalendarPage: React.FC = () => {
     setEventList(
       reservations.map((reservation) => ({
         id: reservation.id,
+        user_id: reservation.user_id,
+        customer_id: reservation.customer_id,
         title: reservation.name,
         allDay: reservation.all_day,
         start:
@@ -79,13 +77,9 @@ const CalendarPage: React.FC = () => {
 
   return (
     <>
-      <AdditionalModal
-        isAdditionalModalVisible={isAdditionalModalVisible}
-        closeAdditionalModal={closeAdditionalModal}
-      />
-      <DeleteModal
-        isDeleteModalVisible={isDeleteModalVisible}
-        closeDeleteModal={closeDeleteModal}
+      <EditModal
+        isEditModalVisible={isEditModalVisible}
+        closeEditModal={closeEditModal}
         selectedEvent={selectedEvent}
       />
       <Calendar
@@ -94,12 +88,12 @@ const CalendarPage: React.FC = () => {
         formats={formats}
         style={{ height: 600 }}
         views={["month", "week", "day"]}
-        onSelectEvent={openDeleteModal}
+        onSelectEvent={openEditModal}
       />
       <div style={styles.createButtonContainer}>
         <Button
           type="primary"
-          onClick={openAdditionalModal}
+          onClick={() => setIsEditModalVisible(true)}
           style={styles.createButton}>
           追加
         </Button>
@@ -109,28 +103,58 @@ const CalendarPage: React.FC = () => {
 };
 export default CalendarPage;
 
-type AdditionalModalProps = {
-  isAdditionalModalVisible: boolean;
-  closeAdditionalModal: () => void;
+type EditModalProps = {
+  isEditModalVisible: boolean;
+  closeEditModal: () => void;
+  selectedEvent: Event | null;
 };
 
-const AdditionalModal: React.FC<AdditionalModalProps> = ({
-  isAdditionalModalVisible,
-  closeAdditionalModal,
+const EditModal: React.FC<EditModalProps> = ({
+  isEditModalVisible,
+  closeEditModal,
+  selectedEvent,
 }) => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset, setValue } = useForm();
+
+  useEffect(() => {
+    setValue("name", selectedEvent?.title, { shouldDirty: true });
+    setValue("date", moment(selectedEvent?.start).format("YYYY-MM-DD"), {
+      shouldDirty: true,
+    });
+    setValue("startTime", moment(selectedEvent?.start).format("HH:mm"), {
+      shouldDirty: true,
+    });
+    setValue("endTime", moment(selectedEvent?.end).format("HH:mm"), {
+      shouldDirty: true,
+    });
+  }, [selectedEvent]);
 
   const onSubmit = (data) => {
-    dispatch(
-      addReservation({
-        name: data.name,
-        all_day: false,
-        start_datetime: new Date(`${data.date} ${data.startTime}`),
-        end_datetime: new Date(`${data.date} ${data.endTime}`),
-      })
-    );
-    closeAdditionalModal();
+    if (selectedEvent) {
+      dispatch(
+        updateReservation({
+          id: selectedEvent?.id,
+          user_id: selectedEvent?.user_id,
+          customer_id: selectedEvent?.customer_id,
+          name: data.name,
+          all_day: false,
+          start_datetime: new Date(`${data.date} ${data.startTime}`),
+          end_datetime: new Date(`${data.date} ${data.endTime}`),
+        })
+      );
+    } else {
+      dispatch(
+        addReservation({
+          name: data.name,
+          all_day: false,
+          start_datetime: new Date(`${data.date} ${data.startTime}`),
+          end_datetime: new Date(`${data.date} ${data.endTime}`),
+        })
+      );
+    }
+    reset();
+    closeEditModal();
   };
 
   const onError = (data) => {
@@ -139,12 +163,29 @@ const AdditionalModal: React.FC<AdditionalModalProps> = ({
 
   return (
     <Modal
-      title="予約追加"
-      visible={isAdditionalModalVisible}
-      onCancel={closeAdditionalModal}
+      title={selectedEvent ? "予約編集" : "予約追加"}
+      visible={isEditModalVisible}
+      onCancel={() => {
+        closeEditModal();
+        reset();
+      }}
       footer={[
+        selectedEvent && (
+          <Popconfirm
+            key="delete"
+            title="削除してもよろしいですか？"
+            onConfirm={() => {
+              selectedEvent?.id &&
+                dispatch(deleteReservation(selectedEvent?.id));
+              closeEditModal();
+            }}
+            okText="Yes"
+            cancelText="No">
+            <Button type="default">削除</Button>
+          </Popconfirm>
+        ),
         <Button form="myForm" key="submit" htmlType="submit" type="primary">
-          Submit
+          保存
         </Button>,
       ]}>
       <form
@@ -204,34 +245,6 @@ const AdditionalModal: React.FC<AdditionalModalProps> = ({
           )}
         </div>
       </form>
-    </Modal>
-  );
-};
-
-type DeleteModalProps = {
-  isDeleteModalVisible: boolean;
-  closeDeleteModal: () => void;
-  selectedEvent: Event | null;
-};
-
-const DeleteModal: React.FC<DeleteModalProps> = ({
-  isDeleteModalVisible,
-  closeDeleteModal,
-  selectedEvent,
-}) => {
-  const dispatch = useDispatch();
-
-  return (
-    <Modal
-      title="予約削除"
-      visible={isDeleteModalVisible}
-      onOk={() => {
-        console.log(selectedEvent);
-        selectedEvent?.id && dispatch(deleteReservation(selectedEvent?.id));
-        closeDeleteModal();
-      }}
-      onCancel={closeDeleteModal}>
-      <p>削除しても宜しいですか?</p>
     </Modal>
   );
 };
