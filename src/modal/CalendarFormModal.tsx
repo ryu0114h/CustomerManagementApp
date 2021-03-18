@@ -1,9 +1,15 @@
 import React, { CSSProperties, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Controller, useForm } from "react-hook-form";
 import moment from "moment";
 import { Button, Modal, Popconfirm } from "antd";
-import TextField from "@material-ui/core/TextField";
+import {
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@material-ui/core";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
@@ -13,6 +19,7 @@ import {
   deleteReservation,
   updateReservation,
 } from "../reducks/reservations/operations";
+import { RootState } from "../reducks/store/store";
 
 type Event = {
   id?: number;
@@ -38,7 +45,15 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
   selectedEvent,
 }) => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, errors, reset, setValue } = useForm();
+  const { register, handleSubmit, errors, reset, setValue, control } = useForm({
+    defaultValues: {
+      name: "",
+      date: moment().format("YYYY-MM-DD"),
+      startTime: moment().format("HH:mm"),
+      endTime: moment().add(1, "hour").format("HH:mm"),
+    },
+  });
+  const customers = useSelector((state: RootState) => state.customers);
 
   useEffect(() => {
     setValue("name", selectedEvent?.title, { shouldDirty: true });
@@ -100,6 +115,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             onConfirm={() => {
               selectedEvent?.id &&
                 dispatch(deleteReservation(selectedEvent?.id));
+              reset();
               closeEditModal();
             }}
             okText="Yes"
@@ -115,19 +131,35 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
         id="myForm"
         onSubmit={handleSubmit(onSubmit, onError)}
         style={styles.form}>
-        <TextField
-          style={styles.textField}
-          label="名前"
-          name="name"
-          inputRef={register({ required: true })}
-        />
+        <FormControl style={styles.textField}>
+          <InputLabel id="customers-label">顧客</InputLabel>
+          <Controller
+            as={
+              <Select>
+                <MenuItem value="">選択してください</MenuItem>
+                {customers?.map((customer) => {
+                  return (
+                    <MenuItem
+                      key={customer.id}
+                      value={`${customer.lastName} ${customer.firstName}`}>
+                      {customer.lastName} {customer.firstName}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            }
+            control={control}
+            name="name"
+            rules={{ required: true }}
+            defaultValue={""}
+          />
+        </FormControl>
         {errors.name && <p style={styles.errors}>名前を入力してください</p>}
         <TextField
           style={styles.textField}
           name="date"
           label="日にち"
           type="date"
-          defaultValue={moment().format("YYYY-MM-DD")}
           InputLabelProps={{
             shrink: true,
           }}
@@ -140,7 +172,6 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             name="startTime"
             label="開始時刻"
             type="time"
-            defaultValue={moment().format("HH:mm")}
             InputLabelProps={{
               shrink: true,
             }}
@@ -154,7 +185,6 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             name="endTime"
             label="終了時刻"
             type="time"
-            defaultValue={moment().add(1, "hour").format("HH:mm")}
             InputLabelProps={{
               shrink: true,
             }}
