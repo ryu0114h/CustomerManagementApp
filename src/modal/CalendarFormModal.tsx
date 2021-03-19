@@ -82,8 +82,14 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
         })
       );
     } else {
+      const customer = customers.find(
+        (cus) =>
+          cus.lastName === data.name.split(" ")[0] &&
+          cus.firstName === data.name.split(" ")[1]
+      );
       dispatch(
         addReservation({
+          customer_id: customer?.id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),

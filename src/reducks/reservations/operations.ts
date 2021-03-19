@@ -36,6 +36,7 @@ export const addReservation = (
           description: "",
         });
         dispatch(push("/reservations"));
+        console.log(reservation);
         console.log(res.data);
       })
       .catch((err) => {
