@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.tsx",
   output: {
-    path: `${__dirname}/public`,
+    path: `${__dirname}/dist`,
     filename: "bundle.js",
   },
   module: {
@@ -26,7 +26,7 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, "public"),
+    contentBase: path.join(__dirname, "dist"),
     open: true,
     port: 3000,
     historyApiFallback: true,
