@@ -1,23 +1,17 @@
 import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Breadcrumb, Card, notification, Popconfirm } from "antd";
+import { Card, notification, Popconfirm } from "antd";
 import { deleteCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
 
-type Props = RouteComponentProps<
-  { id: string },
-  never,
-  { customer: CustomerType }
->;
+type Props = RouteComponentProps<{ id: string }, never, { customer: CustomerType }>;
 
 const DetailPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const customer = useSelector((state: RootState) =>
-    state.customers.find(
-      (customer) => customer.id === Number(props.match.params.id)
-    )
+    state.customers.find((customer) => customer.id === props.location.state.customer.id)
   );
 
   const alertConfirm = () => {
@@ -37,30 +31,7 @@ const DetailPage: React.FC<Props> = (props) => {
     <>
       {customer && (
         <>
-          <BreadcrumbList />
-          <Card
-            title={`${customer.lastName} ${customer.firstName} さんの情報`}
-            extra={
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Link
-                  to={{
-                    pathname: `/${customer.id}/edit`,
-                    state: { customer },
-                  }}
-                  style={{ margin: 10 }}>
-                  編集
-                </Link>
-                <Popconfirm
-                  title="削除してもよろしいですか？"
-                  onConfirm={alertConfirm}
-                  onCancel={alertCancel}
-                  okText="Yes"
-                  cancelText="No">
-                  <a style={{ margin: 10 }}>削除</a>
-                </Popconfirm>
-              </div>
-            }
-            style={styles.card}>
+          <Card title={`${customer.lastName} ${customer.firstName} さんの情報`} style={styles.card}>
             <p style={styles.p}>
               番号 <span style={styles.value}>{customer.id}</span>
             </p>
@@ -83,6 +54,28 @@ const DetailPage: React.FC<Props> = (props) => {
               </p>
             )}
           </Card>
+          <div style={styles.buttonGroup}>
+            <button className="ant-btn" type="button" style={styles.button} onClick={() => props.history.goBack()}>
+              戻る
+            </button>
+            <Link
+              className="ant-btn ant-btn-primary"
+              style={styles.button}
+              to={{
+                pathname: `/admin/customers_list/edit`,
+                state: { customer },
+              }}>
+              編集
+            </Link>
+          </div>
+          <Popconfirm
+            title="削除してもよろしいですか？"
+            onConfirm={alertConfirm}
+            onCancel={alertCancel}
+            okText="Yes"
+            cancelText="No">
+            <a style={styles.deleteButton}>削除する</a>
+          </Popconfirm>
         </>
       )}
     </>
@@ -91,24 +84,7 @@ const DetailPage: React.FC<Props> = (props) => {
 
 export default DetailPage;
 
-const BreadcrumbList: React.FC = () => {
-  return (
-    <Breadcrumb style={styles.breadcrumb}>
-      <Breadcrumb.Item>
-        <Link to="/" style={styles.breadcrumbItem}>
-          Home
-        </Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>
-        <span style={styles.breadcrumbItem}>詳細ページ</span>
-      </Breadcrumb.Item>
-    </Breadcrumb>
-  );
-};
-
 const styles: { [key: string]: CSSProperties } = {
-  breadcrumb: { marginTop: 20, marginLeft: 120, marginBottom: 20 },
-  breadcrumbItem: { fontSize: 16 },
   card: { width: 700, margin: "100px auto" },
   p: {
     fontSize: 20,
@@ -116,5 +92,29 @@ const styles: { [key: string]: CSSProperties } = {
     alignItems: "center",
   },
   value: { marginLeft: 40 },
-  tag: { fontSize: 20, padding: 5 },
+  buttonGroup: {
+    margin: "0px auto",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    marginTop: 30,
+    marginLeft: 30,
+    width: 200,
+    padding: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  deleteButton: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 200,
+    padding: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "red",
+  },
 };
