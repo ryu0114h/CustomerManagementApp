@@ -8,25 +8,12 @@ import {
   updateReservationApi,
 } from "../../api/reservationsApi";
 import { RootState } from "../store/store";
-import {
-  deleteReservationAction,
-  fetchReservationsAction,
-  updateReservationAction,
-} from "./actions";
-import {
-  ReservationsActionTypes,
-  ReservationsType,
-  ReservationType,
-} from "./types";
+import { deleteReservationAction, fetchReservationsAction, updateReservationAction } from "./actions";
+import { ReservationsActionTypes, ReservationsType, ReservationType } from "./types";
 
 export const addReservation = (
   reservation: ReservationType
-): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  CallHistoryMethodAction | ReservationsActionTypes
-> => {
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | ReservationsActionTypes> => {
   return (dispatch) => {
     addReservationApi(reservation)
       .then((res) => {
@@ -35,7 +22,7 @@ export const addReservation = (
           message: "追加しました。",
           description: "",
         });
-        dispatch(push("/reservations"));
+        dispatch(push("/admin/reservations"));
         console.log(reservation);
         console.log(res.data);
       })
@@ -51,16 +38,9 @@ export const addReservation = (
 
 export const deleteReservation = (
   id: number
-): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  CallHistoryMethodAction | ReservationsActionTypes
-> => {
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | ReservationsActionTypes> => {
   return (dispatch, getState) => {
-    const reservations: ReservationsType = getState().reservations.filter(
-      (reservation) => reservation.id !== id
-    );
+    const reservations: ReservationsType = getState().reservations.filter((reservation) => reservation.id !== id);
 
     deleteReservationApi(id)
       .then((res) => {
@@ -81,12 +61,7 @@ export const deleteReservation = (
   };
 };
 
-export const fetchReservations = (): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  ReservationsActionTypes
-> => {
+export const fetchReservations = (): ThunkAction<void, RootState, undefined, ReservationsActionTypes> => {
   return async (dispatch) => {
     fetchReservationsApi()
       .then((res) => {
@@ -98,22 +73,13 @@ export const fetchReservations = (): ThunkAction<
 
 export const updateReservation = (
   reservation: ReservationType
-): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  CallHistoryMethodAction | ReservationsActionTypes
-> => {
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | ReservationsActionTypes> => {
   return (dispatch, getState) => {
     updateReservationApi(reservation)
       .then((res) => {
         const reservations: ReservationsType = getState().reservations;
         dispatch(
-          updateReservationAction(
-            reservations.map((item) =>
-              item.id === reservation.id ? reservation : item
-            )
-          )
+          updateReservationAction(reservations.map((item) => (item.id === reservation.id ? reservation : item)))
         );
         notification["success"]({
           message: "保存しました。",
