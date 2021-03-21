@@ -23,17 +23,16 @@ export const signinUserApi = async ({
 };
 
 export const signoutUserApi = async (): Promise<{
-    data: UserType;
-    headers: Headers & UserType;
+  data: UserType;
+  headers: Headers & UserType;
 }> => {
-    const URI = "/auth/sign_out";
-    
-    const res = await apiClient({
-        method: "DELETE",
-        uri: URI,
-    });
-    
-    return res;
+  const URI = "/auth/sign_out";
+
+  const res = await apiClient({
+    method: "DELETE",
+    uri: URI,
+  });
+  return res;
 };
 
 export const signupUserApi = async ({
