@@ -1,4 +1,6 @@
-import { LibraryBooks, Person, LockOpen, GroupAdd } from "@material-ui/icons";
+import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { LibraryBooks, Person, LockOpen, GroupAdd, Dashboard } from "@material-ui/icons";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core";
 import CustomersListPage from "./pages/CustomersListPage";
@@ -8,9 +10,8 @@ import CustomerEditPage from "./pages/CustomerEditPage";
 import CalendarPage from "./pages/CalendarPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import { RouteComponentProps } from "react-router-dom";
+import UserProfile from "./pages/UserProfile/UserProfile";
 import { CustomerType } from "./reducks/customers/types";
-import React from "react";
 
 export type CustomersListPageRouteComponentProps = RouteComponentProps<
   { id: string },
@@ -25,6 +26,7 @@ export type RoutesType = {
     | "/customers_list/detail"
     | "/customers_list/edit"
     | "/reservations"
+    | "/profile"
     | "/signin"
     | "/signup";
   name: string;
@@ -39,7 +41,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list",
     name: "顧客リスト",
-    icon: Person,
+    icon: Dashboard,
     component: CustomersListPage,
     layout: "/admin",
     sidebar: true,
@@ -74,6 +76,15 @@ const routes: RoutesType = [
     name: "予約管理",
     icon: LibraryBooks,
     component: CalendarPage,
+    layout: "/admin",
+    sidebar: true,
+    isSignedIn: true,
+  },
+  {
+    path: "/profile",
+    name: "プロフィール",
+    icon: Person,
+    component: UserProfile,
     layout: "/admin",
     sidebar: true,
     isSignedIn: true,
