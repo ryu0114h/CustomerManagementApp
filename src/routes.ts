@@ -2,9 +2,9 @@ import { LibraryBooks, Person, LockOpen, GroupAdd } from "@material-ui/icons";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core";
 import CustomersListPage from "./pages/CustomersListPage";
-import AddPage from "./pages/AddPage";
-import DetailPage from "./pages/DetailPage";
-import EditPage from "./pages/EditPage";
+import CustomerAddPage from "./pages/CustomerAddPage";
+import CustomerDetailPage from "./pages/CustomerDetailPage";
+import CustomerEditPage from "./pages/CustomerEditPage";
 import CalendarPage from "./pages/CalendarPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -48,7 +48,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list/new",
     name: "顧客リスト",
-    component: AddPage,
+    component: CustomerAddPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
@@ -56,7 +56,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list/detail",
     name: "顧客リスト",
-    component: DetailPage,
+    component: CustomerDetailPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
@@ -64,7 +64,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list/edit",
     name: "顧客リスト",
-    component: EditPage,
+    component: CustomerEditPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
