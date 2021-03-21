@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Popconfirm, Table, notification, Button } from "antd";
 import "antd/dist/antd.css";
-import { RootState } from "../reducks/store/store";
-import { deleteCustomer } from "../reducks/customers/operations";
-import { CustomerType } from "../reducks/customers/types";
+import { RootState } from "../../reducks/store/store";
+import { deleteCustomer } from "../../reducks/customers/operations";
+import { CustomerType } from "../../reducks/customers/types";
 
 const { Column, ColumnGroup } = Table;
 

@@ -5,9 +5,9 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-import Copyright from "../components/Copyright";
-import { InputFormUserType } from "../reducks/user/types";
-import { signupUser } from "../reducks/user/operations";
+import Copyright from "../../components/Copyright";
+import { InputFormUserType } from "../../reducks/user/types";
+import { signupUser } from "../../reducks/user/operations";
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
@@ -104,7 +104,7 @@ export default SignUp;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(24),
+    marginTop: theme.spacing(10),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

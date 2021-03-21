@@ -7,9 +7,9 @@ import { Button } from "antd";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
 
-import { RootState } from "../reducks/store/store";
-import { fetchReservations } from "../reducks/reservations/operations";
-import CalendarFormModal from "../modal/CalendarFormModal";
+import { RootState } from "../../reducks/store/store";
+import { fetchReservations } from "../../reducks/reservations/operations";
+import CalendarFormModal from "../../modal/CalendarFormModal";
 
 type Event = {
   id?: number;
