@@ -1,5 +1,5 @@
 import { StyleRules, Theme } from "@material-ui/core";
-import { defaultFont, dangerColor, whiteColor } from "../../material-dashboard-react";
+import { defaultFont, dangerColor, whiteColor, infoColor } from "../../material-dashboard-react";
 
 import dropdownStyle from "../../material-dashboard-react/dropdownStyle";
 
@@ -27,6 +27,12 @@ const headerLinksStyle = (theme: Theme): StyleRules => ({
     ...defaultFont,
     fontSize: "14px",
     margin: "0px",
+    [theme.breakpoints.up("md")]: {
+      "&:hover": {
+        color: infoColor[0],
+        boxShadow: "none",
+      },
+    },
   },
   buttonLink: {
     [theme.breakpoints.down("sm")]: {
