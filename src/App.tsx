@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Header from "./components/Header";
 import { fetchCustomers } from "./reducks/customers/operations";
 import Router from "./Router";
 
@@ -12,12 +11,9 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <main>
-        <Router />
-      </main>
-    </>
+    <main>
+      <Router />
+    </main>
   );
 };
 
