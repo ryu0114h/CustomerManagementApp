@@ -1,11 +1,7 @@
 import { notification } from "antd";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
-import {
-  signinUserApi,
-  signoutUserApi,
-  signupUserApi,
-} from "../../api/userApi";
+import { signinUserApi, signoutUserApi, signupUserApi } from "../../api/userApi";
 import { RootState } from "../store/store";
 import { signinUserAction, signoutUserAction } from "./actions";
 import { InputFormUserType, UserActionTypes } from "./types";
@@ -13,12 +9,7 @@ import { InputFormUserType, UserActionTypes } from "./types";
 export const signinUser = ({
   email,
   password,
-}: InputFormUserType): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  CallHistoryMethodAction | UserActionTypes
-> => {
+}: InputFormUserType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UserActionTypes> => {
   return (dispatch) => {
     signinUserApi({ email, password })
       .then((res) => {
@@ -40,12 +31,7 @@ export const signinUser = ({
   };
 };
 
-export const signoutUser = (): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  UserActionTypes
-> => {
+export const signoutUser = (): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UserActionTypes> => {
   return (dispatch) => {
     signoutUserApi()
       .then((res) => {
@@ -54,6 +40,7 @@ export const signoutUser = (): ThunkAction<
           message: "ログアウトできました。",
           description: "",
         });
+        dispatch(push("/"));
         console.log(res.data);
       })
       .catch((err) => {
@@ -69,12 +56,7 @@ export const signoutUser = (): ThunkAction<
 export const signupUser = ({
   email,
   password,
-}: InputFormUserType): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  CallHistoryMethodAction | UserActionTypes
-> => {
+}: InputFormUserType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UserActionTypes> => {
   return (dispatch) => {
     signupUserApi({ email, password })
       .then((res) => {
