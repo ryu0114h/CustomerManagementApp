@@ -1,14 +1,12 @@
 import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, notification, Popconfirm } from "antd";
 import { deleteCustomer } from "../reducks/customers/operations";
-import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
+import { CustomersListPageRouteComponentProps } from "../routes";
 
-type Props = RouteComponentProps<{ id: string }, never, { customer: CustomerType }>;
-
-const DetailPage: React.FC<Props> = (props) => {
+const DetailPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
   const customer = useSelector((state: RootState) =>
     state.customers.find((customer) => customer.id === props.location.state.customer.id)

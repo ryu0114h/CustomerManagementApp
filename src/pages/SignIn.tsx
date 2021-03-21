@@ -2,17 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { notification } from "antd";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Container,
-} from "@material-ui/core";
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../components/Copyright";
@@ -45,10 +35,7 @@ const SignIn: React.FC = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit(onSubmit, onError)}>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit, onError)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -68,9 +55,7 @@ const SignIn: React.FC = () => {
                 })}
               />
             </Grid>
-            {errors.email && (
-              <p className={classes.errors}>{errors.email.message}</p>
-            )}
+            {errors.email && <p className={classes.errors}>{errors.email.message}</p>}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -94,16 +79,9 @@ const SignIn: React.FC = () => {
                 })}
               />
             </Grid>
-            {errors.password && (
-              <p className={classes.errors}>{errors.password.message}</p>
-            )}
+            {errors.password && <p className={classes.errors}>{errors.password.message}</p>}
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}>
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             Sign In
           </Button>
           <Grid container justify="flex-end">

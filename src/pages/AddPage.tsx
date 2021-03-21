@@ -1,15 +1,13 @@
 import React, { CSSProperties } from "react";
 import { useDispatch } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { notification } from "antd";
 import { TextField } from "@material-ui/core";
 import { addCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
+import { CustomersListPageRouteComponentProps } from "../routes";
 
-type Props = RouteComponentProps<{ id: string }, never, { customer: CustomerType }>;
-
-const AddPage: React.FC<Props> = (props) => {
+const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
 
   const { register, handleSubmit, errors } = useForm();

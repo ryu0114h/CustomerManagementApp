@@ -1,16 +1,14 @@
 import React, { CSSProperties, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { notification } from "antd";
 import { TextField } from "@material-ui/core";
 import { updateCustomer } from "../reducks/customers/operations";
 import { CustomerType } from "../reducks/customers/types";
 import { RootState } from "../reducks/store/store";
+import { CustomersListPageRouteComponentProps } from "../routes";
 
-type Props = RouteComponentProps<{ id: string }, never, { customer: CustomerType }>;
-
-const EditPage: React.FC<Props> = (props) => {
+const EditPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
 
   const customer = useSelector((state: RootState) =>
