@@ -14,6 +14,7 @@ const useStyles = makeStyles(styles);
 
 type RegularButtonProps = {
   color?;
+  type?;
   round?;
   children?;
   disabled?;
@@ -67,6 +68,7 @@ export default RegularButton;
 
 RegularButton.propTypes = {
   color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger", "rose", "white", "transparent"]),
+  type: PropTypes.string,
   size: PropTypes.oneOf(["sm", "lg"]),
   simple: PropTypes.bool,
   round: PropTypes.bool,
