@@ -14,8 +14,8 @@ const Admin: React.FC = ({ ...rest }) => {
   const classes = useStyles();
   const [color] = React.useState("blue");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const user = useSelector((state: RootState) => state.user);
-  const isSignedIn = user.isSignedIn;
+  const staff = useSelector((state: RootState) => state.staff);
+  const isSignedIn = staff.isSignedIn;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

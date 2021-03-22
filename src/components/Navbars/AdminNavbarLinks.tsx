@@ -16,7 +16,7 @@ import Person from "@material-ui/icons/Person";
 import Button from "../CustomButtons/Button";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle";
-import { signoutUser } from "../../reducks/user/operations";
+import { signoutStaff } from "../../reducks/staff/operations";
 
 const useStyles = makeStyles(styles);
 
@@ -37,7 +37,7 @@ const AdminNavbarLinks: React.FC = () => {
   };
   const doSignOut = () => {
     if (window.confirm("本当にログアウトしますか？")) {
-      dispatch(signoutUser());
+      dispatch(signoutStaff());
     }
   };
 

@@ -1,27 +1,24 @@
 import initialState from "../store/initialState";
 import { actionTypes } from "./actionTypes";
-import { UserActionTypes, UserType } from "./types";
+import { StaffActionTypes, StaffType } from "./types";
 
-export const userReducer = (
-  state = initialState.user,
-  action: UserActionTypes
-): UserType => {
+export const staffReducer = (state = initialState.staff, action: StaffActionTypes): StaffType => {
   switch (action.type) {
-    case actionTypes.SIGNIN_USER:
+    case actionTypes.SIGNIN_STAFF:
       return {
         isSignedIn: true,
         accessToken: action.payload["access-token"],
         client: action.payload.client,
         uid: action.payload.uid,
       };
-    case actionTypes.SIGNOUT_USER:
+    case actionTypes.SIGNOUT_STAFF:
       return {
         isSignedIn: false,
         accessToken: "",
         client: "",
         uid: "",
       };
-    case actionTypes.SIGNUP_USER:
+    case actionTypes.SIGNUP_STAFF:
       return {
         isSignedIn: true,
         accessToken: action.payload["access-token"],

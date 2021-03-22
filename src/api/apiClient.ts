@@ -12,16 +12,16 @@ const apiClient = ({
   params?: Record<string, unknown>;
 }): Promise<AxiosResponse> => {
   const root = JSON.parse(localStorage.getItem("persist:root") as string);
-  const user = JSON.parse(root.user);
+  const staff = JSON.parse(root.staff);
 
   const apiInstance = axios.create({
     baseURL: "http://localhost:3100/api/v1/",
     timeout: 10000,
     headers: {
       "Content-Type": "application/json",
-      "Access-Token": user.accessToken,
-      client: user.client,
-      uid: user.uid,
+      "Access-Token": staff.accessToken,
+      client: staff.client,
+      uid: staff.uid,
     },
   });
 

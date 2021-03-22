@@ -1,19 +1,19 @@
 import { notification } from "antd";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
-import { signinUserApi, signoutUserApi, signupUserApi } from "../../api/userApi";
+import { signinStaffApi, signoutStaffApi, signupStaffApi } from "../../api/staffApi";
 import { RootState } from "../store/store";
-import { signinUserAction, signoutUserAction } from "./actions";
-import { InputFormUserType, UserActionTypes } from "./types";
+import { signinStaffAction, signoutStaffAction } from "./actions";
+import { InputFormStaffType, StaffActionTypes } from "./types";
 
-export const signinUser = ({
+export const signinStaff = ({
   email,
   password,
-}: InputFormUserType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UserActionTypes> => {
+}: InputFormStaffType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
   return (dispatch) => {
-    signinUserApi({ email, password })
+    signinStaffApi({ email, password })
       .then((res) => {
-        dispatch(signinUserAction(res.headers));
+        dispatch(signinStaffAction(res.headers));
         dispatch(push("/"));
         notification["success"]({
           message: "ログインできました。",
@@ -31,11 +31,11 @@ export const signinUser = ({
   };
 };
 
-export const signoutUser = (): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UserActionTypes> => {
+export const signoutStaff = (): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
   return (dispatch) => {
-    signoutUserApi()
+    signoutStaffApi()
       .then((res) => {
-        dispatch(signoutUserAction());
+        dispatch(signoutStaffAction());
         notification["success"]({
           message: "ログアウトできました。",
           description: "",
@@ -53,14 +53,14 @@ export const signoutUser = (): ThunkAction<void, RootState, undefined, CallHisto
   };
 };
 
-export const signupUser = ({
+export const signupStaff = ({
   email,
   password,
-}: InputFormUserType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UserActionTypes> => {
+}: InputFormStaffType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
   return (dispatch) => {
-    signupUserApi({ email, password })
+    signupStaffApi({ email, password })
       .then((res) => {
-        dispatch(signinUserAction(res.headers));
+        dispatch(signinStaffAction(res.headers));
         dispatch(push("/"));
         notification["success"]({
           message: "ユーザー登録しました。",

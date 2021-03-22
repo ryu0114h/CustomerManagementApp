@@ -6,18 +6,18 @@ import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Co
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../../components/Copyright";
-import { InputFormUserType } from "../../reducks/user/types";
-import { signupUser } from "../../reducks/user/operations";
+import { InputFormStaffType } from "../../reducks/staff/types";
+import { signupStaff } from "../../reducks/staff/operations";
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit: SubmitHandler<InputFormUserType> = (data) => {
-    dispatch(signupUser(data));
+  const onSubmit: SubmitHandler<InputFormStaffType> = (data) => {
+    dispatch(signupStaff(data));
     console.log(data);
   };
-  const onError: SubmitErrorHandler<InputFormUserType> = (data) => {
+  const onError: SubmitErrorHandler<InputFormStaffType> = (data) => {
     notification["error"]({
       message: "ユーザー登録に失敗しました。",
       description: "",

@@ -5,8 +5,8 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory, History } from "history";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { userReducer } from "../user/reducer";
-import { UserType } from "../user/types";
+import { staffReducer } from "../staff/reducer";
+import { StaffType } from "../staff/types";
 import { customersReducer } from "../customers/reducer";
 import { CustomersType } from "../customers/types";
 import { reservationsReducer } from "../reservations/reducer";
@@ -15,12 +15,12 @@ import { ReservationsType } from "../reservations/types";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["staff"],
 };
 
 const rootReducer = (history: History) =>
   combineReducers({
-    user: userReducer,
+    staff: staffReducer,
     customers: customersReducer,
     reservations: reservationsReducer,
     router: connectRouter(history),
@@ -34,7 +34,7 @@ const persistedReducer = persistReducer(
 );
 
 export type RootState = {
-  user: UserType;
+  staff: StaffType;
   customers: CustomersType;
   reservations: ReservationsType;
   router?: RouteComponentProps;

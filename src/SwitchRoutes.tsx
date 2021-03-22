@@ -5,8 +5,8 @@ import { RootState } from "./reducks/store/store";
 import { RoutesType } from "./routes";
 
 const SwitchRoutes: React.FC<{ routes: RoutesType }> = ({ routes }) => {
-  const user = useSelector((state: RootState) => state.user);
-  const isSignedIn = user.isSignedIn;
+  const staff = useSelector((state: RootState) => state.staff);
+  const isSignedIn = staff.isSignedIn;
 
   return (
     <Switch>
