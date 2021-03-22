@@ -8,7 +8,7 @@ export const signinUserApi = async ({
   data: UserType;
   headers: Headers & UserType;
 }> => {
-  const URI = "/auth/sign_in";
+  const URI = "/user_auth/sign_in";
 
   const res = await apiClient({
     method: "POST",
@@ -26,7 +26,7 @@ export const signoutUserApi = async (): Promise<{
   data: UserType;
   headers: Headers & UserType;
 }> => {
-  const URI = "/auth/sign_out";
+  const URI = "/user_auth/sign_out";
 
   const res = await apiClient({
     method: "DELETE",
@@ -42,7 +42,7 @@ export const signupUserApi = async ({
   data: UserType;
   headers: Headers & UserType;
 }> => {
-  const URI = "/auth";
+  const URI = "/user_auth";
 
   const res = await apiClient({
     method: "POST",
