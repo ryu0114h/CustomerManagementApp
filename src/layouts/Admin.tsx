@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbars/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import routes, { RoutesType } from "../routes";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle";
 import SwitchRoutes from "../SwitchRoutes";
-import { RootState } from "../reducks/store/store";
-import { fetchCustomers } from "../reducks/customers/operations";
+import { isSignedIn } from "../lib/auth";
 
 const useStyles = makeStyles(styles);
 
 const Admin: React.FC = ({ ...rest }) => {
-  const dispatch = useDispatch();
   const classes = useStyles();
 
   const [color] = useState("blue");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const staff = useSelector((state: RootState) => state.staff);
-  const isSignedIn = staff.isSignedIn;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -30,17 +25,17 @@ const Admin: React.FC = ({ ...rest }) => {
     }
   };
 
-  const getSwitchRoutes = (): RoutesType => routes.filter((route) => route.isSignedIn === isSignedIn);
+  const getSwitchRoutes = (): RoutesType => routes.filter((route) => route.isSignedIn === isSignedIn());
   const getSidebarRoutes = (): RoutesType => getSwitchRoutes().filter((route) => route.sidebar);
 
   useEffect(() => {
-    dispatch(fetchCustomers());
     window.addEventListener("resize", resizeFunction);
 
     return function cleanup() {
       window.removeEventListener("resize", resizeFunction);
     };
   }, []);
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
