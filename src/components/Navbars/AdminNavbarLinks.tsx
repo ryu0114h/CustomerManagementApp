@@ -1,22 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
-import Poppers from "@material-ui/core/Popper";
+import { MenuItem, MenuList, Grow, Paper, ClickAwayListener, Hidden, Popper } from "@material-ui/core";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 // core components
 import Button from "../CustomButtons/Button";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle";
-import { signoutStaff } from "../../reducks/staff/operations";
+import { signoutStaffApi } from "../../api/staffApi";
+import { removeAuth } from "../../lib/auth";
 
 const useStyles = makeStyles(styles);
 
@@ -37,7 +33,10 @@ const AdminNavbarLinks: React.FC = () => {
   };
   const doSignOut = () => {
     if (window.confirm("本当にログアウトしますか？")) {
-      dispatch(signoutStaff());
+      signoutStaffApi().then(() => {
+        removeAuth();
+        dispatch(push("/"));
+      });
     }
   };
 
@@ -56,7 +55,7 @@ const AdminNavbarLinks: React.FC = () => {
           </Hidden>
           <p className={classes.linkText}>アカウント▼</p>
         </Button>
-        <Poppers
+        <Popper
           open={Boolean(openProfile)}
           anchorEl={openProfile}
           transition
@@ -82,7 +81,7 @@ const AdminNavbarLinks: React.FC = () => {
               </Paper>
             </Grow>
           )}
-        </Poppers>
+        </Popper>
       </div>
     </div>
   );
