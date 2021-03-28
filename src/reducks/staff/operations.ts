@@ -11,7 +11,6 @@ export const fetchStaff = (): ThunkAction<void, RootState, undefined, CallHistor
     fetchStaffsApi()
       .then((res) => {
         dispatch(fetchStaffAction(res.data));
-        console.log("res", res);
       })
       .catch((err) => console.log(err.message));
   };
