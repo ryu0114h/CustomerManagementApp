@@ -12,7 +12,7 @@ import Button from "../CustomButtons/Button";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle";
 import { signoutStaffApi } from "../../api/staffApi";
-import { removeAuth } from "../../lib/auth";
+import { isSignedIn, removeAuth } from "../../lib/auth";
 
 const useStyles = makeStyles(styles);
 
@@ -43,18 +43,20 @@ const AdminNavbarLinks: React.FC = () => {
   return (
     <div>
       <div className={classes.manager}>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          simple={!(window.innerWidth > 959)}
-          aria-owns={openProfile ? "profile-menu-list-grow" : null}
-          aria-haspopup="true"
-          onClick={handleClickProfile}
-          className={classes.buttonLink}>
-          <Hidden mdUp implementation="css">
-            <Person className={classes.icons} />
-          </Hidden>
-          <p className={classes.linkText}>アカウント▼</p>
-        </Button>
+        {isSignedIn() && (
+          <Button
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            simple={!(window.innerWidth > 959)}
+            aria-owns={openProfile ? "profile-menu-list-grow" : null}
+            aria-haspopup="true"
+            onClick={handleClickProfile}
+            className={classes.buttonLink}>
+            <Hidden mdUp implementation="css">
+              <Person className={classes.icons} />
+            </Hidden>
+            <p className={classes.linkText}>アカウント▼</p>
+          </Button>
+        )}
         <Popper
           open={Boolean(openProfile)}
           anchorEl={openProfile}
