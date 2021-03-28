@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from "axios";
+import { loadAuth, setAuth } from "../lib/auth";
 
 type Method = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
 
-const apiClient = ({
+const apiClient = async ({
   method,
   uri,
   params,
@@ -11,37 +12,43 @@ const apiClient = ({
   uri: string;
   params?: Record<string, unknown>;
 }): Promise<AxiosResponse> => {
-  const root = JSON.parse(localStorage.getItem("persist:root") as string);
-  const staff = JSON.parse(root.staff);
+  const auth = loadAuth();
 
   const apiInstance = axios.create({
     baseURL: "http://localhost:3100/api/v1/",
     timeout: 10000,
     headers: {
       "Content-Type": "application/json",
-      "Access-Token": staff.accessToken,
-      client: staff.client,
-      uid: staff.uid,
+      "Access-Token": auth && auth["access-token"],
+      client: auth && auth.client,
+      uid: auth && auth.uid,
     },
   });
 
   try {
+    let res;
     switch (method) {
       case "GET":
-        return apiInstance.get(uri, params);
+        res = await apiInstance.get(uri, params);
+        break;
       case "POST":
-        return apiInstance.post(uri, params);
+        res = await apiInstance.post(uri, params);
+        break;
       case "PATCH":
-        return apiInstance.patch(uri, params);
+        res = await apiInstance.patch(uri, params);
+        break;
       case "PUT":
-        return apiInstance.put(uri, params);
+        res = await apiInstance.put(uri, params);
+        break;
       case "DELETE":
-        return apiInstance.delete(uri, params);
+        res = await apiInstance.delete(uri, params);
+        break;
       default:
         throw new Error("Not available method");
     }
+    setAuth(res.headers);
+    return res;
   } catch (err) {
-    console.log(err);
     throw new Error(err);
   }
 };

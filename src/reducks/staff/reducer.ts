@@ -4,26 +4,13 @@ import { StaffActionTypes, StaffType } from "./types";
 
 export const staffReducer = (state = initialState.staff, action: StaffActionTypes): StaffType => {
   switch (action.type) {
-    case actionTypes.SIGNIN_STAFF:
+    case actionTypes.FETCH_STAFF:
       return {
-        isSignedIn: true,
-        accessToken: action.payload["access-token"],
-        client: action.payload.client,
-        uid: action.payload.uid,
+        ...action.payload,
       };
-    case actionTypes.SIGNOUT_STAFF:
+    case actionTypes.UPDATE_STAFF:
       return {
-        isSignedIn: false,
-        accessToken: "",
-        client: "",
-        uid: "",
-      };
-    case actionTypes.SIGNUP_STAFF:
-      return {
-        isSignedIn: true,
-        accessToken: action.payload["access-token"],
-        client: action.payload.client,
-        uid: action.payload.uid,
+        ...action.payload,
       };
     default:
       return state;

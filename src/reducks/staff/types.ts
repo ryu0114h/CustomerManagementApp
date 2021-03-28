@@ -2,10 +2,9 @@ import { Action } from "redux";
 import { actionTypes } from "./actionTypes";
 
 export type StaffType = {
-  accessToken: string;
-  client: string;
-  uid: string;
-  isSignedIn: boolean;
+  id: number | null;
+  email: string;
+  name: string;
 };
 
 export type InputFormStaffType = {
@@ -13,18 +12,14 @@ export type InputFormStaffType = {
   password: string;
 };
 
-interface SigninStaffActionType extends Action {
-  type: typeof actionTypes.SIGNIN_STAFF;
+interface FetchStaffActionType extends Action {
+  type: typeof actionTypes.FETCH_STAFF;
   payload: StaffType;
 }
 
-interface SignoutStaffActionType extends Action {
-  type: typeof actionTypes.SIGNOUT_STAFF;
-}
-
-interface SignupStaffActionType extends Action {
-  type: typeof actionTypes.SIGNUP_STAFF;
+interface UpdateStaffActionType extends Action {
+  type: typeof actionTypes.UPDATE_STAFF;
   payload: StaffType;
 }
 
-export type StaffActionTypes = SigninStaffActionType | SignoutStaffActionType | SignupStaffActionType;
+export type StaffActionTypes = FetchStaffActionType | UpdateStaffActionType;

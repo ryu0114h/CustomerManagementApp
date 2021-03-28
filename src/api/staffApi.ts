@@ -26,7 +26,7 @@ export const updateStaffApi = async (
     params: props,
   });
 
-  return res;
+  return res.data;
 };
 
 export const signinStaffApi = async ({

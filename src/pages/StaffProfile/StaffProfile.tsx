@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 // @material-ui/core components
 import { createStyles, makeStyles, StyleRules } from "@material-ui/core/styles";
+import { InputLabel } from "@material-ui/core";
 // core components
 import GridItem from "../../components/Grid/GridItem";
 import GridContainer from "../../components/Grid/GridContainer";
@@ -10,6 +13,8 @@ import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import CardFooter from "../../components/Card/CardFooter";
+import { fetchStaff, updateStaff } from "../../reducks/staff/operations";
+import { RootState } from "../../reducks/store/store";
 
 const styles: StyleRules = createStyles({
   cardCategoryWhite: {
@@ -34,8 +39,36 @@ const useStyles = makeStyles(styles);
 
 const UserProfile: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const staff = useSelector((state: RootState) => state.staff);
+
+  const { register, handleSubmit, reset, errors } = useForm({
+    defaultValues: {
+      ...staff,
+    },
+  });
+
+  useEffect(() => {
+    reset(staff);
+  }, [staff, reset]);
+
+  useEffect(() => {
+    dispatch(fetchStaff());
+  }, []);
+
+  const onSubmit = useCallback(
+    (data) => {
+      dispatch(updateStaff(data));
+    },
+    [staff]
+  );
+
+  const onError = useCallback((data) => {
+    console.log(data);
+  }, []);
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
@@ -46,67 +79,84 @@ const UserProfile: React.FC = () => {
             <CardBody>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
+                  <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>スタッフ名</InputLabel>
                   <CustomInput
-                    labelText="店名"
-                    id="store"
+                    id="name"
+                    error={!!errors?.name}
+                    errorMessage={errors?.name?.message}
                     formControlProps={{
                       fullWidth: true,
+                      style: { margin: 0 },
                     }}
+                    inputProps={{ name: "name", inputRef: register({ required: "スタッフ名を入力してください" }) }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
+                  <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>メールアドレス</InputLabel>
                   <CustomInput
-                    labelText="メールアドレス"
-                    id="email-address"
+                    id="email"
+                    error={!!errors?.email}
+                    errorMessage={errors?.email?.message}
                     formControlProps={{
                       fullWidth: true,
+                      style: { margin: 0 },
                     }}
+                    inputProps={{ name: "email", inputRef: register({ required: "メールアドレスを入力してください" }) }}
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
+                  <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>郵便番号</InputLabel>
                   <CustomInput
-                    labelText="郵便番号"
-                    id="postal-code"
+                    id="postal_code"
                     formControlProps={{
                       fullWidth: true,
+                      style: { margin: 0 },
                     }}
+                    inputProps={{ name: "postal_code", inputRef: register }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={8}>
+                  <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>住所</InputLabel>
                   <CustomInput
-                    labelText="住所"
-                    id="city"
+                    id="address"
                     formControlProps={{
                       fullWidth: true,
+                      style: { margin: 0 },
                     }}
+                    inputProps={{ name: "address", inputRef: register }}
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
+                  <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>紹介文</InputLabel>
                   <CustomInput
-                    labelText="紹介文"
-                    id="about-me"
+                    id="introduction_text"
                     formControlProps={{
                       fullWidth: true,
+                      style: { margin: 0 },
                     }}
                     inputProps={{
                       multiline: true,
                       rows: 5,
+                      name: "introduction_text",
+                      inputRef: register,
                     }}
                   />
                 </GridItem>
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">更新する</Button>
+              <Button type="submit" color="primary">
+                更新する
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
       </GridContainer>
-    </div>
+    </form>
   );
 };
 

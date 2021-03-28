@@ -1,76 +1,38 @@
 import { notification } from "antd";
-import { CallHistoryMethodAction, push } from "connected-react-router";
+import { CallHistoryMethodAction } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
-import { signinStaffApi, signoutStaffApi, signupStaffApi } from "../../api/staffApi";
+import { fetchStaffAction, updateStaffAction } from "./actions";
+import { StaffActionTypes, StaffType } from "./types";
 import { RootState } from "../store/store";
-import { signinStaffAction, signoutStaffAction } from "./actions";
-import { InputFormStaffType, StaffActionTypes } from "./types";
+import { fetchStaffsApi, updateStaffApi } from "../../api/staffApi";
 
-export const signinStaff = ({
-  email,
-  password,
-}: InputFormStaffType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
-  return (dispatch) => {
-    signinStaffApi({ email, password })
+export const fetchStaff = (): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
+  return async (dispatch) => {
+    fetchStaffsApi()
       .then((res) => {
-        dispatch(signinStaffAction(res.headers));
-        dispatch(push("/"));
-        notification["success"]({
-          message: "ログインできました。",
-          description: "",
-        });
-        console.log(res.data);
+        dispatch(fetchStaffAction(res.data));
+        console.log("res", res);
       })
-      .catch((err) => {
-        notification["error"]({
-          message: "ログインに失敗しました。",
-          description: "",
-        });
-        console.log(err.message);
-      });
+      .catch((err) => console.log(err.message));
   };
 };
 
-export const signoutStaff = (): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
+export const updateStaff = (
+  props: StaffType
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
   return (dispatch) => {
-    signoutStaffApi()
+    updateStaffApi(props)
       .then((res) => {
-        dispatch(signoutStaffAction());
+        dispatch(updateStaffAction(res.data));
         notification["success"]({
-          message: "ログアウトできました。",
-          description: "",
-        });
-        dispatch(push("/"));
-        console.log(res.data);
-      })
-      .catch((err) => {
-        notification["error"]({
-          message: "ログアウトに失敗しました。",
-          description: "",
-        });
-        console.log(err.message);
-      });
-  };
-};
-
-export const signupStaff = ({
-  email,
-  password,
-}: InputFormStaffType): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | StaffActionTypes> => {
-  return (dispatch) => {
-    signupStaffApi({ email, password })
-      .then((res) => {
-        dispatch(signinStaffAction(res.headers));
-        dispatch(push("/"));
-        notification["success"]({
-          message: "ユーザー登録しました。",
+          message: "更新できました。",
           description: "",
         });
         console.log(res.data);
       })
       .catch((err) => {
         notification["error"]({
-          message: "ユーザー登録に失敗しました。",
+          message: "更新に失敗しました。",
           description: "",
         });
         console.log(err.message);

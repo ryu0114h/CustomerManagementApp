@@ -10,7 +10,7 @@ import CustomerEditPage from "./pages/CustomersList/CustomerEditPage";
 import CalendarPage from "./pages/Reservations/CalendarPage";
 import SignIn from "./pages/SigninSignup/SignIn";
 import SignUp from "./pages/SigninSignup/SignUp";
-import UserProfile from "./pages/StoreProfile/StaffProfile";
+import StaffProfile from "./pages/StaffProfile/StaffProfile";
 import { CustomerType } from "./reducks/customers/types";
 
 export type CustomersListPageRouteComponentProps = RouteComponentProps<
@@ -84,7 +84,7 @@ const routes: RoutesType = [
     path: "/profile",
     name: "店舗情報",
     icon: Person,
-    component: UserProfile,
+    component: StaffProfile,
     layout: "/admin",
     sidebar: true,
     isSignedIn: true,
