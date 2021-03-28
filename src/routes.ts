@@ -1,16 +1,17 @@
-import { LibraryBooks, Person, LockOpen, GroupAdd } from "@material-ui/icons";
+import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { LibraryBooks, Person, LockOpen, GroupAdd, Dashboard } from "@material-ui/icons";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core";
-import CustomersListPage from "./pages/CustomersListPage";
-import AddPage from "./pages/AddPage";
-import DetailPage from "./pages/DetailPage";
-import EditPage from "./pages/EditPage";
-import CalendarPage from "./pages/CalendarPage";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import { RouteComponentProps } from "react-router-dom";
+import CustomersListPage from "./pages/CustomersList/CustomersListPage";
+import CustomerAddPage from "./pages/CustomersList/CustomerAddPage";
+import CustomerDetailPage from "./pages/CustomersList/CustomerDetailPage";
+import CustomerEditPage from "./pages/CustomersList/CustomerEditPage";
+import CalendarPage from "./pages/Reservations/CalendarPage";
+import SignIn from "./pages/SigninSignup/SignIn";
+import SignUp from "./pages/SigninSignup/SignUp";
+import StaffProfile from "./pages/StaffProfile/StaffProfile";
 import { CustomerType } from "./reducks/customers/types";
-import React from "react";
 
 export type CustomersListPageRouteComponentProps = RouteComponentProps<
   { id: string },
@@ -25,6 +26,7 @@ export type RoutesType = {
     | "/customers_list/detail"
     | "/customers_list/edit"
     | "/reservations"
+    | "/profile"
     | "/signin"
     | "/signup";
   name: string;
@@ -39,7 +41,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list",
     name: "顧客リスト",
-    icon: Person,
+    icon: Dashboard,
     component: CustomersListPage,
     layout: "/admin",
     sidebar: true,
@@ -48,7 +50,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list/new",
     name: "顧客リスト",
-    component: AddPage,
+    component: CustomerAddPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
@@ -56,7 +58,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list/detail",
     name: "顧客リスト",
-    component: DetailPage,
+    component: CustomerDetailPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
@@ -64,7 +66,7 @@ const routes: RoutesType = [
   {
     path: "/customers_list/edit",
     name: "顧客リスト",
-    component: EditPage,
+    component: CustomerEditPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
@@ -74,6 +76,15 @@ const routes: RoutesType = [
     name: "予約管理",
     icon: LibraryBooks,
     component: CalendarPage,
+    layout: "/admin",
+    sidebar: true,
+    isSignedIn: true,
+  },
+  {
+    path: "/profile",
+    name: "店舗情報",
+    icon: Person,
+    component: StaffProfile,
     layout: "/admin",
     sidebar: true,
     isSignedIn: true,

@@ -1,22 +1,12 @@
 import { RootState } from "./store";
 
 const initialState: RootState = {
-  user: {
-    accessToken: "",
-    client: "",
-    uid: "",
-    isSignedIn: false,
+  staff: {
+    id: null,
+    name: "",
+    email: "",
   },
-  customers: [
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      memo: "memo",
-    },
-  ],
+  customers: [],
   reservations: [],
 };
 

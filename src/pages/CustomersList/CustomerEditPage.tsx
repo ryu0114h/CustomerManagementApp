@@ -1,19 +1,32 @@
-import React, { CSSProperties } from "react";
-import { useDispatch } from "react-redux";
+import React, { CSSProperties, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { notification } from "antd";
 import { TextField } from "@material-ui/core";
-import { addCustomer } from "../reducks/customers/operations";
-import { CustomerType } from "../reducks/customers/types";
-import { CustomersListPageRouteComponentProps } from "../routes";
+import { updateCustomer } from "../../reducks/customers/operations";
+import { CustomerType } from "../../reducks/customers/types";
+import { RootState } from "../../reducks/store/store";
+import { CustomersListPageRouteComponentProps } from "../../routes";
 
-const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
+const EditPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, errors } = useForm();
+  const customer = useSelector((state: RootState) =>
+    state.customers.find((customer) => customer.id === props.location.state.customer.id)
+  );
+
+  useEffect(() => {
+    if (!customer) {
+      props.history.goBack();
+    }
+  }, []);
+
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: { ...customer },
+  });
 
   const onSubmit: SubmitHandler<CustomerType> = (data) => {
-    dispatch(addCustomer(data));
+    dispatch(updateCustomer({ ...customer, ...data }));
   };
 
   const onError: SubmitErrorHandler<CustomerType> = (data) => {
@@ -61,7 +74,7 @@ const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
             戻る
           </button>
           <button className="ant-btn ant-btn-primary" type="submit" style={styles.button}>
-            追加
+            保存
           </button>
         </div>
       </form>
@@ -69,7 +82,7 @@ const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   );
 };
 
-export default AddPage;
+export default EditPage;
 
 const styles: { [key: string]: CSSProperties } = {
   form: { maxWidth: "500px", margin: "60px auto" },

@@ -2,9 +2,9 @@ import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Card, notification, Popconfirm } from "antd";
-import { deleteCustomer } from "../reducks/customers/operations";
-import { RootState } from "../reducks/store/store";
-import { CustomersListPageRouteComponentProps } from "../routes";
+import { deleteCustomer } from "../../reducks/customers/operations";
+import { RootState } from "../../reducks/store/store";
+import { CustomersListPageRouteComponentProps } from "../../routes";
 
 const DetailPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();

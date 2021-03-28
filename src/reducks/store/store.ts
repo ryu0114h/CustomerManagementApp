@@ -3,24 +3,16 @@ import thunk from "redux-thunk";
 import { RouteComponentProps } from "react-router-dom";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory, History } from "history";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { userReducer } from "../user/reducer";
-import { UserType } from "../user/types";
+import { staffReducer } from "../staff/reducer";
+import { StaffType } from "../staff/types";
 import { customersReducer } from "../customers/reducer";
 import { CustomersType } from "../customers/types";
 import { reservationsReducer } from "../reservations/reducer";
 import { ReservationsType } from "../reservations/types";
 
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["user"],
-};
-
 const rootReducer = (history: History) =>
   combineReducers({
-    user: userReducer,
+    staff: staffReducer,
     customers: customersReducer,
     reservations: reservationsReducer,
     router: connectRouter(history),
@@ -28,21 +20,14 @@ const rootReducer = (history: History) =>
 
 export const browserHistory = createBrowserHistory();
 
-const persistedReducer = persistReducer(
-  persistConfig,
-  rootReducer(browserHistory)
-);
-
 export type RootState = {
-  user: UserType;
+  staff: StaffType;
   customers: CustomersType;
   reservations: ReservationsType;
   router?: RouteComponentProps;
 };
 
 export const configureStore = createStore(
-  persistedReducer,
+  rootReducer(browserHistory),
   compose(applyMiddleware(routerMiddleware(browserHistory), thunk))
 );
-
-export const persistor = persistStore(configureStore);
