@@ -61,6 +61,9 @@ const customInputStyle: StyleRules = createStyles({
     position: "relative",
     verticalAlign: "unset",
   },
+  errors: {
+    color: "red",
+  },
 });
 
 export default customInputStyle;

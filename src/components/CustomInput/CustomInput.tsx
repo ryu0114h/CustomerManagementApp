@@ -1,14 +1,11 @@
 import React, { ReactNode } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-// @material-ui/core components
+// @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
+import { FormControl, InputLabel, Input } from "@material-ui/core";
 // @material-ui/icons
-import Clear from "@material-ui/icons/Clear";
-import Check from "@material-ui/icons/Check";
+import { Clear, Check } from "@material-ui/icons";
 // core components
 import styles from "../../assets/jss/material-dashboard-react/components/customInputStyle";
 
@@ -17,16 +14,17 @@ const useStyles = makeStyles(styles);
 type Props = {
   id?: string;
   labelText?: ReactNode;
+  error?: boolean;
+  errorMessage?: string;
+  success?: boolean;
   formControlProps?;
   labelProps?;
-  error?;
-  success?;
   inputProps?;
 };
 
 const CustomInput: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const { formControlProps, labelText, id, labelProps, inputProps, error, success } = props;
+  const { formControlProps, labelText, id, labelProps, inputProps, error, errorMessage, success } = props;
 
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
@@ -61,6 +59,7 @@ const CustomInput: React.FC<Props> = (props) => {
       ) : success ? (
         <Check className={classes.feedback + " " + classes.labelRootSuccess} />
       ) : null}
+      {errorMessage && <p className={classes.errors}>{errorMessage}</p>}
     </FormControl>
   );
 };
@@ -74,5 +73,6 @@ CustomInput.propTypes = {
   inputProps: PropTypes.object,
   formControlProps: PropTypes.object,
   error: PropTypes.bool,
+  errorMessage: PropTypes.string,
   success: PropTypes.bool,
 };
