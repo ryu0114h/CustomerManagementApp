@@ -87,7 +87,6 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
       );
     }
     reset();
-    closeEditModal();
   };
 
   const onError = (data) => {
