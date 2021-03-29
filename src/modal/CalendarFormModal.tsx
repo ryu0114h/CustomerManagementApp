@@ -3,27 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import moment from "moment";
 import { Button, Modal, Popconfirm } from "antd";
-import {
-  TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-} from "@material-ui/core";
+import { TextField, MenuItem, Select, InputLabel, FormControl } from "@material-ui/core";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
 
-import {
-  addReservation,
-  deleteReservation,
-  updateReservation,
-} from "../reducks/reservations/operations";
+import { addReservation, deleteReservation, updateReservation } from "../reducks/reservations/operations";
 import { RootState } from "../reducks/store/store";
+import { fetchCustomers } from "../reducks/customers/operations";
 
 type Event = {
   id?: number;
-  user_id?: number;
+  staff_id?: number;
   customer_id?: number;
   created_at?: Date;
   updated_at?: Date;
@@ -39,11 +30,7 @@ type CalendarFormModalProps = {
   selectedEvent: Event | null;
 };
 
-const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
-  isEditModalVisible,
-  closeEditModal,
-  selectedEvent,
-}) => {
+const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisible, closeEditModal, selectedEvent }) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors, reset, setValue, control } = useForm({
     defaultValues: {
@@ -54,6 +41,10 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
     },
   });
   const customers = useSelector((state: RootState) => state.customers);
+
+  useEffect(() => {
+    dispatch(fetchCustomers());
+  }, []);
 
   useEffect(() => {
     setValue("name", selectedEvent?.title, { shouldDirty: true });
@@ -73,7 +64,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
       dispatch(
         updateReservation({
           id: selectedEvent?.id,
-          user_id: selectedEvent?.user_id,
+          staff_id: selectedEvent?.staff_id,
           customer_id: selectedEvent?.customer_id,
           name: data.name,
           all_day: false,
@@ -83,9 +74,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
       );
     } else {
       const customer = customers.find(
-        (cus) =>
-          cus.lastName === data.name.split(" ")[0] &&
-          cus.firstName === data.name.split(" ")[1]
+        (cus) => cus.lastName === data.name.split(" ")[0] && cus.firstName === data.name.split(" ")[1]
       );
       dispatch(
         addReservation({
@@ -119,8 +108,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             key="delete"
             title="削除してもよろしいですか？"
             onConfirm={() => {
-              selectedEvent?.id &&
-                dispatch(deleteReservation(selectedEvent?.id));
+              selectedEvent?.id && dispatch(deleteReservation(selectedEvent?.id));
               reset();
               closeEditModal();
             }}
@@ -133,10 +121,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
           保存
         </Button>,
       ]}>
-      <form
-        id="myForm"
-        onSubmit={handleSubmit(onSubmit, onError)}
-        style={styles.form}>
+      <form id="myForm" onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
         <FormControl style={styles.textField}>
           <InputLabel id="customers-label">顧客</InputLabel>
           <Controller
@@ -145,9 +130,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
                 <MenuItem value="">選択してください</MenuItem>
                 {customers?.map((customer) => {
                   return (
-                    <MenuItem
-                      key={customer.id}
-                      value={`${customer.lastName} ${customer.firstName}`}>
+                    <MenuItem key={customer.id} value={`${customer.lastName} ${customer.firstName}`}>
                       {customer.lastName} {customer.firstName}
                     </MenuItem>
                   );
@@ -199,9 +182,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             }}
             inputRef={register({ required: true })}
           />
-          {(errors.startTime || errors.endTime) && (
-            <p style={styles.errors}>時刻を入力してください</p>
-          )}
+          {(errors.startTime || errors.endTime) && <p style={styles.errors}>時刻を入力してください</p>}
         </div>
       </form>
     </Modal>

@@ -13,7 +13,7 @@ import CalendarFormModal from "../../modal/CalendarFormModal";
 
 type Event = {
   id?: number;
-  user_id?: number;
+  staff_id?: number;
   customer_id?: number;
   created_at?: Date;
   updated_at?: Date;
@@ -54,12 +54,11 @@ const CalendarPage: React.FC = () => {
     setEventList(
       reservations.map((reservation) => ({
         id: reservation.id,
-        user_id: reservation.user_id,
+        staff_id: reservation.staff_id,
         customer_id: reservation.customer_id,
         title: reservation.name,
         allDay: reservation.all_day,
-        start:
-          reservation.start_datetime && new Date(reservation.start_datetime),
+        start: reservation.start_datetime && new Date(reservation.start_datetime),
         end: reservation.end_datetime && new Date(reservation.end_datetime),
       }))
     );
@@ -84,10 +83,7 @@ const CalendarPage: React.FC = () => {
         }}
       />
       <div style={styles.createButtonContainer}>
-        <Button
-          type="primary"
-          onClick={() => setIsEditModalVisible(true)}
-          style={styles.createButton}>
+        <Button type="primary" onClick={() => setIsEditModalVisible(true)} style={styles.createButton}>
           追加
         </Button>
       </div>
