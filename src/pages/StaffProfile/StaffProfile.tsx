@@ -37,7 +37,7 @@ const styles: StyleRules = createStyles({
 
 const useStyles = makeStyles(styles);
 
-const UserProfile: React.FC = () => {
+const StaffProfile: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const staff = useSelector((state: RootState) => state.staff);
@@ -160,4 +160,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default StaffProfile;
