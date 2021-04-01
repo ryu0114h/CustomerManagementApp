@@ -14,7 +14,7 @@ import CalendarFormModal from "../../modal/CalendarFormModal";
 type Event = {
   id?: number;
   staff_id?: number;
-  customer_id?: number;
+  user_id?: number;
   created_at?: Date;
   updated_at?: Date;
   title?: string;
@@ -55,7 +55,7 @@ const CalendarPage: React.FC = () => {
       reservations.map((reservation) => ({
         id: reservation.id,
         staff_id: reservation.staff_id,
-        customer_id: reservation.customer_id,
+        user_id: reservation.user_id,
         title: reservation.name,
         allDay: reservation.all_day,
         start: reservation.start_datetime && new Date(reservation.start_datetime),

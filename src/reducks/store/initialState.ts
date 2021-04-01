@@ -6,7 +6,7 @@ const initialState: RootState = {
     name: "",
     email: "",
   },
-  customers: [],
+  users: [],
   reservations: [],
 };
 

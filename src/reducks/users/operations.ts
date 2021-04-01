@@ -1,23 +1,23 @@
 import { notification } from "antd";
 import { CallHistoryMethodAction, push } from "connected-react-router";
 import { ThunkAction } from "redux-thunk";
-import { addCustomerApi, deleteCustomerApi, fetchCustomersApi, updateCustomerApi } from "../../api/customersApi";
+import { addUserApi, deleteUserApi, fetchUsersApi, updateUserApi } from "../../api/usersApi";
 import { RootState } from "../store/store";
-import { deleteCustomerAction, updateCustomerAction, fetchCustomersAction } from "./actions";
-import { CustomersActionTypes, CustomersType, CustomerType } from "./types";
+import { deleteUserAction, updateUserAction, fetchUsersAction } from "./actions";
+import { UsersActionTypes, UsersType, UserType } from "./types";
 
-export const addCustomer = (
-  customer: CustomerType
-): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | CustomersActionTypes> => {
+export const addUser = (
+  user: UserType
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UsersActionTypes> => {
   return (dispatch) => {
-    addCustomerApi(customer)
+    addUserApi(user)
       .then((res) => {
-        dispatch(fetchCustomers());
+        dispatch(fetchUsers());
         notification["success"]({
           message: "追加しました。",
           description: "",
         });
-        dispatch(push("/admin/customers_list"));
+        dispatch(push("/admin/users_list"));
         console.log(res.data);
       })
       .catch((err) => {
@@ -30,20 +30,20 @@ export const addCustomer = (
   };
 };
 
-export const deleteCustomer = (
+export const deleteUser = (
   id: number
-): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | CustomersActionTypes> => {
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UsersActionTypes> => {
   return (dispatch, getState) => {
-    const customers: CustomersType = getState().customers.filter((customer) => customer.id !== id);
+    const users: UsersType = getState().users.filter((u) => u.id !== id);
 
-    deleteCustomerApi(id)
+    deleteUserApi(id)
       .then((res) => {
-        dispatch(deleteCustomerAction(customers));
+        dispatch(deleteUserAction(users));
         notification["success"]({
           message: "削除しました。",
           description: "",
         });
-        dispatch(push("/admin/customers_list"));
+        dispatch(push("/admin/users_list"));
         console.log(res.data);
       })
       .catch((err) => {
@@ -56,19 +56,19 @@ export const deleteCustomer = (
   };
 };
 
-export const updateCustomer = (
-  customer: CustomerType
-): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | CustomersActionTypes> => {
+export const updateUser = (
+  user: UserType
+): ThunkAction<void, RootState, undefined, CallHistoryMethodAction | UsersActionTypes> => {
   return (dispatch, getState) => {
-    updateCustomerApi(customer)
+    updateUserApi(user)
       .then((res) => {
-        const customers: CustomersType = getState().customers;
-        dispatch(updateCustomerAction(customers.map((item) => (item.id === customer.id ? customer : item))));
+        const users: UsersType = getState().users;
+        dispatch(updateUserAction(users.map((item) => (item.id === user.id ? user : item))));
         notification["success"]({
           message: "保存しました。",
           description: "",
         });
-        dispatch(push(`/admin/customers_list/`));
+        dispatch(push(`/admin/users_list/`));
         console.log(res.data);
       })
       .catch((err) => {
@@ -81,11 +81,11 @@ export const updateCustomer = (
   };
 };
 
-export const fetchCustomers = (): ThunkAction<void, RootState, undefined, CustomersActionTypes> => {
+export const fetchUsers = (): ThunkAction<void, RootState, undefined, UsersActionTypes> => {
   return async (dispatch) => {
-    fetchCustomersApi()
+    fetchUsersApi()
       .then((res) => {
-        dispatch(fetchCustomersAction(res.data));
+        dispatch(fetchUsersAction(res.data));
       })
       .catch((err) => console.log(err.message));
   };

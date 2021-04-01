@@ -2,19 +2,17 @@ import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Card, notification, Popconfirm } from "antd";
-import { deleteCustomer } from "../../reducks/customers/operations";
+import { deleteUser } from "../../reducks/users/operations";
 import { RootState } from "../../reducks/store/store";
-import { CustomersListPageRouteComponentProps } from "../../routes";
+import { UsersListPageRouteComponentProps } from "../../routes";
 
-const DetailPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
+const UserDetailPage: React.FC<UsersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
-  const customer = useSelector((state: RootState) =>
-    state.customers.find((customer) => customer.id === props.location.state.customer.id)
-  );
+  const user = useSelector((state: RootState) => state.users.find((u) => u.id === props.location.state.user.id));
 
   const alertConfirm = () => {
-    if (customer) {
-      dispatch(deleteCustomer(customer.id));
+    if (user) {
+      dispatch(deleteUser(user.id));
     }
   };
 
@@ -27,28 +25,28 @@ const DetailPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
 
   return (
     <>
-      {customer && (
+      {user && (
         <>
-          <Card title={`${customer.lastName} ${customer.firstName} さんの情報`} style={styles.card}>
+          <Card title={`${user.lastName} ${user.firstName} さんの情報`} style={styles.card}>
             <p style={styles.p}>
-              番号 <span style={styles.value}>{customer.id}</span>
+              番号 <span style={styles.value}>{user.id}</span>
             </p>
             <p style={styles.p}>
               名前{" "}
               <span style={styles.value}>
-                {customer.lastName} {customer.firstName}
+                {user.lastName} {user.firstName}
               </span>
             </p>
             <p style={styles.p}></p>
             <p style={styles.p}>
-              住所 <span style={styles.value}>{customer.address}</span>
+              住所 <span style={styles.value}>{user.address}</span>
             </p>
             <p style={styles.p}>
-              年齢 <span style={styles.value}>{customer.age}</span>
+              年齢 <span style={styles.value}>{user.age}</span>
             </p>
-            {customer.memo && (
+            {user.memo && (
               <p style={styles.p}>
-                メモ <span style={styles.value}>{customer.memo}</span>
+                メモ <span style={styles.value}>{user.memo}</span>
               </p>
             )}
           </Card>
@@ -60,8 +58,8 @@ const DetailPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
               className="ant-btn ant-btn-primary"
               style={styles.button}
               to={{
-                pathname: `/admin/customers_list/edit`,
-                state: { customer },
+                pathname: `/admin/users_list/edit`,
+                state: { user: user },
               }}>
               編集
             </Link>
@@ -80,7 +78,7 @@ const DetailPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   );
 };
 
-export default DetailPage;
+export default UserDetailPage;
 
 const styles: { [key: string]: CSSProperties } = {
   card: { width: 700, margin: "100px auto" },

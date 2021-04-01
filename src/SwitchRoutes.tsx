@@ -13,11 +13,7 @@ const SwitchRoutes: React.FC<{ routes: RoutesType }> = ({ routes }) => {
         return null;
       })}
 
-      {isSignedIn() ? (
-        <Redirect from="/admin" to="/admin/customers_list" />
-      ) : (
-        <Redirect from="/admin" to="/admin/signin" />
-      )}
+      {isSignedIn() ? <Redirect from="/admin" to="/admin/users_list" /> : <Redirect from="/admin" to="/admin/signin" />}
     </Switch>
   );
 };

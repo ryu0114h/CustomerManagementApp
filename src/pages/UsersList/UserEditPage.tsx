@@ -1,22 +1,33 @@
-import React, { CSSProperties } from "react";
-import { useDispatch } from "react-redux";
+import React, { CSSProperties, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { notification } from "antd";
 import { TextField } from "@material-ui/core";
-import { addCustomer } from "../../reducks/customers/operations";
-import { CustomerType } from "../../reducks/customers/types";
-import { CustomersListPageRouteComponentProps } from "../../routes";
+import { updateUser } from "../../reducks/users/operations";
+import { UserType } from "../../reducks/users/types";
+import { RootState } from "../../reducks/store/store";
+import { UsersListPageRouteComponentProps } from "../../routes";
 
-const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
+const UserEditPage: React.FC<UsersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, errors } = useForm();
+  const user = useSelector((state: RootState) => state.users.find((u) => u.id === props.location.state.user.id));
 
-  const onSubmit: SubmitHandler<CustomerType> = (data) => {
-    dispatch(addCustomer(data));
+  useEffect(() => {
+    if (!user) {
+      props.history.goBack();
+    }
+  }, []);
+
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: { ...user },
+  });
+
+  const onSubmit: SubmitHandler<UserType> = (data) => {
+    dispatch(updateUser({ ...user, ...data }));
   };
 
-  const onError: SubmitErrorHandler<CustomerType> = (data) => {
+  const onError: SubmitErrorHandler<UserType> = (data) => {
     notification["error"]({
       message: "正しい値を入力してください。",
       description: "",
@@ -61,7 +72,7 @@ const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
             戻る
           </button>
           <button className="ant-btn ant-btn-primary" type="submit" style={styles.button}>
-            追加
+            保存
           </button>
         </div>
       </form>
@@ -69,7 +80,7 @@ const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   );
 };
 
-export default AddPage;
+export default UserEditPage;
 
 const styles: { [key: string]: CSSProperties } = {
   form: { maxWidth: "500px", margin: "60px auto" },

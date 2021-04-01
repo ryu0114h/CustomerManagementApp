@@ -3,35 +3,31 @@ import { RouteComponentProps } from "react-router-dom";
 import { LibraryBooks, Person, LockOpen, GroupAdd, Dashboard } from "@material-ui/icons";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core";
-import CustomersListPage from "./pages/CustomersList/CustomersListPage";
-import CustomerAddPage from "./pages/CustomersList/CustomerAddPage";
-import CustomerDetailPage from "./pages/CustomersList/CustomerDetailPage";
-import CustomerEditPage from "./pages/CustomersList/CustomerEditPage";
+import UsersListPage from "./pages/UsersList/UsersListPage";
+import UserAddPage from "./pages/UsersList/UserAddPage";
+import UserDetailPage from "./pages/UsersList/UserDetailPage";
+import UserEditPage from "./pages/UsersList/UserEditPage";
 import CalendarPage from "./pages/Reservations/CalendarPage";
 import SignIn from "./pages/SigninSignup/SignIn";
 import SignUp from "./pages/SigninSignup/SignUp";
 import StaffProfile from "./pages/StaffProfile/StaffProfile";
-import { CustomerType } from "./reducks/customers/types";
+import { UserType } from "./reducks/users/types";
 
-export type CustomersListPageRouteComponentProps = RouteComponentProps<
-  { id: string },
-  never,
-  { customer: CustomerType }
->;
+export type UsersListPageRouteComponentProps = RouteComponentProps<{ id: string }, never, { user: UserType }>;
 
 export type RoutesType = {
   path:
-    | "/customers_list"
-    | "/customers_list/new"
-    | "/customers_list/detail"
-    | "/customers_list/edit"
+    | "/users_list"
+    | "/users_list/new"
+    | "/users_list/detail"
+    | "/users_list/edit"
     | "/reservations"
     | "/profile"
     | "/signin"
     | "/signup";
   name: string;
   icon?: OverridableComponent<SvgIconTypeMap<undefined, "svg">>;
-  component: React.FC<CustomersListPageRouteComponentProps> | React.FC;
+  component: React.FC<UsersListPageRouteComponentProps> | React.FC;
   layout: "/admin";
   sidebar: boolean;
   isSignedIn: boolean;
@@ -39,34 +35,34 @@ export type RoutesType = {
 
 const routes: RoutesType = [
   {
-    path: "/customers_list",
+    path: "/users_list",
     name: "顧客リスト",
     icon: Dashboard,
-    component: CustomersListPage,
+    component: UsersListPage,
     layout: "/admin",
     sidebar: true,
     isSignedIn: true,
   },
   {
-    path: "/customers_list/new",
+    path: "/users_list/new",
     name: "顧客リスト",
-    component: CustomerAddPage,
+    component: UserAddPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
   },
   {
-    path: "/customers_list/detail",
+    path: "/users_list/detail",
     name: "顧客リスト",
-    component: CustomerDetailPage,
+    component: UserDetailPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,
   },
   {
-    path: "/customers_list/edit",
+    path: "/users_list/edit",
     name: "顧客リスト",
-    component: CustomerEditPage,
+    component: UserEditPage,
     layout: "/admin",
     sidebar: false,
     isSignedIn: true,

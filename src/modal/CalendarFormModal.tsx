@@ -10,12 +10,12 @@ import "moment/locale/ja";
 
 import { addReservation, deleteReservation, updateReservation } from "../reducks/reservations/operations";
 import { RootState } from "../reducks/store/store";
-import { fetchCustomers } from "../reducks/customers/operations";
+import { fetchUsers } from "../reducks/users/operations";
 
 type Event = {
   id?: number;
   staff_id?: number;
-  customer_id?: number;
+  user_id?: number;
   created_at?: Date;
   updated_at?: Date;
   title?: string;
@@ -40,10 +40,10 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
       endTime: moment().add(1, "hour").format("HH:mm"),
     },
   });
-  const customers = useSelector((state: RootState) => state.customers);
+  const users = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
-    dispatch(fetchCustomers());
+    dispatch(fetchUsers());
   }, []);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
         updateReservation({
           id: selectedEvent?.id,
           staff_id: selectedEvent?.staff_id,
-          customer_id: selectedEvent?.customer_id,
+          user_id: selectedEvent?.user_id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),
@@ -73,12 +73,10 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
         })
       );
     } else {
-      const customer = customers.find(
-        (cus) => cus.lastName === data.name.split(" ")[0] && cus.firstName === data.name.split(" ")[1]
-      );
+      const user = users.find((u) => u.lastName === data.name.split(" ")[0] && u.firstName === data.name.split(" ")[1]);
       dispatch(
         addReservation({
-          customer_id: customer?.id,
+          user_id: user?.id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),
@@ -122,15 +120,15 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
       ]}>
       <form id="myForm" onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
         <FormControl style={styles.textField}>
-          <InputLabel id="customers-label">顧客</InputLabel>
+          <InputLabel id="users-label">顧客</InputLabel>
           <Controller
             as={
               <Select>
                 <MenuItem value="">選択してください</MenuItem>
-                {customers?.map((customer) => {
+                {users?.map((user) => {
                   return (
-                    <MenuItem key={customer.id} value={`${customer.lastName} ${customer.firstName}`}>
-                      {customer.lastName} {customer.firstName}
+                    <MenuItem key={user.id} value={`${user.lastName} ${user.firstName}`}>
+                      {user.lastName} {user.firstName}
                     </MenuItem>
                   );
                 })}
