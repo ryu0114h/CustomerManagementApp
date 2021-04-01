@@ -27,6 +27,7 @@ type EventList = Event[];
 
 const CalendarPage: React.FC = () => {
   const reservations = useSelector((state: RootState) => state.reservations);
+  const users = useSelector((state: RootState) => state.users);
   const dispatch = useDispatch();
 
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -56,13 +57,15 @@ const CalendarPage: React.FC = () => {
         id: reservation.id,
         staff_id: reservation.staff_id,
         user_id: reservation.user_id,
-        title: reservation.name,
+        title: `${users.find((user) => user.id === reservation.user_id)?.lastName} ${
+          users.find((user) => user.id === reservation.user_id)?.firstName
+        }`,
         allDay: reservation.all_day,
         start: reservation.start_datetime && new Date(reservation.start_datetime),
         end: reservation.end_datetime && new Date(reservation.end_datetime),
       }))
     );
-  }, [reservations]);
+  }, [reservations, users]);
 
   return (
     <>

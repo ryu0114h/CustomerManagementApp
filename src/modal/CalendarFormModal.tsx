@@ -34,7 +34,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
   const dispatch = useDispatch();
   const { register, handleSubmit, errors, reset, setValue, control } = useForm({
     defaultValues: {
-      name: "",
+      user_id: "",
       date: moment().format("YYYY-MM-DD"),
       startTime: moment().format("HH:mm"),
       endTime: moment().add(1, "hour").format("HH:mm"),
@@ -47,7 +47,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
   }, []);
 
   useEffect(() => {
-    setValue("name", selectedEvent?.title, { shouldDirty: true });
+    setValue("user_id", selectedEvent?.user_id, { shouldDirty: true });
     setValue("date", moment(selectedEvent?.start).format("YYYY-MM-DD"), {
       shouldDirty: true,
     });
@@ -65,7 +65,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
         updateReservation({
           id: selectedEvent?.id,
           staff_id: selectedEvent?.staff_id,
-          user_id: selectedEvent?.user_id,
+          user_id: +data.user_id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),
@@ -73,18 +73,18 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
         })
       );
     } else {
-      const user = users.find((u) => u.lastName === data.name.split(" ")[0] && u.firstName === data.name.split(" ")[1]);
       dispatch(
         addReservation({
-          user_id: user?.id,
+          user_id: +data.user_id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),
           end_datetime: new Date(`${data.date} ${data.endTime}`),
         })
       );
+      reset();
+      closeEditModal();
     }
-    reset();
   };
 
   const onError = (data) => {
@@ -127,7 +127,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
                 <MenuItem value="">選択してください</MenuItem>
                 {users?.map((user) => {
                   return (
-                    <MenuItem key={user.id} value={`${user.lastName} ${user.firstName}`}>
+                    <MenuItem key={user.id} value={`${user.id}`}>
                       {user.lastName} {user.firstName}
                     </MenuItem>
                   );
@@ -135,12 +135,12 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisibl
               </Select>
             }
             control={control}
-            name="name"
+            name="user_id"
             rules={{ required: true }}
             defaultValue={""}
           />
         </FormControl>
-        {errors.name && <p style={styles.errors}>名前を入力してください</p>}
+        {errors.user_id && <p style={styles.errors}>名前を入力してください</p>}
         <TextField
           style={styles.textField}
           name="date"
