@@ -1,22 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
-import Poppers from "@material-ui/core/Popper";
+import { MenuItem, MenuList, Grow, Paper, ClickAwayListener, Hidden, Popper } from "@material-ui/core";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 // core components
 import Button from "../CustomButtons/Button";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle";
-import { signoutUser } from "../../reducks/user/operations";
+import { signoutStaffApi } from "../../api/staffApi";
+import { isSignedIn, removeAuth } from "../../lib/auth";
 
 const useStyles = makeStyles(styles);
 
@@ -37,26 +33,31 @@ const AdminNavbarLinks: React.FC = () => {
   };
   const doSignOut = () => {
     if (window.confirm("本当にログアウトしますか？")) {
-      dispatch(signoutUser());
+      signoutStaffApi().then(() => {
+        removeAuth();
+        dispatch(push("/"));
+      });
     }
   };
 
   return (
     <div>
       <div className={classes.manager}>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          simple={!(window.innerWidth > 959)}
-          aria-owns={openProfile ? "profile-menu-list-grow" : null}
-          aria-haspopup="true"
-          onClick={handleClickProfile}
-          className={classes.buttonLink}>
-          <Hidden mdUp implementation="css">
-            <Person className={classes.icons} />
-          </Hidden>
-          <p className={classes.linkText}>アカウント▼</p>
-        </Button>
-        <Poppers
+        {isSignedIn() && (
+          <Button
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            simple={!(window.innerWidth > 959)}
+            aria-owns={openProfile ? "profile-menu-list-grow" : null}
+            aria-haspopup="true"
+            onClick={handleClickProfile}
+            className={classes.buttonLink}>
+            <Hidden mdUp implementation="css">
+              <Person className={classes.icons} />
+            </Hidden>
+            <p className={classes.linkText}>アカウント▼</p>
+          </Button>
+        )}
+        <Popper
           open={Boolean(openProfile)}
           anchorEl={openProfile}
           transition
@@ -82,7 +83,7 @@ const AdminNavbarLinks: React.FC = () => {
               </Paper>
             </Grow>
           )}
-        </Poppers>
+        </Popper>
       </div>
     </div>
   );

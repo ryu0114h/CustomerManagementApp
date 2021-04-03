@@ -3,8 +3,8 @@ import { actionTypes } from "./actionTypes";
 
 export type ReservationType = {
   id?: number;
+  staff_id?: number;
   user_id?: number;
-  customer_id?: number;
   name?: string;
   all_day?: boolean;
   start_datetime?: Date;

@@ -7,14 +7,14 @@ import { Button } from "antd";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
 
-import { RootState } from "../reducks/store/store";
-import { fetchReservations } from "../reducks/reservations/operations";
-import CalendarFormModal from "../modal/CalendarFormModal";
+import { RootState } from "../../reducks/store/store";
+import { fetchReservations } from "../../reducks/reservations/operations";
+import CalendarFormModal from "../../modal/CalendarFormModal";
 
 type Event = {
   id?: number;
+  staff_id?: number;
   user_id?: number;
-  customer_id?: number;
   created_at?: Date;
   updated_at?: Date;
   title?: string;
@@ -27,6 +27,7 @@ type EventList = Event[];
 
 const CalendarPage: React.FC = () => {
   const reservations = useSelector((state: RootState) => state.reservations);
+  const users = useSelector((state: RootState) => state.users);
   const dispatch = useDispatch();
 
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -54,16 +55,17 @@ const CalendarPage: React.FC = () => {
     setEventList(
       reservations.map((reservation) => ({
         id: reservation.id,
+        staff_id: reservation.staff_id,
         user_id: reservation.user_id,
-        customer_id: reservation.customer_id,
-        title: reservation.name,
+        title: `${users.find((user) => user.id === reservation.user_id)?.lastName} ${
+          users.find((user) => user.id === reservation.user_id)?.firstName
+        }`,
         allDay: reservation.all_day,
-        start:
-          reservation.start_datetime && new Date(reservation.start_datetime),
+        start: reservation.start_datetime && new Date(reservation.start_datetime),
         end: reservation.end_datetime && new Date(reservation.end_datetime),
       }))
     );
-  }, [reservations]);
+  }, [reservations, users]);
 
   return (
     <>
@@ -84,10 +86,7 @@ const CalendarPage: React.FC = () => {
         }}
       />
       <div style={styles.createButtonContainer}>
-        <Button
-          type="primary"
-          onClick={() => setIsEditModalVisible(true)}
-          style={styles.createButton}>
+        <Button type="primary" onClick={() => setIsEditModalVisible(true)} style={styles.createButton}>
           追加
         </Button>
       </div>

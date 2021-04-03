@@ -3,33 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { notification } from "antd";
 import { TextField } from "@material-ui/core";
-import { updateCustomer } from "../reducks/customers/operations";
-import { CustomerType } from "../reducks/customers/types";
-import { RootState } from "../reducks/store/store";
-import { CustomersListPageRouteComponentProps } from "../routes";
+import { updateUser } from "../../reducks/users/operations";
+import { UserType } from "../../reducks/users/types";
+import { RootState } from "../../reducks/store/store";
+import { UsersListPageRouteComponentProps } from "../../routes";
 
-const EditPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
+const UserEditPage: React.FC<UsersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
 
-  const customer = useSelector((state: RootState) =>
-    state.customers.find((customer) => customer.id === props.location.state.customer.id)
-  );
+  const user = useSelector((state: RootState) => state.users.find((u) => u.id === props.location.state.user.id));
 
   useEffect(() => {
-    if (!customer) {
+    if (!user) {
       props.history.goBack();
     }
   }, []);
 
   const { register, handleSubmit, errors } = useForm({
-    defaultValues: { ...customer },
+    defaultValues: { ...user },
   });
 
-  const onSubmit: SubmitHandler<CustomerType> = (data) => {
-    dispatch(updateCustomer({ ...customer, ...data }));
+  const onSubmit: SubmitHandler<UserType> = (data) => {
+    dispatch(updateUser({ ...user, ...data }));
   };
 
-  const onError: SubmitErrorHandler<CustomerType> = (data) => {
+  const onError: SubmitErrorHandler<UserType> = (data) => {
     notification["error"]({
       message: "正しい値を入力してください。",
       description: "",
@@ -82,7 +80,7 @@ const EditPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   );
 };
 
-export default EditPage;
+export default UserEditPage;
 
 const styles: { [key: string]: CSSProperties } = {
   form: { maxWidth: "500px", margin: "60px auto" },

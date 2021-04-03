@@ -23,7 +23,6 @@ export const addReservation = (
           description: "",
         });
         dispatch(push("/admin/reservations"));
-        console.log(reservation);
         console.log(res.data);
       })
       .catch((err) => {

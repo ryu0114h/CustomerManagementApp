@@ -1,12 +1,9 @@
 import React from "react";
 import classNames from "classnames";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Hidden from "@material-ui/core/Hidden";
+import { AppBar, Toolbar, IconButton, Hidden } from "@material-ui/core";
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 // core components
@@ -66,8 +63,7 @@ const Header: React.FC<Props> = (props) => {
 
 export default Header;
 
-// Header.propTypes = {
-//   // color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
-//   handleDrawerToggle: PropTypes.func,
-//   routes: PropTypes.arrayOf(PropTypes.object),
-// };
+Header.propTypes = {
+  color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
+  handleDrawerToggle: PropTypes.func,
+};

@@ -3,20 +3,20 @@ import { useDispatch } from "react-redux";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { notification } from "antd";
 import { TextField } from "@material-ui/core";
-import { addCustomer } from "../reducks/customers/operations";
-import { CustomerType } from "../reducks/customers/types";
-import { CustomersListPageRouteComponentProps } from "../routes";
+import { addUser } from "../../reducks/users/operations";
+import { UserType } from "../../reducks/users/types";
+import { UsersListPageRouteComponentProps } from "../../routes";
 
-const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
+const UserAddPage: React.FC<UsersListPageRouteComponentProps> = (props) => {
   const dispatch = useDispatch();
 
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit: SubmitHandler<CustomerType> = (data) => {
-    dispatch(addCustomer(data));
+  const onSubmit: SubmitHandler<UserType> = (data) => {
+    dispatch(addUser(data));
   };
 
-  const onError: SubmitErrorHandler<CustomerType> = (data) => {
+  const onError: SubmitErrorHandler<UserType> = (data) => {
     notification["error"]({
       message: "正しい値を入力してください。",
       description: "",
@@ -69,7 +69,7 @@ const AddPage: React.FC<CustomersListPageRouteComponentProps> = (props) => {
   );
 };
 
-export default AddPage;
+export default UserAddPage;
 
 const styles: { [key: string]: CSSProperties } = {
   form: { maxWidth: "500px", margin: "60px auto" },

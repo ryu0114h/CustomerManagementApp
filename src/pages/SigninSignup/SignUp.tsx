@@ -1,23 +1,39 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 import { notification } from "antd";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-import Copyright from "../components/Copyright";
-import { InputFormUserType } from "../reducks/user/types";
-import { signupUser } from "../reducks/user/operations";
+import Copyright from "../../components/Copyright";
+import { InputFormStaffType } from "../../reducks/staff/types";
+import { signupStaffApi } from "../../api/staffApi";
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit: SubmitHandler<InputFormUserType> = (data) => {
-    dispatch(signupUser(data));
+  const onSubmit: SubmitHandler<InputFormStaffType> = (data) => {
+    signupStaffApi(data)
+      .then((res) => {
+        dispatch(push("/"));
+        notification["success"]({
+          message: "登録できました。",
+          description: "",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notification["error"]({
+          message: "登録に失敗しました。",
+          description: "",
+        });
+        console.log(err.message);
+      });
     console.log(data);
   };
-  const onError: SubmitErrorHandler<InputFormUserType> = (data) => {
+  const onError: SubmitErrorHandler<InputFormStaffType> = (data) => {
     notification["error"]({
       message: "ユーザー登録に失敗しました。",
       description: "",
@@ -33,7 +49,7 @@ const SignUp: React.FC = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          登録
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit, onError)}>
           <Grid container spacing={2}>
@@ -82,12 +98,12 @@ const SignUp: React.FC = () => {
             {errors.password && <p className={classes.errors}>{errors.password.message}</p>}
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-            Sign Up
+            登録
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/signin" variant="body2">
-                Already have an account? Sign in
+                既にアカウントをお持ちの方はログインへ
               </Link>
             </Grid>
           </Grid>
@@ -104,7 +120,7 @@ export default SignUp;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(24),
+    marginTop: theme.spacing(10),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

@@ -3,28 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import moment from "moment";
 import { Button, Modal, Popconfirm } from "antd";
-import {
-  TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-} from "@material-ui/core";
+import { TextField, MenuItem, Select, InputLabel, FormControl } from "@material-ui/core";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/ja";
 
-import {
-  addReservation,
-  deleteReservation,
-  updateReservation,
-} from "../reducks/reservations/operations";
+import { addReservation, deleteReservation, updateReservation } from "../reducks/reservations/operations";
 import { RootState } from "../reducks/store/store";
+import { fetchUsers } from "../reducks/users/operations";
 
 type Event = {
   id?: number;
+  staff_id?: number;
   user_id?: number;
-  customer_id?: number;
   created_at?: Date;
   updated_at?: Date;
   title?: string;
@@ -39,24 +30,24 @@ type CalendarFormModalProps = {
   selectedEvent: Event | null;
 };
 
-const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
-  isEditModalVisible,
-  closeEditModal,
-  selectedEvent,
-}) => {
+const CalendarFormModal: React.FC<CalendarFormModalProps> = ({ isEditModalVisible, closeEditModal, selectedEvent }) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors, reset, setValue, control } = useForm({
     defaultValues: {
-      name: "",
+      user_id: "",
       date: moment().format("YYYY-MM-DD"),
       startTime: moment().format("HH:mm"),
       endTime: moment().add(1, "hour").format("HH:mm"),
     },
   });
-  const customers = useSelector((state: RootState) => state.customers);
+  const users = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
-    setValue("name", selectedEvent?.title, { shouldDirty: true });
+    dispatch(fetchUsers());
+  }, []);
+
+  useEffect(() => {
+    setValue("user_id", selectedEvent?.user_id, { shouldDirty: true });
     setValue("date", moment(selectedEvent?.start).format("YYYY-MM-DD"), {
       shouldDirty: true,
     });
@@ -73,8 +64,8 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
       dispatch(
         updateReservation({
           id: selectedEvent?.id,
-          user_id: selectedEvent?.user_id,
-          customer_id: selectedEvent?.customer_id,
+          staff_id: selectedEvent?.staff_id,
+          user_id: +data.user_id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),
@@ -82,23 +73,18 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
         })
       );
     } else {
-      const customer = customers.find(
-        (cus) =>
-          cus.lastName === data.name.split(" ")[0] &&
-          cus.firstName === data.name.split(" ")[1]
-      );
       dispatch(
         addReservation({
-          customer_id: customer?.id,
+          user_id: +data.user_id,
           name: data.name,
           all_day: false,
           start_datetime: new Date(`${data.date} ${data.startTime}`),
           end_datetime: new Date(`${data.date} ${data.endTime}`),
         })
       );
+      reset();
+      closeEditModal();
     }
-    reset();
-    closeEditModal();
   };
 
   const onError = (data) => {
@@ -119,8 +105,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             key="delete"
             title="削除してもよろしいですか？"
             onConfirm={() => {
-              selectedEvent?.id &&
-                dispatch(deleteReservation(selectedEvent?.id));
+              selectedEvent?.id && dispatch(deleteReservation(selectedEvent?.id));
               reset();
               closeEditModal();
             }}
@@ -133,34 +118,29 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
           保存
         </Button>,
       ]}>
-      <form
-        id="myForm"
-        onSubmit={handleSubmit(onSubmit, onError)}
-        style={styles.form}>
+      <form id="myForm" onSubmit={handleSubmit(onSubmit, onError)} style={styles.form}>
         <FormControl style={styles.textField}>
-          <InputLabel id="customers-label">顧客</InputLabel>
+          <InputLabel id="users-label">顧客</InputLabel>
           <Controller
             as={
               <Select>
                 <MenuItem value="">選択してください</MenuItem>
-                {customers?.map((customer) => {
+                {users?.map((user) => {
                   return (
-                    <MenuItem
-                      key={customer.id}
-                      value={`${customer.lastName} ${customer.firstName}`}>
-                      {customer.lastName} {customer.firstName}
+                    <MenuItem key={user.id} value={`${user.id}`}>
+                      {user.lastName} {user.firstName}
                     </MenuItem>
                   );
                 })}
               </Select>
             }
             control={control}
-            name="name"
+            name="user_id"
             rules={{ required: true }}
             defaultValue={""}
           />
         </FormControl>
-        {errors.name && <p style={styles.errors}>名前を入力してください</p>}
+        {errors.user_id && <p style={styles.errors}>名前を入力してください</p>}
         <TextField
           style={styles.textField}
           name="date"
@@ -199,9 +179,7 @@ const CalendarFormModal: React.FC<CalendarFormModalProps> = ({
             }}
             inputRef={register({ required: true })}
           />
-          {(errors.startTime || errors.endTime) && (
-            <p style={styles.errors}>時刻を入力してください</p>
-          )}
+          {(errors.startTime || errors.endTime) && <p style={styles.errors}>時刻を入力してください</p>}
         </div>
       </form>
     </Modal>
