@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { Popconfirm, Table, notification, Button } from "antd";
 import "antd/dist/antd.css";
 import { RootState } from "../../reducks/store/store";
@@ -65,7 +66,9 @@ const UsersListPage: React.FC = () => {
                   onCancel={alertCancel}
                   okText="Yes"
                   cancelText="No">
-                  <a>削除</a>
+                  <a>
+                    <DeleteIcon />
+                  </a>
                 </Popconfirm>
               );
             }}
