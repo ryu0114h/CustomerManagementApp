@@ -42,19 +42,31 @@ const StaffProfile: React.FC = () => {
   const dispatch = useDispatch();
   const staff = useSelector((state: RootState) => state.staff);
 
-  const { register, handleSubmit, reset, errors } = useForm({
+  const { register, unregister, handleSubmit, reset, errors, watch, setValue } = useForm({
     defaultValues: {
       ...staff,
     },
   });
 
+  const watchImage = watch("image_url");
+
+  // custom register
   useEffect(() => {
-    reset(staff);
-  }, [staff, reset]);
+    register({ name: "image_url" });
+
+    return () => {
+      unregister(["image_url"]);
+    };
+  }, [register]);
 
   useEffect(() => {
     dispatch(fetchStaff());
   }, []);
+
+  // 初期化
+  useEffect(() => {
+    reset({ ...staff, image_url: staff.image_url ? `data:image/png;base64,${staff.image_url}` : "" });
+  }, [staff, reset]);
 
   const onSubmit = useCallback(
     (data) => {
@@ -145,6 +157,38 @@ const StaffProfile: React.FC = () => {
                       inputRef: register,
                     }}
                   />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>画像</InputLabel>
+                  <CustomInput
+                    id="image"
+                    formControlProps={{
+                      fullWidth: true,
+                      style: { margin: 0 },
+                    }}
+                    inputProps={{
+                      type: "file",
+                      onChange: (e) => {
+                        const reader = new FileReader();
+
+                        reader.addEventListener(
+                          "load",
+                          () => {
+                            // 画像ファイルを base64 文字列に変換
+                            setValue("image_url", reader.result);
+                          },
+                          false
+                        );
+
+                        if (e.target.files[0]) {
+                          reader.readAsDataURL(e.target.files[0]);
+                        }
+                      },
+                    }}
+                  />
+                  {watchImage && <img style={{ width: 300 }} src={watchImage} />}
                 </GridItem>
               </GridContainer>
             </CardBody>

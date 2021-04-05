@@ -5,6 +5,7 @@ export type StaffType = {
   id: number | null;
   email: string;
   name: string;
+  image_url: string;
 };
 
 export type InputFormStaffType = {
