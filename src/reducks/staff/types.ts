@@ -6,6 +6,9 @@ export type StaffType = {
   email: string;
   name: string;
   image_url: string;
+  address: string;
+  postal_code: string;
+  introduction_text: string;
 };
 
 export type InputFormStaffType = {
