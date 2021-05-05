@@ -79,6 +79,23 @@ const StaffProfile: React.FC = () => {
     console.log(data);
   }, []);
 
+  const uploadImage = useCallback((e) => {
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      "load",
+      () => {
+        // 画像ファイルを base64 文字列に変換
+        setValue("image_url", reader.result);
+      },
+      false
+    );
+
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
       <GridContainer>
@@ -162,33 +179,21 @@ const StaffProfile: React.FC = () => {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>画像</InputLabel>
-                  <CustomInput
-                    id="image"
-                    formControlProps={{
-                      fullWidth: true,
-                      style: { margin: 0 },
-                    }}
-                    inputProps={{
-                      type: "file",
-                      onChange: (e) => {
-                        const reader = new FileReader();
-
-                        reader.addEventListener(
-                          "load",
-                          () => {
-                            // 画像ファイルを base64 文字列に変換
-                            setValue("image_url", reader.result);
-                          },
-                          false
-                        );
-
-                        if (e.target.files[0]) {
-                          reader.readAsDataURL(e.target.files[0]);
-                        }
-                      },
-                    }}
-                  />
-                  {watchImage && <img style={{ width: 300 }} src={watchImage} />}
+                  {watchImage ? (
+                    <img style={{ width: 300, height: 200, objectFit: "cover", marginTop: 30 }} src={watchImage} />
+                  ) : (
+                    <CustomInput
+                      id="image"
+                      formControlProps={{
+                        fullWidth: true,
+                        style: { margin: 0 },
+                      }}
+                      inputProps={{
+                        type: "file",
+                        onChange: uploadImage,
+                      }}
+                    />
+                  )}
                 </GridItem>
               </GridContainer>
             </CardBody>
