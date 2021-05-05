@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // @material-ui/core components
 import { createStyles, makeStyles, StyleRules } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 // core components
 import GridItem from "../../components/Grid/GridItem";
 import GridContainer from "../../components/Grid/GridContainer";
@@ -180,7 +181,14 @@ const StaffProfile: React.FC = () => {
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA", marginTop: 30 }}>画像</InputLabel>
                   {watchImage ? (
-                    <img style={{ width: 300, height: 200, objectFit: "cover", marginTop: 30 }} src={watchImage} />
+                    <div
+                      style={{ position: "relative", width: 300, height: 200, marginTop: 30 }}
+                      onClick={() => setValue("image_url", null)}>
+                      <HighlightOffIcon
+                        style={{ position: "absolute", top: 10, right: 10, color: "red", cursor: "pointer" }}
+                      />
+                      <img style={{ width: 300, height: 200, objectFit: "cover" }} src={watchImage} />
+                    </div>
                   ) : (
                     <CustomInput
                       id="image"
