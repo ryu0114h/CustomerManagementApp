@@ -13,6 +13,7 @@ import Button from "../CustomButtons/Button";
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle";
 import { signoutStaffApi } from "../../api/staffApi";
 import { isSignedIn, removeAuth } from "../../lib/auth";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
@@ -73,7 +74,9 @@ const AdminNavbarLinks: React.FC = () => {
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
                     <MenuItem onClick={handleCloseProfile} className={classes.dropdownItem}>
-                      ユーザ情報
+                      <Link to={{ pathname: `/admin/profile` }} style={{ color: "#333" }}>
+                        店舗情報
+                      </Link>
                     </MenuItem>
                     <MenuItem onClick={doSignOut} className={classes.dropdownItem}>
                       ログアウト
