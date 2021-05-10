@@ -15,7 +15,8 @@ const apiClient = async ({
   const auth = loadAuth();
 
   const apiInstance = axios.create({
-    baseURL: "http://localhost:3100/api/v1/",
+    baseURL: process.env.REACT_APP_API_URL,
+    // baseURL: "http://localhost:3100/api/v1/",
     timeout: 10000,
     headers: {
       "Content-Type": "application/json",
