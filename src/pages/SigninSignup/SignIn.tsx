@@ -101,7 +101,7 @@ const SignIn: React.FC = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link href="/admin/signup" variant="body2">
                 アカウントをお持ちでない場合は登録へ
               </Link>
             </Grid>
